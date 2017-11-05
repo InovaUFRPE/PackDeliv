@@ -22,24 +22,24 @@
 
   <ion-list>
 
-    <ion-item>
-      <ion-label floating>Nome de Usuário</ion-label>
+    <ion-item  >
+      <ion-label floating style="color: #144F45">Nome de Usuário</ion-label>
       <ion-input type="text" id="inputNomeUsuario"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>Senha</ion-label>
+    <ion-item  >
+      <ion-label floating style="color: #144F45">Senha</ion-label>
       <ion-input type="password" id="inputSenha"></ion-input>
     </ion-item>
 
   </ion-list>
 
   <div text-center>
-    <button ion-button color="secondary" large (click)="fazerLogin()">Entrar</button>
+    <button ion-button color="verd" large (click)="fazerLogin()">Entrar</button>
   </div>
   
   <div text-center>
-    <button ion-button clear color="secondary" [navPush]="cadastroPage">Cadastre-se</button>
+    <button ion-button clear color="verd" [navPush]="cadastroPage">Cadastre-se</button>
   </div>
   
 </ion-content>
