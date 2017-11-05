@@ -29,6 +29,7 @@ export class EscolhaCadastroPage {
 /**
   *Trocar o parâmetro CadastroPage na função irParaCadastroEntregador para a página que tu vai criar augusto
   */
+  
   irParaCadastroEntregador(){
     this.navCtrl.push(CadastroPage)
   }
