@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from "../pages/login/login";
 import { CadastroPage } from "../pages/cadastro/cadastro";
+import { EscolhaCadastroPage } from "../pages/escolha-cadastro/escolha-cadastro";
 import { UsuarioProvider } from '../providers/usuario/usuario';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     MyApp,
     HomePage,
     LoginPage,
-    CadastroPage
+    CadastroPage,
+    EscolhaCadastroPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     MyApp,
     HomePage,
     LoginPage,
-    CadastroPage
+    CadastroPage,
+    EscolhaCadastroPage
   ],
   providers: [
     StatusBar,

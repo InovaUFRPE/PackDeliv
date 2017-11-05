@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
-
+import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
 /**
@@ -28,7 +28,7 @@ export class LoginPage {
    * Compara as credenciais fornecidas com as credenciais
    * do banco de dados através da API RESTful, redireciona
    * o usuário para a página Home.
-   * 
+   *
    * Feito por: Matheus Campos da Silva, 30/10/2017
    */
   public fazerLogin(): void {
@@ -46,7 +46,11 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    
+
+  }
+
+  irParaEscolhaCadastro(){
+    this.navCtrl.push(EscolhaCadastroPage)
   }
 
 }
