@@ -10,6 +10,9 @@ import { LoginPage } from "../pages/login/login";
 import { CadastroPage } from "../pages/cadastro/cadastro";
 import { EscolhaCadastroPage } from "../pages/escolha-cadastro/escolha-cadastro";
 import { UsuarioProvider } from '../providers/usuario/usuario';
+import { CadastroEntregadorPage } from "../pages/cadastro-entregador/cadastro-entregador";
+import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo";
+
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     HomePage,
     LoginPage,
     CadastroPage,
-    EscolhaCadastroPage
+    EscolhaCadastroPage,
+    CadastroEntregadorPage,
+    CadastroVeiculoPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,9 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     HomePage,
     LoginPage,
     CadastroPage,
-    EscolhaCadastroPage
+    EscolhaCadastroPage,
+    CadastroEntregadorPage,
+    CadastroVeiculoPage
   ],
   providers: [
     StatusBar,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CadastroPage } from "../cadastro/cadastro";
+import { CadastroEntregadorPage } from "../cadastro-entregador/cadastro-entregador";
 
 /**
  * Generated class for the EscolhaCadastroPage page.
@@ -26,12 +27,10 @@ export class EscolhaCadastroPage {
   irParaCadastroEmpresa(){
     this.navCtrl.push(CadastroPage)
   }
-/**
-  *Trocar o parâmetro CadastroPage na função irParaCadastroEntregador para a página que tu vai criar augusto
-  */
+
   
   irParaCadastroEntregador(){
-    this.navCtrl.push(CadastroPage)
+    this.navCtrl.push(CadastroEntregadorPage)
   }
 
 }

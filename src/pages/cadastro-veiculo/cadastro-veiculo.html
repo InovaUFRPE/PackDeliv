@@ -1,0 +1,45 @@
+<!--
+  Generated template for the CadastroVeiculoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de Veiculo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+  
+<ion-content padding>
+  <h1>Cadastre seu veiculo</h1>
+  
+  <div text-center>
+      <ion-img src="assets/imgs/car-compact.png"></ion-img>
+  </div>
+
+  <ion-list>
+  <ion-item>
+    <ion-label floating>Placa</ion-label>
+    <ion-input type="text" id="inputPlaca" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Ano</ion-label>
+    <ion-input type="number" id="inputAno" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Modelo</ion-label>
+    <ion-input type="text" id="inputModelo" required></ion-input>
+  </ion-item>
+
+  <div text-center>
+      <button ion-button color="verd" large (click)="fazerLogin()">Cadastrar</button>
+  </div>
+
+  </ion-list>
+
+</ion-content>
