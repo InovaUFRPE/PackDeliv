@@ -4,7 +4,7 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
-import { Usuario } from "../../app/models/Usuario";
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -38,7 +38,7 @@ export class LoginPage {
     let senha = (<HTMLInputElement>document.getElementById('inputSenha')).value;
 
     // Faz a requisição à API e retorna os dados para o objeto usuario
-    var usuario: Usuario = this.usuarioDAO.getUsuario({
+    var usuario = this.usuarioDAO.getUsuario({
       nomeUsuario: nomeUsuario,
       senha: senha
     });

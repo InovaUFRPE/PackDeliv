@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Usuario } from "../../app/models/Usuario";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -25,8 +24,8 @@ export class UsuarioProvider {
    * @param credenciais 
    * Um objeto contendo o login e a senha do usuário.
    */
-  public getUsuario(credenciais: any): Usuario {
-    var usuario: Usuario;
+  public getUsuario(credenciais: any) {
+    var usuario;
 
     // Implementa a requisição à API
     this.http.get(this.url+'/usuarios', {
@@ -48,10 +47,10 @@ export class UsuarioProvider {
 
   /**
    * Cadastrar um usuário na base de dados do sistema.
-   * @param usuario 
-   * Um objeto contendo todos os dados do usuário.
    * 
    * Feito por: Matheus Campos da Silva, 02/11/2017
+   * @param usuario 
+   * Um objeto contendo todos os dados do usuário.
    */
   public cadastrar(usuario: object) {
     this.http.post(this.url, usuario)
