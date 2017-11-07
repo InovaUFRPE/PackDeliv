@@ -15,36 +15,42 @@ export class UsuarioProvider {
   private url: string = 'http://localhost:5000/';
 
   constructor(public http: Http) {
-    console.log('Hello UsuarioProvider Provider');
   }
 
   /**
    * Retorna um objeto usuário de acordo com suas credenciais.
-   * @param credenciais 
-   * Um objeto contendo o login e a senha do usuário.
    * 
    * Feito por: Matheus Campos da Silva, 02/11/2017
+   * @param credenciais 
+   * Um objeto contendo o login e a senha do usuário.
    */
   public getUsuario(credenciais: any) {
-    this.http.get(this.url+'user', {
+    var usuario;
+
+    // Implementa a requisição à API
+    this.http.get(this.url+'/usuarios', {
       body: {
         username: credenciais.nomeUsuario,
         passwd: credenciais.senha
       }
     }).subscribe((response) => {
-      var usuario = response.json();
+      // Em caso de sucesso, retorna o JSON para o objeto usuario
+      usuario = response.json();
       return usuario;
     }, (error) => {
+      // Em caso de erro, jogue o erro
       throw error;
     });
+
+    return usuario;
   }
 
   /**
    * Cadastrar um usuário na base de dados do sistema.
-   * @param usuario 
-   * Um objeto contendo todos os dados do usuário.
    * 
    * Feito por: Matheus Campos da Silva, 02/11/2017
+   * @param usuario 
+   * Um objeto contendo todos os dados do usuário.
    */
   public cadastrar(usuario: object) {
     this.http.post(this.url, usuario)

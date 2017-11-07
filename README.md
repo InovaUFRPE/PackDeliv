@@ -1,10 +1,13 @@
+### Passo a passo para a correta instalação do Ionic Framework
+
 1. Baixe e instale o [Node.js](https://nodejs.org/dist/v8.8.1/win-x64/node.exe).
 
 2. Abra o CMD e rode: ```> npm install -g cordova ionic```
 
 3. Baixe o [Visual Studio Code](https://go.microsoft.com/fwlink/?Linkid=852157).
 
-4. Clone este [repositório](https://github.com/PackDeliv/PackDeliv).
+4. Clone este [repositório](https://github.com/InovaUFRPE/PackDeliv).
+    1. Use ```$ git clone https://github.com/InovaUFRPE/PackDeliv``` no Git Bash.
 
 5. Abra o Visual Studio Code e abra a pasta clonada do repositório.
 http://prntscr.com/h50y94
