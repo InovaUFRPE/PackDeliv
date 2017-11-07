@@ -42,7 +42,7 @@ export class LoginPage {
       senha: senha
     });
 
-    this.navCtrl.push(HomePage, usuario);
+    this.navCtrl.push(HomePage,usuario);
   }
 
   ionViewDidLoad() {
@@ -52,5 +52,12 @@ export class LoginPage {
   irParaEscolhaCadastro(){
     this.navCtrl.push(EscolhaCadastroPage)
   }
-
+  /**
+    *A função login() é apenas para saber se o menu lateral estava pegando
+    *já que pela função fazerLogin() não teria como saber visto que
+    *ela não está pegando
+    */ 
+  login(){
+    this.navCtrl.push(HomePage)
+  }
 }
