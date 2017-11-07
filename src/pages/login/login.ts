@@ -4,6 +4,7 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
+import { Usuario } from "../../app/models/Usuario";
 /**
  * Generated class for the LoginPage page.
  *
@@ -37,7 +38,7 @@ export class LoginPage {
     let senha = (<HTMLInputElement>document.getElementById('inputSenha')).value;
 
     // Faz a requisição à API e retorna os dados para o objeto usuario
-    var usuario = this.usuarioDAO.getUsuario({
+    var usuario: Usuario = this.usuarioDAO.getUsuario({
       nomeUsuario: nomeUsuario,
       senha: senha
     });
@@ -46,19 +47,16 @@ export class LoginPage {
     this.navCtrl.push(HomePage, usuario);
   }
 
-  ionViewDidLoad() {
-
-  }
-
-  irParaEscolhaCadastro(){
+  public irParaEscolhaCadastro() {
     this.navCtrl.push(EscolhaCadastroPage)
   }
+
   /**
     *A função login() é apenas para saber se o menu lateral estava pegando
     *já que pela função fazerLogin() não teria como saber visto que
     *ela não está pegando
     */ 
-  login(){
+  public login() {
     this.navCtrl.push(HomePage)
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Usuario } from "../../app/models/Usuario";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -15,28 +16,34 @@ export class UsuarioProvider {
   private url: string = 'http://localhost:5000/';
 
   constructor(public http: Http) {
-    console.log('Hello UsuarioProvider Provider');
   }
 
   /**
    * Retorna um objeto usuário de acordo com suas credenciais.
-   * @param credenciais 
-   * Um objeto contendo o login e a senha do usuário.
    * 
    * Feito por: Matheus Campos da Silva, 02/11/2017
+   * @param credenciais 
+   * Um objeto contendo o login e a senha do usuário.
    */
-  public getUsuario(credenciais: any) {
-    this.http.get(this.url+'user', {
+  public getUsuario(credenciais: any): Usuario {
+    var usuario: Usuario;
+
+    // Implementa a requisição à API
+    this.http.get(this.url+'/usuarios', {
       body: {
         username: credenciais.nomeUsuario,
         passwd: credenciais.senha
       }
     }).subscribe((response) => {
-      var usuario = response.json();
+      // Em caso de sucesso, retorna o JSON para o objeto usuario
+      usuario = response.json();
       return usuario;
     }, (error) => {
+      // Em caso de erro, jogue o erro
       throw error;
     });
+
+    return usuario;
   }
 
   /**

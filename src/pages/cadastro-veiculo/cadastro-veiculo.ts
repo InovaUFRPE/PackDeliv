@@ -18,8 +18,8 @@ export class CadastroVeiculoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroVeiculoPage');
+  public irParaLogin(): void {
+    this.navCtrl.popToRoot();
   }
 
 }
