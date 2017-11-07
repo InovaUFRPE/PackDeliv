@@ -42,6 +42,7 @@ export class LoginPage {
       senha: senha
     });
 
+    // Vai para a tela Home e manda os dados do usuário para ela
     this.navCtrl.push(HomePage, usuario);
   }
 

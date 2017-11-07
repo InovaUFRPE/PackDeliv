@@ -31,10 +31,10 @@ export class CadastroPage {
    */
   public fazerCadastro(): void {
     // Pega as informações do usuário
-    var nomeUsuario = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
-    var cnpj = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
-    var senha = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[0]);
-    var SenhaConf = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[1]);
+    var nomeUsuario: string = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
+    var cnpj: string = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
+    var senha: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[0]);
+    var SenhaConf: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[1]);
 
     // Compara se as senhas digitadas são correspondentes
     if (senha.value !== SenhaConf.value) {
@@ -47,8 +47,8 @@ export class CadastroPage {
     }
 
     // Pega o e-mail do usuário
-    var email = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[0]);
-    var emailConf = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[1]);
+    var email: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[0]);
+    var emailConf: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[1]);
 
     // Compara se os e-mails digitados são correspondentes
     if (email.value !== emailConf.value) {
@@ -61,7 +61,7 @@ export class CadastroPage {
     }
 
     // Cria o objeto usuario e o cadastro no BD
-    var usuario = {
+    var usuario: object = {
       nomeCompleto: nomeUsuario,
       cnpj: cnpj,
       senha: senha.value,
@@ -70,10 +70,6 @@ export class CadastroPage {
     this.usuarioDAO.cadastrar(usuario);
 
     this.navCtrl.push(LoginPage);
-  }
-
-  ionViewDidLoad() {
-    
   }
 
 }
