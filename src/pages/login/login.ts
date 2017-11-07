@@ -42,12 +42,8 @@ export class LoginPage {
       senha: senha
     });
 
-<<<<<<< HEAD
     // Vai para a tela Home e manda os dados do usuário para ela
     this.navCtrl.push(HomePage, usuario);
-=======
-    this.navCtrl.push(HomePage,usuario);
->>>>>>> c748e5489df9c89ac75dddf35876d59861df7c0f
   }
 
   ionViewDidLoad() {
