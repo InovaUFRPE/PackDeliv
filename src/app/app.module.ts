@@ -13,6 +13,8 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
 import { CadastroEntregadorPage } from "../pages/cadastro-entregador/cadastro-entregador";
 import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo";
 
+import { HttpModule } from '@angular/http';
+import { RemoteProvider } from '../providers/remote/remote';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo"
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +45,8 @@ import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo"
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsuarioProvider
+    UsuarioProvider,
+    RemoteProvider
   ]
 })
 export class AppModule {}

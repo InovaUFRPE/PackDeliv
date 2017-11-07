@@ -18,9 +18,9 @@ import { LoginPage } from "../login/login";
 })
 export class CadastroPage {
   
-  private usuarioDAO: UsuarioProvider;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioDAO: UsuarioProvider) {
   }
 
   /**
@@ -67,9 +67,12 @@ export class CadastroPage {
       senha: senha.value,
       email: email.value
     };
+    console.log(nomeUsuario);
+    console.log(usuario);
     this.usuarioDAO.cadastrar(usuario);
 
     this.navCtrl.push(LoginPage);
+
   }
 
   ionViewDidLoad() {
