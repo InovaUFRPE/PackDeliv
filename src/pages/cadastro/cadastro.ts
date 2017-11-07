@@ -38,19 +38,13 @@ export class CadastroPage {
    */
   public fazerCadastro(): void {
     // Pega as informações do usuário
-    var nomeUsuario: string = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
-    var cnpj: string = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
-    var senha: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[0]);
-    var SenhaConf: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[1]);
-    console.log(this.dados.nomeUsuario);
-    console.log(this.dados.cnpj);
-    console.log(this.dados.senha);
-    console.log(this.dados.senhaConf);
-    console.log(this.dados.email);
-    console.log(this.dados.emailConf);
+    var nomeUsuario = this.dados.nomeUsuario;
+    var cnpj = this.dados.cnpj;
+    var senha = this.dados.senha;
+    var SenhaConf = this.dados.senhaConf;
 
     // Compara se as senhas digitadas são correspondentes
-    if (senha.value !== SenhaConf.value) {
+    if (senha !== SenhaConf) {
       // Faz algo caso não sejam
       senha.innerText = '';
       SenhaConf.innerText = '';
@@ -60,11 +54,11 @@ export class CadastroPage {
     }
 
     // Pega o e-mail do usuário
-    var email: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[0]);
-    var emailConf: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[1]);
+    var email = this.dados.email;
+    var emailConf = this.dados.emailConf;
 
     // Compara se os e-mails digitados são correspondentes
-    if (email.value !== emailConf.value) {
+    if (email !== emailConf) {
       // Faz algo caso não sejam
       email.innerText = '';
       emailConf.innerText = '';
@@ -77,15 +71,12 @@ export class CadastroPage {
     var usuario: object = {
       nomeCompleto: nomeUsuario,
       cnpj: cnpj,
-      senha: senha.value,
-      email: email.value
+      senha: senha,
+      email: email
     };
-    console.log(nomeUsuario);
-    console.log(usuario);
     this.usuarioDAO.cadastrar(usuario);
 
     this.navCtrl.push(LoginPage);
-
   }
 
 }

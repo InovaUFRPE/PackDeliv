@@ -52,9 +52,13 @@ export class UsuarioProvider {
    * @param usuario 
    * Um objeto contendo todos os dados do usuário.
    */
-  public cadastrar(usuario: object) {
-    this.http.post(this.url, usuario)
-    .do(res => alert(res));
+  public cadastrar(usuario: any) {
+    this.http.post(this.url+'/clientes', usuario)
+    .subscribe( (res) => {
+      alert('Usuário cadastrado!');
+    }, (error) => {
+      throw error;
+    });
   }
 
 }
