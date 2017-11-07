@@ -31,10 +31,10 @@ export class CadastroPage {
    */
   public fazerCadastro(): void {
     // Pega as informações do usuário
-    let nomeUsuario = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
-    let cnpj = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
-    let senha = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[0]);
-    let SenhaConf = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[1]);
+    var nomeUsuario = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
+    var cnpj = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
+    var senha = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[0]);
+    var SenhaConf = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[1]);
 
     // Compara se as senhas digitadas são correspondentes
     if (senha.value !== SenhaConf.value) {
@@ -47,8 +47,8 @@ export class CadastroPage {
     }
 
     // Pega o e-mail do usuário
-    let email = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[0]);
-    let emailConf = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[1]);
+    var email = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[0]);
+    var emailConf = (<HTMLInputElement>document.getElementsByClassName('inputEmail')[1]);
 
     // Compara se os e-mails digitados são correspondentes
     if (email.value !== emailConf.value) {
