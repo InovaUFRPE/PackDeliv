@@ -42,8 +42,12 @@ export class LoginPage {
       senha: senha
     });
 
+<<<<<<< HEAD
     // Vai para a tela Home e manda os dados do usuário para ela
     this.navCtrl.push(HomePage, usuario);
+=======
+    this.navCtrl.push(HomePage,usuario);
+>>>>>>> c748e5489df9c89ac75dddf35876d59861df7c0f
   }
 
   ionViewDidLoad() {
@@ -53,5 +57,12 @@ export class LoginPage {
   irParaEscolhaCadastro(){
     this.navCtrl.push(EscolhaCadastroPage)
   }
-
+  /**
+    *A função login() é apenas para saber se o menu lateral estava pegando
+    *já que pela função fazerLogin() não teria como saber visto que
+    *ela não está pegando
+    */ 
+  login(){
+    this.navCtrl.push(HomePage)
+  }
 }

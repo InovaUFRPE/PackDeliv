@@ -12,7 +12,16 @@ import { EscolhaCadastroPage } from "../pages/escolha-cadastro/escolha-cadastro"
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { CadastroEntregadorPage } from "../pages/cadastro-entregador/cadastro-entregador";
 import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo";
+<<<<<<< HEAD
 
+import { HttpModule } from '@angular/http';
+import { RemoteProvider } from '../providers/remote/remote';
+=======
+import { ListaDeEntregasPage } from "../pages/lista-de-entregas/lista-de-entregas";
+import { MonitorarEntregasPage } from "../pages/monitorar-entregas/monitorar-entregas";
+import { PerfilPage } from "../pages/perfil/perfil";
+import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-entregas";
+>>>>>>> 2e819f6e6d87c0ecc3469aa5d467dacfe3d03526
 
 @NgModule({
   declarations: [
@@ -22,11 +31,16 @@ import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo"
     CadastroPage,
     EscolhaCadastroPage,
     CadastroEntregadorPage,
-    CadastroVeiculoPage
+    CadastroVeiculoPage,
+    ListaDeEntregasPage,
+    MonitorarEntregasPage,
+    PerfilPage,
+    SolicitarEntregasPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,13 +50,18 @@ import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo"
     CadastroPage,
     EscolhaCadastroPage,
     CadastroEntregadorPage,
-    CadastroVeiculoPage
+    CadastroVeiculoPage,
+    ListaDeEntregasPage,
+    MonitorarEntregasPage,
+    PerfilPage,
+    SolicitarEntregasPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsuarioProvider
+    UsuarioProvider,
+    RemoteProvider
   ]
 })
 export class AppModule {}

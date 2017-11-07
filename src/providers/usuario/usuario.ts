@@ -12,9 +12,9 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class UsuarioProvider {
 
-  private url: string = 'http://localhost:3000/';
+  private url: string = 'http://localhost:5000/';
 
-  constructor(private http: Http) {
+  constructor(public http: Http) {
     console.log('Hello UsuarioProvider Provider');
   }
 
@@ -26,7 +26,7 @@ export class UsuarioProvider {
    * Feito por: Matheus Campos da Silva, 02/11/2017
    */
   public getUsuario(credenciais: any) {
-    this.http.get(this.url, {
+    this.http.get(this.url+'user', {
       body: {
         username: credenciais.nomeUsuario,
         passwd: credenciais.senha
