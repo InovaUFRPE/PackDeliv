@@ -25,32 +25,32 @@
 
     <ion-item>
       <ion-label floating>Nome de usuário</ion-label>
-      <ion-input type="text" id="inputNomeUsuario" required></ion-input>
+      <ion-input type="text" [(ngModel)]="dados.nomeUsuario" id="inputNomeUsuario" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>CNPJ</ion-label>
-      <ion-input type="number" id="inputCNPJ" required></ion-input>
+      <ion-input type="number" [(ngModel)]="dados.cnpj" id="inputCNPJ" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Senha</ion-label>
-      <ion-input type="password" class="inputSenha" required></ion-input>
+      <ion-input type="password" [(ngModel)]="dados.senha" class="inputSenha" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Confirmar senha</ion-label>
-      <ion-input type="password" class="inputSenha" required></ion-input>
+      <ion-input type="password" [(ngModel)]="dados.senhaConf" class="inputSenha" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>E-mail</ion-label>
-      <ion-input type="email" class="inputEmail" required></ion-input>
+      <ion-input type="email" [(ngModel)]="dados.email" class="inputEmail" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Confirmar e-mail</ion-label>
-      <ion-input type="email" class="inputEmail" required></ion-input>
+      <ion-input type="email" [(ngModel)]="dados.emailConf" class="inputEmail" required></ion-input>
     </ion-item>
 
     <ion-item>

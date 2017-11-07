@@ -18,7 +18,14 @@ import { LoginPage } from "../login/login";
 })
 export class CadastroPage {
   
-
+  public dados = {
+    nomeUsuario: null,
+    cnpj: null,
+    senha: null,
+    senhaConf: null,
+    email: null,
+    emailConf: null
+  };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioDAO: UsuarioProvider) {
   }
@@ -35,6 +42,12 @@ export class CadastroPage {
     var cnpj: string = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
     var senha: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[0]);
     var SenhaConf: HTMLInputElement = (<HTMLInputElement>document.getElementsByClassName('inputSenha')[1]);
+    console.log(this.dados.nomeUsuario);
+    console.log(this.dados.cnpj);
+    console.log(this.dados.senha);
+    console.log(this.dados.senhaConf);
+    console.log(this.dados.email);
+    console.log(this.dados.emailConf);
 
     // Compara se as senhas digitadas são correspondentes
     if (senha.value !== SenhaConf.value) {
