@@ -69,9 +69,9 @@ export class CadastroPage {
 
     // Cria o objeto usuario e o cadastro no BD
     var usuario: object = {
-      nomeCompleto: nomeUsuario,
+      username: nomeUsuario,
       cnpj: cnpj,
-      senha: senha,
+      password: senha,
       email: email
     };
     this.usuarioDAO.cadastrar(usuario);
