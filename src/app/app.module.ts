@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HttpModule } from '@angular/http';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from "../pages/login/login";
@@ -12,6 +12,8 @@ import { EscolhaCadastroPage } from "../pages/escolha-cadastro/escolha-cadastro"
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { CadastroEntregadorPage } from "../pages/cadastro-entregador/cadastro-entregador";
 import { CadastroVeiculoPage } from "../pages/cadastro-veiculo/cadastro-veiculo";
+
+import { HttpModule } from '@angular/http';
 import { RemoteProvider } from '../providers/remote/remote';
 import { ListaDeEntregasPage } from "../pages/lista-de-entregas/lista-de-entregas";
 import { MonitorarEntregasPage } from "../pages/monitorar-entregas/monitorar-entregas";
@@ -34,8 +36,8 @@ import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-ent
   ],
   imports: [
     BrowserModule,
-    HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

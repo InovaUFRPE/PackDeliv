@@ -1,11 +1,9 @@
 from flask import Flask, jsonify, request
 from flaskext.mysql import MySQL
 from user import *
-from flask_cors import CORS
 
 app = Flask(__name__)
 mysql = MySQL()
-CORS(app)
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -67,9 +65,9 @@ def getAllUsers():
 def post():
     json = request.get_json(silent=True)
     print(json)
-    checkList=['username', 'password','email','cnpj']
+    checkList=['username', 'password','email']
     if all(i in checkList for i in json):
-        user = User(json['username'], json['password'],json['email'],json['cnpj'])
+        user = User(json['username'], json['password'],json['email'])
         if saveUserToDb(user):
             return jsonify({'done' : 'esta salvo'})
         else:
@@ -82,7 +80,7 @@ def saveUserToDb(user):
     
     connection = mysql.connect()
     cursor=connection.cursor()
-    testevar="insert into usuario(Login,Email, Senha,cnpj) values ('"+ user.username +"', '" + user.email + "', '" + user.password + "', '" + user.cnpj + "');"
+    testevar="insert into usuario(Login,Email, Senha) values ('"+ user.username +"', '" + user.email + "', '" + user.password + "');"
     print(testevar)
     cursor.execute(testevar)
     try:
@@ -93,7 +91,7 @@ def saveUserToDb(user):
         return False
 
 if __name__ == '__main__':
-    app.run(host='192.168.25.4')
+    app.run()
     
 
 '''
