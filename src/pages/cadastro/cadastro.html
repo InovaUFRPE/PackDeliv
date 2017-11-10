@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="verd">
-    <ion-title>Cadastro de Cliente</ion-title>
+    <ion-title>Cadastro de Empresa</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <h1 class="titulo">Cadastre-se como cliente</h1>
+  <h1 class="titulo">Cadastre-se como Empresa</h1>
     
   <div text-center>
     <ion-img  src="assets/icon/manufacturer.png"></ion-img>
@@ -24,7 +24,7 @@
   <ion-list>
 
     <ion-item>
-      <ion-label floating>Nome de usuário</ion-label>
+      <ion-label floating>Login</ion-label>
       <ion-input type="text" [(ngModel)]="dados.nomeUsuario" id="inputNomeUsuario" required></ion-input>
     </ion-item>
 
@@ -34,13 +34,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Senha</ion-label>
-      <ion-input type="password" [(ngModel)]="dados.senha" class="inputSenha" required></ion-input>
+      <ion-label floating>Senha:(Mínimo de 6 digitos)</ion-label>
+      <ion-input type="password" [(ngModel)]="dados.senha" class="inputSenha" required ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Confirmar senha</ion-label>
-      <ion-input type="password" [(ngModel)]="dados.senhaConf" class="inputSenha" required></ion-input>
+      <ion-input type="password" [(ngModel)]="dados.senhaConf" class="inputSenha" required ></ion-input>
     </ion-item>
 
     <ion-item>

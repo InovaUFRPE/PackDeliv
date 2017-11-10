@@ -52,7 +52,7 @@ export class UsuarioProvider {
    * @param usuario 
    * Um objeto contendo todos os dados do usuário.
    */
-  public cadastrar(usuario: any) {
+  public cadastrarempresa(usuario: any) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     this.http.post(this.url+'user', usuario,{headers: headers})
