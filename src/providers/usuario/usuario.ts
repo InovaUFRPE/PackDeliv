@@ -62,4 +62,16 @@ export class UsuarioProvider {
       throw error;
     });
   }
+
+  public cadastrarentregador(entregador:any){
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    this.http.post(this.url+'entregador', entregador,{headers: headers})
+    .subscribe( (res) => {
+      alert('Entregador cadastrado!');
+      alert('Cadastre o veículo!');
+    }, (error) => {
+      throw error;
+    });
+  }
 }

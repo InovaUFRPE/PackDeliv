@@ -131,6 +131,7 @@ export class CadastroPage {
       password: senha,
       email: email
     };
+
     this.usuarioDAO.cadastrarempresa(usuario);
 
     this.navCtrl.push(LoginPage);
