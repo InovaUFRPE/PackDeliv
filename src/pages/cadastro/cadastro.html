@@ -51,12 +51,13 @@
         <ion-label floating>Confirmar e-mail</ion-label>
         <ion-input type="email" [(ngModel)]="dados.emailConf" class="inputEmail" required></ion-input>
       </ion-item>
-  
-      <ion-item>
-        <button ion-button color="secondary" block large (click)="fazerCadastro()">
+      
+      <div text-center>
+        <button ion-button large color="verd" round large (click)="fazerCadastro()">
           Cadastrar
         </button>
-      </ion-item>
+        
+      </div>
   
     </ion-list>
   </ion-content>
