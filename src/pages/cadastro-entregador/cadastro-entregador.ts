@@ -16,6 +16,16 @@ import { CadastroVeiculoPage } from "../cadastro-veiculo/cadastro-veiculo";
 })
 export class CadastroEntregadorPage {
   public
+  public dados = {
+    nomeCompleto:null,
+    cnh:null,
+    nomeUsuario: null,
+    cnpj: null,
+    senha: null,
+    senhaConf: null,
+    email: null,
+    emailConf: null
+  };
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -28,19 +38,23 @@ export class CadastroEntregadorPage {
    */
   public irParaCadastroVeiculo(){
     // Pega as informações do formulário
-    var nomeUsuario: string = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
-    var nomeCompleto: string = (<HTMLInputElement>document.getElementById('inputNomeCompleto')).value;
-    var cnpj: string = (<HTMLInputElement>document.getElementById('inputCNPJ')).value;
-    var cnh: string = (<HTMLInputElement>document.getElementById('inputCNH')).value;
-
+    var nomeUsuario = this.dados.nomeUsuario;
+    var cnpj = this.dados.cnpj;
+    var senha = this.dados.senha;
+    var SenhaConf = this.dados.senhaConf;
+    var nomeCompleto = this.dados.nomeCompleto;
+    var cnh=this.dados.cnh;
+    var email=this.dados.email;
+    var emailConf=this.dados.emailConf;
     // Cria o objeto usuario
     var usuario: object = {
-      nomeUsuario: nomeUsuario,
-      nomeCompleto: nomeCompleto,
-      cnpj: cnpj,
-      cnh: cnh
-    };
 
+      username: nomeUsuario,
+      cnpj: cnpj,
+      password: senha,
+      nomeCompleto:nomeCompleto,
+      email: email
+    };
     // Passa o objeto usuario para a tela de cadastro de veículo
     this.navCtrl.push(CadastroVeiculoPage, usuario);
   }

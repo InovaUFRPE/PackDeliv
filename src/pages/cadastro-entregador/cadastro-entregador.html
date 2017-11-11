@@ -23,24 +23,44 @@
   <ion-list>
 
     <ion-item>
-      <ion-label floating>Nome de usuário</ion-label>
-      <ion-input type="text" id="inputNomeUsuario" required></ion-input>
+      <ion-label floating>Login</ion-label>
+      <ion-input type="text" [(ngModel)]="dados.nomeUsuario"  id="inputNomeUsuario" autofocus required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Nome completo</ion-label>
-      <ion-input type="text" id="inputNomeCompleto" required></ion-input>
+      <ion-input type="text" [(ngModel)]="dados.nomeCompleto" id="inputNomeCompleto" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>CNPJ</ion-label>
-      <ion-input type="number" id="inputCNPJ" required></ion-input>
+      <ion-input type="number" [(ngModel)]="dados.cnpj" id="inputCNPJ" required></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Numero CNH</ion-label>
-      <ion-input type="number" id="inputCNH" required></ion-input>
+      <ion-input type="number" [(ngModel)]="dados.cnh" class="inputCNH" required></ion-input>
     </ion-item>  
+
+    <ion-item>
+      <ion-label floating>Senha:(Mínimo de 6 digitos)</ion-label>
+      <ion-input type="password"  [(ngModel)]="dados.senha" class="inputSenha"    required ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Confirmar senha</ion-label>
+      <ion-input type="password" [(ngModel)]="dados.senhaConf" class="inputSenha" required ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>E-mail</ion-label>
+      <ion-input type="email" [(ngModel)]="dados.email" class="inputEmail" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Confirmar e-mail</ion-label>
+      <ion-input type="email" [(ngModel)]="dados.emailConf" class="inputEmail" required></ion-input>
+    </ion-item>
 
   </ion-list>
 
