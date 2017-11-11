@@ -23,21 +23,21 @@
   <ion-list>
   <ion-item>
     <ion-label floating>Placa</ion-label>
-    <ion-input type="text" id="inputPlaca" required></ion-input>
+    <ion-input type="text" [(ngModel)]="dados.placa" id="inputPlaca" required></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Ano</ion-label>
-    <ion-input type="number" id="inputAno" required></ion-input>
+    <ion-input type="number" [(ngModel)]="dados.ano" id="inputAno" required></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Modelo</ion-label>
-    <ion-input type="text" id="inputModelo" required></ion-input>
+    <ion-input type="text" [(ngModel)]="dados.modelo" id="inputModelo" required></ion-input>
   </ion-item>
 
   <div text-center>
-      <button ion-button color="verd" large (click)="irParaLogin()">Cadastrar</button>
+      <button ion-button color="verd" large (click)="fazerCadastroVeiculo()">Cadastrar</button>
   </div>
 
   </ion-list>

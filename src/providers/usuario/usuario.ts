@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class UsuarioProvider {
 
-  private url: string = 'http://localhost:5000/';
+  private url: string = 'http://192.168.25.4:5000/';
 
   constructor(public http: Http) {
   }
@@ -52,8 +52,10 @@ export class UsuarioProvider {
    * @param usuario 
    * Um objeto contendo todos os dados do usuário.
    */
-  public cadastrar(usuario: any) {
-    this.http.post(this.url+'/clientes', usuario)
+  public cadastrarempresa(usuario: any) {
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    this.http.post(this.url+'user', usuario,{headers: headers})
     .subscribe( (res) => {
       alert('Usuário cadastrado!');
     }, (error) => {
@@ -61,4 +63,15 @@ export class UsuarioProvider {
     });
   }
 
+  public cadastrarentregador(entregador:any){
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    this.http.post(this.url+'entregador', entregador,{headers: headers})
+    .subscribe( (res) => {
+      alert('Entregador cadastrado!');
+      alert('Cadastre o veículo!');
+    }, (error) => {
+      throw error;
+    });
+  }
 }
