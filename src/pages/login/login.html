@@ -24,18 +24,18 @@
 
     <ion-item  >
       <ion-label floating style="color: #144F45">Nome de Usuário</ion-label>
-      <ion-input type="text" id="inputNomeUsuario"></ion-input>
+      <ion-input type="text" [(ngModel)]="credentials.username" id="inputNomeUsuario"></ion-input>
     </ion-item>
 
     <ion-item  >
       <ion-label floating style="color: #144F45">Senha</ion-label>
-      <ion-input type="password" id="inputSenha"></ion-input>
+      <ion-input type="password" [(ngModel)]="credentials.password" id="inputSenha"></ion-input>
     </ion-item>
 
   </ion-list>
 
   <div text-center>
-    <button ion-button color="verd" large round (click)="login()">Entrar</button>
+    <button ion-button color="verd" large round (click)="fazerLogin()">Entrar</button>
   </div>
 
   <div text-center>

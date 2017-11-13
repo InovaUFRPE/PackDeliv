@@ -12,37 +12,44 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class UsuarioProvider {
 
-  private url: string = 'http://192.168.25.4:5000/';
+  private url: string = 'http://localhost:5000/';
 
   constructor(public http: Http) {
   }
 
   /**
-   * Retorna um objeto usuário de acordo com suas credenciais.
+   * Return an object finalUser according to his credentials.
    * 
-   * Feito por: Matheus Campos da Silva, 02/11/2017
-   * @param credenciais 
-   * Um objeto contendo o login e a senha do usuário.
+   * Made by: Matheus Campos da Silva, 13/11/2017
+   * @param credentials 
+   * An object that contains the user login and password.
    */
-  public getUsuario(credenciais: any) {
-    var usuario;
-
-    // Implementa a requisição à API
-    this.http.get(this.url+'/usuarios', {
-      body: {
-        username: credenciais.nomeUsuario,
-        passwd: credenciais.senha
+  public getUsuario(credentials: any, callback) {
+    var finalUser: object = null;
+    
+    // Implements request to API
+    this.http.get(this.url+'getAllUsers')
+    .subscribe((response) => {
+      // Treat response
+      let users = response.json().response;
+      let array = [];
+      for (var u in users) {
+        array.push(users[u]);
       }
-    }).subscribe((response) => {
-      // Em caso de sucesso, retorna o JSON para o objeto usuario
-      usuario = response.json();
-      return usuario;
+      array.forEach(user => {
+        if (user.Login == credentials.username && user.Senha == credentials.password) {
+          finalUser = {
+            username: user.Login,
+            password: user.Senha,
+            email: user.Email,
+            cnpj: user.cnpj
+          };
+        }
+      });
+      callback(finalUser);      
     }, (error) => {
-      // Em caso de erro, jogue o erro
       throw error;
     });
-
-    return usuario;
   }
 
   /**

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
@@ -20,9 +20,12 @@ import { HomePage } from "../home/home";
 export class LoginPage {
 
   public cadastroPage = CadastroPage;
-  private usuarioDAO: UsuarioProvider;
+  public credentials = {
+    username: null,
+    password: null
+  };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public usuarioProvider: UsuarioProvider) {
   }
 
   /**
@@ -30,25 +33,22 @@ export class LoginPage {
    * do banco de dados através da API RESTful, redireciona
    * o usuário para a página Home.
    *
-   * Feito por: Matheus Campos da Silva, 30/10/2017
+   * Made by: Matheus Campos da Silva, 30/10/2017
    */
   public fazerLogin(): void {
-    // Pega as credenciais do usuário
-    let nomeUsuario = (<HTMLInputElement>document.getElementById('inputNomeUsuario')).value;
-    let senha = (<HTMLInputElement>document.getElementById('inputSenha')).value;
-
-    // Faz a requisição à API e retorna os dados para o objeto usuario
-    var usuario = this.usuarioDAO.getUsuario({
-      nomeUsuario: nomeUsuario,
-      senha: senha
+    // Make request to API and pass user data to HomePage
+    this.usuarioProvider.getUsuario(this.credentials, (user) => {
+      if (user != null) {
+        // Vai para a tela Home e manda os dados do usuário para ela
+        this.navCtrl.push(HomePage, user);
+      } else {
+        this.presentToast('Login ou Senha incorretos, tente novamente.');
+      }
     });
-
-    // Vai para a tela Home e manda os dados do usuário para ela
-    this.navCtrl.push(HomePage, usuario);
   }
 
   public irParaEscolhaCadastro() {
-    this.navCtrl.push(EscolhaCadastroPage)
+    this.navCtrl.push(EscolhaCadastroPage);
   }
 
   /**
@@ -57,6 +57,20 @@ export class LoginPage {
     *ela não está pegando
     */ 
   public login() {
-    this.navCtrl.push(HomePage)
+    this.navCtrl.push(HomePage);
+  }
+
+  presentToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 }
