@@ -17,6 +17,7 @@ import { ListaDeEntregasPage } from "../pages/lista-de-entregas/lista-de-entrega
 import { MonitorarEntregasPage } from "../pages/monitorar-entregas/monitorar-entregas";
 import { PerfilPage } from "../pages/perfil/perfil";
 import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-entregas";
+import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-ent
     ListaDeEntregasPage,
     MonitorarEntregasPage,
     PerfilPage,
-    SolicitarEntregasPage
+    SolicitarEntregasPage,
+    RecuperarSenhaPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-ent
     ListaDeEntregasPage,
     MonitorarEntregasPage,
     PerfilPage,
-    SolicitarEntregasPage
+    SolicitarEntregasPage,
+    RecuperarSenhaPage
   ],
   providers: [
     StatusBar,

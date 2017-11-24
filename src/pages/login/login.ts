@@ -4,6 +4,7 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
+import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 
 /**
  * Generated class for the LoginPage page.
@@ -49,6 +50,10 @@ export class LoginPage {
 
   public irParaEscolhaCadastro() {
     this.navCtrl.push(EscolhaCadastroPage);
+  }
+
+  public irParaRecuperarSenha() {
+    this.navCtrl.push(RecuperarSenhaPage);
   }
 
   /**
