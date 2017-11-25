@@ -18,6 +18,8 @@ import { MonitorarEntregasPage } from "../pages/monitorar-entregas/monitorar-ent
 import { PerfilPage } from "../pages/perfil/perfil";
 import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-entregas";
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
+import { Geolocation } from "@ionic-native/geolocation";
+import { GoogleMaps, GoogleMap } from "@ionic-native/google-maps";
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsuarioProvider,
-    RemoteProvider
+    RemoteProvider,
+    Geolocation,
+    GoogleMaps
   ]
 })
 export class AppModule {}

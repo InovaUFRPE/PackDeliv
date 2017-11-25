@@ -21,6 +21,8 @@
     "@angular/platform-browser": "4.4.4",
     "@angular/platform-browser-dynamic": "4.4.4",
     "@ionic-native/core": "4.3.2",
+    "@ionic-native/geolocation": "^4.4.2",
+    "@ionic-native/google-maps": "^4.4.2",
     "@ionic-native/splash-screen": "4.3.2",
     "@ionic-native/status-bar": "4.3.2",
     "@ionic/storage": "2.0.1",
@@ -48,7 +50,14 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyD99EZL4UdZsVdFR0namBSMWXmbn7NBhuM",
+        "API_KEY_FOR_IOS": "AIzaSyD99EZL4UdZsVdFR0namBSMWXmbn7NBhuM"
+      }
     },
     "platforms": [
       "android"
