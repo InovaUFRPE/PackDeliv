@@ -36,6 +36,6 @@ export class HomePage {
     this.navCtrl.push(MonitorarEntregasPage)
   }
   sair(){
-    this.navCtrl.push(LoginPage)
+    this.navCtrl.popToRoot();
   }
 }
