@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Geolocation } from "@ionic-native/geolocation";
 import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, Marker, MarkerOptions, CameraPosition, LatLng } from "@ionic-native/google-maps";
+import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
 
 /**
  * Generated class for the PerfilPage page.
@@ -29,6 +30,10 @@ export class PerfilPage {
 
   public login() {
     this.navCtrl.push(HomePage);
+  }
+
+  public irParaEditarPerfil() {
+    this.navCtrl.push(EditarPerfilPage);
   }
 
   public loadMap() {

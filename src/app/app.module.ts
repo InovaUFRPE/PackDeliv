@@ -20,6 +20,7 @@ import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-ent
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
 import { Geolocation } from "@ionic-native/geolocation";
 import { GoogleMaps, GoogleMap } from "@ionic-native/google-maps";
+import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GoogleMaps, GoogleMap } from "@ionic-native/google-maps";
     MonitorarEntregasPage,
     PerfilPage,
     SolicitarEntregasPage,
-    RecuperarSenhaPage
+    RecuperarSenhaPage,
+    EditarPerfilPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { GoogleMaps, GoogleMap } from "@ionic-native/google-maps";
     MonitorarEntregasPage,
     PerfilPage,
     SolicitarEntregasPage,
-    RecuperarSenhaPage
+    RecuperarSenhaPage,
+    EditarPerfilPage
   ],
   providers: [
     StatusBar,
