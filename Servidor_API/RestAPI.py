@@ -3,7 +3,6 @@ from flaskext.mysql import MySQL
 from flask_cors import CORS
 from DB.DB_helper import INIT_API, saveCompany
 
-INIT_API()
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -63,7 +62,51 @@ def getAllUsers():
     r = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
     r = dict(enumerate(r))
     return jsonify({'response' : r})
-  
+
+
+@app.route('/user', methods=['POST'])
+def post():
+    json = request.get_json(silent=True)
+    print(json)
+    checkList=['username', 'password','email','cnpj']
+    if all(i in checkList for i in json):
+        user = User(json['username'], json['password'],json['email'],json['cnpj'])
+        if saveUserToDb(user):
+            return jsonify({'done' : 'esta salvo'})
+        else:
+            return jsonify({'error' : 'não foi possivel salvar no banco'})
+    else:
+        return jsonify({'error' : 'falta campos obrigatorios'})
+    
+
+def saveUserToDb(user):
+    
+    connection = mysql.connect()
+    cursor=connection.cursor()
+    testevar="insert into usuario(Login,Email, Senha,cnpj) values ('"+ user.username +"', '" + user.email + "', '" + user.password + "', '" + user.cnpj + "');"
+    print(testevar)
+    cursor.execute(testevar)
+    try:
+        connection.commit()
+        cursor.close()
+        return True
+    except:
+        return False
+
+if __name__ == '__main__':
+    app.run(host='192.168.0.20')
+    
+
+'''
+@app.route('/teste2', methods=['GET','POST'])
+def teste():
+    if request.method == 'POST':
+        json = request.get_json()
+        user = User(json['username'], json['password'])
+        return logar(user)
+    else:
+        return 'POST METHOD PLZ'
+    
 def logar(user):
     try:
         cur = mysql.connect().cursor()
