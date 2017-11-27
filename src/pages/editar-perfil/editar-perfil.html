@@ -14,40 +14,40 @@
 
 
 <ion-content padding>
-  <div>
-    <ion-img width="200" height="200" src="assets/imgs/user.png"></ion-img>
+  <div text-center>
+    <div>
+      <ion-img width="200" height="200" src="assets/imgs/user.png"></ion-img>
+    </div>
+    
+    <div>
+      <button style="width:200px" ion-button color="verd" small round>Alterar imagem </button>
+    </div>
+    
+    <ion-list>
+    
+      <ion-item>
+        <ion-label floating style="color: #144F45">Usuário</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating style="color: #144F45">Telefone</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating style="color: #144F45">E-mail</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    
+    </ion-list>
+    
+    <div>
+      <button ion-button style="width:170px" color="verd" round (click)="abrirPerfil()">confirmar</button>
+    </div>
+    
+    <div>
+      <button ion-button style="width:170px" color="verd" round (click)="abrirPerfil()">cancelar </button>
+    </div>
   </div>
-  
-  <div>
-    <button style="width:200px" ion-button color="verd" small round >Arlterar imagem </button>
-  </div>
-
-  <ion-list>
-
-    <ion-item>
-      <ion-label floating style="color: #144F45">Usuario</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating style="color: #144F45">Telefone</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating style="color: #144F45">E-mail</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-  </ion-list>
-
-  <div>
-    <button ion-button style="width:170px" color="verd"  round (click)="abrirPerfil()">confirmar</button>
-  </div>
-
-  <div>
-    <button ion-button style="width:170px" color="verd"  round (click)="abrirPerfil()">cancelar </button>
-  </div>
-
-  <div id="map"></div>
 </ion-content>

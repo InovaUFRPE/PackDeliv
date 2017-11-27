@@ -15,28 +15,34 @@
 
 <ion-content padding>
 
-  <div>
-    <ion-img width="200" height="200" src="assets/imgs/user.png"></ion-img>
+  <div text-center>
+    <div>
+      <ion-img width="200" height="200" src="assets/imgs/user.png"></ion-img>
+    </div>
+    
+    <ion-list>
+    
+      <ion-item>
+        <ion-label fixed style="color: #144F45">
+          Usuário:
+        </ion-label>
+        <ion-input type="text" [disabled]="true" data-ng-model="user.username"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label fixed style="color: #144F45">
+          Telefone:
+        </ion-label>
+        <ion-input type="text" [disabled]="true" data-ng-model="user.cnpj"></ion-input>
+      </ion-item>
+    
+    </ion-list>
+    
+    <div>
+      <button ion-button color="verd" large round (click)="irParaEditarPerfil()">Editar perfil</button>
+    </div>
+    
+    <div style="height: 100%; width:100%;" #mapCanvas id="map_canvas"></div>
   </div>
-
-  <ion-list>
-
-    <ion-item>
-      <ion-label fixed style="color: #144F45"><h1> Usuario</h1> </ion-label>
-      <ion-input type="text" value=""></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label fixed style="color: #144F45"><h1>Telefone</h1></ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-
-  </ion-list>
-
-  <div>
-    <button ion-button color="verd" large round (click)="irParaEditarPerfil()">editar perfil</button>
-  </div>
-
-  <div id="map"></div>
 
 </ion-content>
