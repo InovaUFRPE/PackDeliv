@@ -12,7 +12,7 @@ CORS(app)
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_DB'] = 'packdeliv'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
@@ -86,14 +86,13 @@ def getAllUsers():
     r = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
     r = dict(enumerate(r))
     return jsonify({'response' : r})
-  
+'''
+
 def logar(user):
     try:
         cur = mysql.connect().cursor()
         cur.execute('select * from usuario where Login='+user.username+' and Senha='+user.password+';' )
-        cursor.close()
+        cur.close()
         return jsonify({'done':'usuario logado'})
     except:
         return jsonify({'error':'Houve um erro ao logar'})
-'''    
-
