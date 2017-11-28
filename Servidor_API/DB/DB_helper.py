@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 DATABASE_NAME="packDeliv_DB"
 
-TABLE_COMPANY= 'Empresa'
+TABLE_COMPANY= 'empresa'
 TABLE_DELIVERYMAN= 'Entregador'
 TABLE_ADRESS= 'Endereco'
 TABLE_VEHICLE='Veiculo'
@@ -112,7 +112,7 @@ class Company(Base):
     password = Column(TABLE_COMPANY_PASSWORD,String(255),nullable=False)
     login=Column(TABLE_COMPANY_LOGIN,String(255),unique=True,nullable=False)
     email=Column(TABLE_COMPANY_EMAIL,String(255),unique=True,nullable=False)
-    uci=Column(TABLE_COMPANY_UCI,Integer,unique=True,nullable=False)#unique company identifier
+    uci=Column(TABLE_COMPANY_UCI,String(255),unique=True,nullable=False)#unique company identifier
 
 class Deliveryman(Base):
     __tablename__=TABLE_DELIVERYMAN

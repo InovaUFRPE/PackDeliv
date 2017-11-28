@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import { List } from 'ionic-angular/components/list/list';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -52,18 +53,8 @@ export class UsuarioProvider {
     });
   }
 
-  /**
-   * Cadastrar um usuário na base de dados do sistema.
-   * 
-   * Feito por: Matheus Campos da Silva, 02/11/2017
-   * @param usuario 
-   * Um objeto contendo todos os dados do usuário.
-   */
-
-  //Faz a validação do cnpj
-  //Depois de validado chama a função para cadastrar a empresa
-  public cadastrarempresa(usuario: any) {
-    let cnpj: string = usuario.cnpj
+  public cadastrarEmpresa(usuario: any) {
+    let cnpj: string = usuario.CNPJ
       .split('.')
       .join('')
       .replace('/','')
@@ -72,6 +63,7 @@ export class UsuarioProvider {
     this.http.get(this.url+'cnpj/'+cnpj)
     .subscribe((response) => {
       var resp = response.json();
+      usuario['Endereco']={};
       if (resp.status !== "ERROR"){
         usuario['id'] = ""
         usuario['Id_endereco'] = "";
@@ -84,7 +76,8 @@ export class UsuarioProvider {
         usuario['Endereco']['Cidade'] = resp.municipio
         usuario['Endereco']['Estado'] = resp.uf
         usuario['Endereco']['Pais'] = ""
-        this.inserirempresa(usuario);
+        console.log(usuario)
+        this.inserirEmpresa(usuario);
       }
       else{
         alert(response.json().message);
@@ -94,7 +87,7 @@ export class UsuarioProvider {
     });
     }
 //Cadastra a empresa
-  public inserirempresa(empresa: any) {
+  public inserirEmpresa(empresa: any) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     this.http.post(this.url + 'company', empresa, { headers: headers })
