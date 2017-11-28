@@ -207,6 +207,17 @@ def deleteAdress(id):
     session.commit()
     session.close()
 
+def getAdress(id):
+    Session = getSession()
+    session=Session()
+    response=session.query(Adress).filter(Adress.id == id).all()
+    if len(response)==1:
+        r=response[0]
+        adress={TABLE_ADRESS_ID : r.id, TABLE_ADRESS_STREET : r.street,TABLE_ADRESS_NUMBER : r.number, TABLE_ADRESS_COMPLEMENT : r.complement, TABLE_ADRESS_DISTRICT : r.district, TABLE_ADRESS_POSTAL_CODE :r.postal_code,TABLE_ADRESS_CITY :  r.city, TABLE_ADRESS_STATE : r.state, TABLE_ADRESS_COUNTRY : r.country}
+        return {"response" : adress }
+    else:
+        return {"response" : "invalid adress"}
+
 def saveVehicle(json_vehicle0):
     Session= getSession()
     session=Session()
@@ -235,14 +246,32 @@ def saveCompany(json_company):
     company.email=json_company[TABLE_COMPANY_EMAIL]
     company.uci=json_company[TABLE_COMPANY_UCI]
     session.add(company)
+    response = False
     try:
         session.commit()
+        session.refresh(company)
+        response = company.id
     except:
         deleteAdress(id_adress)
-        return False
-    session.refresh(company)
-    id = company.id
+        
     session.close()
-    return id
+    return response
+
+def getCompany(json_company):
+    login=json_company['login']
+    senha=json_company['senha']
+    Session=getSession()
+    session=Session()
+    response= session.query(Company).filter(Company.login == login , Company.password==senha).all()
+    if len(response)==1:
+        c=response[0]
+        adress=getAdress(c.id_adress)["response"]
+        #dic= company.__dict__
+        #dicCompany={key : value for key, value in dic.items() if key != '_sa_instance_state' }
+        dicCompany={TABLE_COMPANY_ID :c.id , TABLE_ADRESS : adress, TABLE_COMPANY_NAME: c.name_company,TABLE_COMPANY_LOGIN: c.login,TABLE_COMPANY_EMAIL:c.email,TABLE_COMPANY_UCI:c.uci }
+        response= dicCompany
+    else:
+        response=False
+    return response
 
 

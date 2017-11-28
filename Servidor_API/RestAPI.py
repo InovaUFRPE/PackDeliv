@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request
+import requests
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-from DB.DB_helper import INIT_API, saveCompany
+from DB.DB_helper import INIT_API, saveCompany, getCompany
 
 INIT_API()
 
@@ -20,22 +21,44 @@ mysql.init_app(app)
 
 
 @app.route('/company', methods=['POST'])
-#Json Model /company --> {"id": 1 , "Id_endereco": ufrpe street , "Nome_fantasia":"empresa teste", "Senha":"123213132", "Login":"adasdsada", "Email":"dansdjad", "CNPJ":"1232353", "Endereco": {"Logradouro":"testeLog", "Numero":"1234","Complemento":"testeComplemento", "Bairro":"testeBairoo", "CEP":"54546123", "Cidade":"testeC", "Estado":"testeE","Pais":"testeP"  } }
-#campos não obrigatorios podem ficar em branco ex: id:""
+#Json Model /company --> {"Nome_fantasia":"empresa teste", "Senha":"123213132", "Login":"adasdsada", "Email":"dansdjad", "CNPJ":"1232353", "Endereco": {"Id":"","Logradouro":"testeLog", "Numero":"1234","Complemento":"testeComplemento", "Bairro":"testeBairoo", "CEP":"54546123", "Cidade":"testeC", "Estado":"testeE","Pais":"testeP"  } }
+#campos não obrigatorios podem ficar vazios ex: complemento:""
+
 def register_company():
-    checkList=['Endereco']
+
     if request.method == 'POST':  
         json = request.get_json()
-        #if any(i in checkList for i in json): (fazer modulo de checagem json)
-        idCompany=saveCompany(json)
-        return jsonify({'response' : {"companyID":str(idCompany)}})
-    else:
-        return jsonify({'error' : 'não foi possivel salvar no banco'})
+        idCompany = saveCompany(json)
+        
+        if (idCompany):
+            return jsonify({'response' : {"companyID":str(idCompany)}})
+        else:
+            return jsonify({'error' : 'Não foi possivel cadastar'})
             
 
+@app.route('/login',methods=['POST'])
+#Json Model /login --> {"login":"teste","senha":"teste"}
+def login_company():
+    if request.method == 'POST':
+        json_login = request.get_json()
+        Company = getCompany (json_login)
+        if (Company):
+            
+            return jsonify({'response' : Company})
+        else:
+            return jsonify({'error' : 'Não foi possivel logar usuario'})
+        
+            
+@app.route('/cnpj/<cnpj>',methods=['GET'])
+def cnpj(cnpj):
+    if request.method == 'GET':
+        
+        r = requests.get('https://www.receitaws.com.br/v1/cnpj/'+ str(cnpj) )
 
-    
-    
+        return jsonify(r.json())
+        
+        
+        
 
 
 if __name__ == '__main__':
