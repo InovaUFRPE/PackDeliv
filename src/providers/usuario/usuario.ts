@@ -59,15 +59,28 @@ export class UsuarioProvider {
    * @param usuario 
    * Um objeto contendo todos os dados do usuário.
    */
-  public cadastrarempresa(usuario: any) {
-    let headers = new Headers();
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
-    this.http.post(this.url+'user', usuario,{headers: headers})
-    .subscribe( (res) => {
-      alert('Usuário cadastrado!');
+  public cadastrarEmpresa(usuario: any) {
+    let cnpj: string = usuario.cnpj
+      .split('.')
+      .join('')
+      .replace('/','')
+      .replace('-','');
+
+    this.http.get('https://www.receitaws.com.br/v1/cnpj/'+cnpj)
+    .subscribe((response) => {
+      console.log(response.json());
     }, (error) => {
       throw error;
     });
+
+    // let headers = new Headers();
+    // headers.append('X-Auth-Token', localStorage.getItem('token'));
+    // this.http.post(this.url+'user', usuario,{headers: headers})
+    // .subscribe( (res) => {
+    //   alert('Usuário cadastrado!');
+    // }, (error) => {
+    //   throw error;
+    // });
   }
 
   public cadastrarentregador(entregador:any){

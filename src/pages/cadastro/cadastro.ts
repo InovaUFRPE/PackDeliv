@@ -132,7 +132,7 @@ export class CadastroPage {
       email: email
     };
 
-    this.usuarioDAO.cadastrarempresa(usuario);
+    this.usuarioDAO.cadastrarEmpresa(usuario);
 
     this.navCtrl.push(LoginPage);
   }
