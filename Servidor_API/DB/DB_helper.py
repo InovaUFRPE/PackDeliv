@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 DATABASE_NAME="packDeliv_DB"
 
-TABLE_COMPANY= 'empresa'
+TABLE_COMPANY= 'Empresa'
 TABLE_DELIVERYMAN= 'Entregador'
 TABLE_ADRESS= 'Endereco'
 TABLE_VEHICLE='Veiculo'
@@ -25,14 +25,15 @@ TABLE_COMPANY_PASSWORD ='Senha'
 TABLE_COMPANY_LOGIN ='Login'
 TABLE_COMPANY_EMAIL ='Email' 
 TABLE_COMPANY_UCI= 'CNPJ' # unique identifier of company
+TABLE_COMPANY_TYPE= 'Tipo'
 
 TABLE_DELIVERYMAN_ID= 'id'
 TABLE_DELIVERYMAN_ID_VEHICLE= 'Id_veiculo'
 TABLE_DELIVERYMAN_ID_COMPANY = 'id_empresa'
-TABLE_DELIVERYMAN_DUI= 'cnh' #driver unique identifier
+TABLE_DELIVERYMAN_DUI= 'CNH' #driver unique identifier
 TABLE_DELIVERYMAN_AVAILABILITY= 'Disponibilidade'
-TABLE_DELIVERYMAN_READY= 'apto'
-TABLE_DELIVERYMAN_LOCALIZATION= 'localizacao'
+TABLE_DELIVERYMAN_READY= 'Apto'
+TABLE_DELIVERYMAN_LOCALIZATION= 'Localizacao'
 
 TABLE_ADRESS_ID= 'Id'
 TABLE_ADRESS_STREET= 'Logradouro'
@@ -112,17 +113,26 @@ class Company(Base):
     password = Column(TABLE_COMPANY_PASSWORD,String(255),nullable=False)
     login=Column(TABLE_COMPANY_LOGIN,String(255),unique=True,nullable=False)
     email=Column(TABLE_COMPANY_EMAIL,String(255),unique=True,nullable=False)
-    uci=Column(TABLE_COMPANY_UCI,String(255),unique=True,nullable=False)#unique company identifier
+    uci=Column(TABLE_COMPANY_UCI,Integer,unique=True)#unique company identifier
+    type=Column(TABLE_COMPANY_TYPE, String(255))
+    __mapper_args__ = {
+        'polymorphic_identity': TABLE_COMPANY,
+        'polymorphic_on':type
+    }
 
-class Deliveryman(Base):
+class Deliveryman(Company):
     __tablename__=TABLE_DELIVERYMAN
-    id=Column(TABLE_DELIVERYMAN_ID, Integer, primary_key=True)
+    id = Column(TABLE_DELIVERYMAN_ID,Integer, ForeignKey(Company.id), primary_key=True)
     Id_veiculo=Column(TABLE_DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id,onupdate="CASCADE", ondelete="CASCADE"))
-    id_company=Column(TABLE_DELIVERYMAN_ID_COMPANY,Integer,ForeignKey(Vehicle.id,onupdate="CASCADE", ondelete="CASCADE"))
+    #id_company=Column(TABLE_DELIVERYMAN_ID_COMPANY,Integer,ForeignKey(Company.id,onupdate="CASCADE", ondelete="CASCADE"))
     dui=Column(TABLE_DELIVERYMAN_DUI,Integer,unique=True,nullable=False)
     availability=Column(TABLE_DELIVERYMAN_AVAILABILITY,Boolean, default=False)
     ready=Column(TABLE_DELIVERYMAN_READY,Boolean, default=False)
-    localization = GeometryColumn(TABLE_DELIVERYMAN_LOCALIZATION,Point(2))
+    #localization = GeometryColumn(TABLE_DELIVERYMAN_LOCALIZATION,Point(2))
+
+    __mapper_args__ = {
+        'polymorphic_identity':TABLE_DELIVERYMAN,
+    }
 
 class Service_order(Base):
     __tablename__=TABLE_SERVICE_ORDER
@@ -233,7 +243,35 @@ def saveVehicle(json_vehicle0):
     id=adress.id
     session.close()
     return id
+def saveDeliveryman(json_deliveryman):
 
+    id_adress=saveAdress(json_deliveryman[TABLE_ADRESS])
+
+    Session=getSession()
+    session=Session()
+    deliveryman=Deliveryman()
+
+    deliveryman.dui=json_deliveryman[TABLE_DELIVERYMAN_DUI]
+
+    deliveryman.id_adress=id_adress
+    deliveryman.name_company=json_deliveryman[TABLE_COMPANY_NAME]
+    deliveryman.password=json_deliveryman[TABLE_COMPANY_PASSWORD]
+    deliveryman.login=json_deliveryman[TABLE_COMPANY_LOGIN]
+    deliveryman.email=json_deliveryman[TABLE_COMPANY_EMAIL]
+    #deliveryman.uci=json_deliveryman[TABLE_COMPANY_UCI]
+    session.add(deliveryman)
+    response = False
+    try:
+        session.commit()
+        session.refresh(deliveryman)
+        response = deliveryman.id
+    except:
+        deleteAdress(id_adress)
+
+    session.close()
+    return response
+        
+        
 def saveCompany(json_company):
     id_adress=saveAdress(json_company[TABLE_ADRESS])
     Session=getSession()
@@ -253,7 +291,7 @@ def saveCompany(json_company):
         response = company.id
     except:
         deleteAdress(id_adress)
-        
+
     session.close()
     return response
 

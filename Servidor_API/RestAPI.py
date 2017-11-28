@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import requests
 from flaskext.mysql import MySQL
 from flask_cors import CORS
-from DB.DB_helper import INIT_API, saveCompany, getCompany
+from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman
 
 INIT_API()
 
@@ -29,7 +29,7 @@ def register_company():
     if request.method == 'POST':  
         json = request.get_json()
         idCompany = saveCompany(json)
-        print(json['Endereco']['Cidade'])
+        
         if (idCompany):
             return jsonify({'response' : {"companyID":str(idCompany)}})
         else:
@@ -38,6 +38,7 @@ def register_company():
 
 @app.route('/login',methods=['POST'])
 #Json Model /login --> {"login":"teste","senha":"teste"}
+
 def login_company():
     if request.method == 'POST':
         json_login = request.get_json()
@@ -56,10 +57,23 @@ def cnpj(cnpj):
         r = requests.get('https://www.receitaws.com.br/v1/cnpj/'+ str(cnpj) )
 
         return jsonify(r.json())
-        
-        
-        
 
+@app.route('/deliveryman', methods=['POST'])
+'''
+#Json Model /login -->
+{"CNH":"12432554","Nome_fantasia":"deliveryman", "Senha":"123213132", "Login":"deliveryman", "Email":"deliveryman",
+"Endereco": {"Logradouro":"deliveryman testeLog", "Numero":"1234","Complemento":"testeComplemento",
+"Bairro":"testeBairoo", "CEP":"54546123", "Cidade":"testeC", "Estado":"testeE","Pais":"testeP"  } }
+'''
+def register_deliveryman():
+    if request.method == 'POST':  
+        json = request.get_json()
+        idDeliveryman = saveDeliveryman(json)
+        
+        if (idDeliveryman):
+            return jsonify({'response' : {"companyID":str(idDeliveryman)}})
+        else:
+            return jsonify({'error' : 'Não foi possivel cadastar'})
 
 if __name__ == '__main__':
     app.run()
@@ -86,13 +100,14 @@ def getAllUsers():
     r = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
     r = dict(enumerate(r))
     return jsonify({'response' : r})
-'''
-
+  
 def logar(user):
     try:
         cur = mysql.connect().cursor()
         cur.execute('select * from usuario where Login='+user.username+' and Senha='+user.password+';' )
-        cur.close()
+        cursor.close()
         return jsonify({'done':'usuario logado'})
     except:
         return jsonify({'error':'Houve um erro ao logar'})
+'''    
+
