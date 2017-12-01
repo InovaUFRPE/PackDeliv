@@ -21,6 +21,7 @@ import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
 import { Geolocation } from "@ionic-native/geolocation";
 import { GoogleMaps, GoogleMap } from "@ionic-native/google-maps";
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
+import { EmailComposer } from "@ionic-native/email-composer";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
     UsuarioProvider,
     RemoteProvider,
     Geolocation,
-    GoogleMaps
+    GoogleMaps,
+    EmailComposer
   ]
 })
 export class AppModule {}

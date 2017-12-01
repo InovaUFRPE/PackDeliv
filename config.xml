@@ -76,19 +76,20 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <allow-navigation href="http://172.16.6.219:8101" />
+    <allow-navigation href="http://localhost:8101" />
+    <engine name="android" spec="6.3.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
-    <plugin name="cordova-plugin-device" spec="^1.1.6" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-device" spec="^1.1.7" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
-    <plugin name="cordova-plugin-geolocation" spec="~3.0.0">
+    <plugin name="cordova-plugin-geolocation" spec="^3.0.0">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-    <plugin name="cordova-plugin-googlemaps" spec="~2.1.1">
+    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyD99EZL4UdZsVdFR0namBSMWXmbn7NBhuM" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyD99EZL4UdZsVdFR0namBSMWXmbn7NBhuM" />
     </plugin>
-    <engine name="android" spec="~6.3.0" />
-    <allow-navigation href="http://172.16.6.219:8101" />
-    <allow-navigation href="http://localhost:8101" />
+    <plugin name="cordova-plugin-email-composer" spec="^0.8.11" />
 </widget>

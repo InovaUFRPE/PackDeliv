@@ -44,7 +44,7 @@ export class UsuarioProvider {
     });
   }
 
-  public cadastrarEmpresa(usuario: any) {
+  public cadastrarEmpresa(usuario: any, success: any) {
     let cnpj: string = usuario.CNPJ
       .split('.')
       .join('')
@@ -68,7 +68,7 @@ export class UsuarioProvider {
         usuario['Endereco']['Estado'] = resp.uf
         usuario['Endereco']['Pais'] = ""
         console.log(usuario)
-        this.inserirEmpresa(usuario);
+        this.inserirEmpresa(usuario, success);
       }
       else{
         alert(response.json().message);
@@ -78,12 +78,13 @@ export class UsuarioProvider {
     });
     }
 //Cadastra a empresa
-  public inserirEmpresa(empresa: any) {
+  public inserirEmpresa(empresa: any, success: any) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     this.http.post(this.url + 'company', empresa, { headers: headers })
       .subscribe((res) => {
         alert('Usuário cadastrado!');
+        success();
       }, (error) => {
         throw error;
       });

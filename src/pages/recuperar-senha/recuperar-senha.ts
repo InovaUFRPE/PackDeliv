@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { EmailComposer, EmailComposerOptions } from "@ionic-native/email-composer";
+import { ElementRef } from '@angular/core/src/linker/element_ref';
 
 /**
  * Generated class for the RecuperarSenhaPage page.
@@ -15,11 +17,43 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RecuperarSenhaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public inputEmail: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private emailComposer: EmailComposer, private toastCtrl: ToastController) {
+  }
+
+  public sendEmail() {
+    this.emailComposer.isAvailable().then((available: boolean) => {
+      if (available) {
+        let options: EmailComposerOptions = {
+          to: this.inputEmail,
+          body: 'Consegui pelo email composer porra!',
+          isHtml: true,
+          cc: 'silva.campos.matheus@gmail.com',
+          subject: 'Email composer'
+        };
+
+        this.emailComposer.open(options);
+      } else {
+        this.presentToast('Email Composer não disponível');
+      }
+    }).catch((error) => {
+      throw error;
+    });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecuperarSenhaPage');
+  }
+
+  presentToast(message: string) {
+    let toast = this.toastCtrl.create({
+      position: 'bottom',
+      duration: 3000,
+      message: message,
+      showCloseButton: true
+    });
+
+    toast.present();
   }
 
   public irParaLogin(): void {

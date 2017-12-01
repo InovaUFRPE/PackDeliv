@@ -23,12 +23,12 @@
       <div class="centro">
         <ion-item>
           <ion-label floating style="color: #144F45">E-mail</ion-label>
-          <ion-input type="text" id=""></ion-input>
+          <ion-input type="email" [(ngModel)]="inputEmail" ></ion-input>
         </ion-item>
       </div>
     
       <div text-center>
-        <button ion-button large color="verd" round large (click)="irParaLogin()">
+        <button ion-button large color="verd" round large (click)="sendEmail()">
           Confirmar
         </button>
       </div>
