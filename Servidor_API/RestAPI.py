@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask import Flask, jsonify, request
 import requests
 from flaskext.mysql import MySQL
@@ -22,7 +23,6 @@ mysql.init_app(app)
 
 @app.route('/company', methods=['POST'])
 #Json Model /company --> {"Nome_fantasia":"empresa teste", "Senha":"123213132", "Login":"adasdsada", "Email":"dansdjad", "CNPJ":"1232353", "Endereco": {"Id":"","Logradouro":"testeLog", "Numero":"1234","Complemento":"testeComplemento", "Bairro":"testeBairoo", "CEP":"54546123", "Cidade":"testeC", "Estado":"testeE","Pais":"testeP"  } }
-#campos não obrigatorios podem ficar vazios ex: complemento:""
 
 def register_company():
 

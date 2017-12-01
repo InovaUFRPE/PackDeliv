@@ -25,35 +25,26 @@ export class UsuarioProvider {
    * @param credentials 
    * An object that contains the user login and password.
    */
-  public getUsuario(credentials: any, callback) {
-    var finalUser: object = null;
-    
+  public logar(credentials: any, callback) {
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
     // Implements request to API
-    this.http.get(this.url+'getAllUsers')
+    this.http.post(this.url + 'login', credentials, { headers: headers })
     .subscribe((response) => {
       // Treat response
-      let users = response.json().response;
-      let array = [];
-      for (var u in users) {
-        array.push(users[u]);
+      let user = response.json().response;
+      if (user['login']){
+        callback(true)
       }
-      array.forEach(user => {
-        if (user.Login == credentials.username && user.Senha == credentials.password) {
-          finalUser = {
-            username: user.Login,
-            password: user.Senha,
-            email: user.Email,
-            cnpj: user.cnpj
-          };
-        }
-      });
-      callback(finalUser);      
+      else{
+        callback(false)
+      }
     }, (error) => {
       throw error;
     });
   }
 
-  public cadastrarEmpresa(usuario: any, sucess: any) {
+  public cadastrarEmpresa(usuario: any) {
     let cnpj: string = usuario.CNPJ
       .split('.')
       .join('')
@@ -77,7 +68,7 @@ export class UsuarioProvider {
         usuario['Endereco']['Estado'] = resp.uf
         usuario['Endereco']['Pais'] = ""
         console.log(usuario)
-        this.inserirEmpresa(usuario, sucess);
+        this.inserirEmpresa(usuario);
       }
       else{
         alert(response.json().message);
@@ -87,18 +78,17 @@ export class UsuarioProvider {
     });
     }
 //Cadastra a empresa
-  public inserirEmpresa(empresa: any, sucess: any) {
+  public inserirEmpresa(empresa: any) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     this.http.post(this.url + 'company', empresa, { headers: headers })
       .subscribe((res) => {
         alert('Usuário cadastrado!');
-        sucess();
       }, (error) => {
         throw error;
       });
   }
-
+//Cadastra o entregador
   public cadastrarentregador(entregador: any){
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));

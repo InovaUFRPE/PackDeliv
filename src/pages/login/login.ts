@@ -38,10 +38,10 @@ export class LoginPage {
    */
   public fazerLogin(): void {
     // Make request to API and pass user data to HomePage
-    this.usuarioProvider.getUsuario(this.credentials, (user) => {
-      if (user != null) {
+    this.usuarioProvider.logar(this.credentials, (resposta) => {
+      if (resposta) {
         // Vai para a tela Home e manda os dados do usuário para ela
-        this.navCtrl.push(HomePage, user);
+        this.navCtrl.push(HomePage);
       } else {
         this.presentToast('Login ou Senha incorretos, tente novamente.');
       }
@@ -60,7 +60,7 @@ export class LoginPage {
     *A função login() é apenas para saber se o menu lateral estava pegando
     *já que pela função fazerLogin() não teria como saber visto que
     *ela não está pegando
-    */ 
+    */
   public login() {
     this.navCtrl.push(HomePage);
   }
