@@ -58,13 +58,14 @@ def cnpj(cnpj):
 
         return jsonify(r.json())
 
+
 @app.route('/deliveryman', methods=['POST'])
-'''
+
 #Json Model /login -->
-{"CNH":"12432554","Nome_fantasia":"deliveryman", "Senha":"123213132", "Login":"deliveryman", "Email":"deliveryman",
-"Endereco": {"Logradouro":"deliveryman testeLog", "Numero":"1234","Complemento":"testeComplemento",
-"Bairro":"testeBairoo", "CEP":"54546123", "Cidade":"testeC", "Estado":"testeE","Pais":"testeP"  } }
-'''
+#{"CNH":"12432554","Nome_fantasia":"deliveryman", "Senha":"123213132", "Login":"deliveryman", "Email":"deliveryman",
+#"Endereco": {"Logradouro":"deliveryman testeLog", "Numero":"1234","Complemento":"testeComplemento",
+#"Bairro":"testeBairoo", "CEP":"54546123", "Cidade":"testeC", "Estado":"testeE","Pais":"testeP"  } } 
+
 def register_deliveryman():
     if request.method == 'POST':  
         json = request.get_json()
@@ -75,39 +76,11 @@ def register_deliveryman():
         else:
             return jsonify({'error' : 'Não foi possivel cadastar'})
 
-if __name__ == '__main__':
+
+
+if __name__ == '__main__' :
     app.run()
 
 
-'''
 
-@app.route('/deliveryman/<id_deliveryman>', methods=['GET'])
-def get_deliveryman(id_deliveryman):
-    connection = mysql.connect()
-    cursor=connection.cursor()
-    query='select * from entregador where id='+id_deliveryman
-    print(query)
-    cursor.execute(query)
-    r = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in cursor.fetchall()]
-    r = dict(enumerate(r))
-    return jsonify({'response' : r})
-@app.route()
-
-@app.route('/getAllUsers')
-def getAllUsers():
-    cur = mysql.connect().cursor()
-    cur.execute('select * from usuario')    
-    r = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
-    r = dict(enumerate(r))
-    return jsonify({'response' : r})
-  
-def logar(user):
-    try:
-        cur = mysql.connect().cursor()
-        cur.execute('select * from usuario where Login='+user.username+' and Senha='+user.password+';' )
-        cursor.close()
-        return jsonify({'done':'usuario logado'})
-    except:
-        return jsonify({'error':'Houve um erro ao logar'})
-'''    
 

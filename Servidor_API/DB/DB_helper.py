@@ -306,7 +306,7 @@ def getCompany(json_company):
         adress=getAdress(c.id_adress)["response"]
         #dic= company.__dict__
         #dicCompany={key : value for key, value in dic.items() if key != '_sa_instance_state' }
-        dicCompany={TABLE_COMPANY_ID :c.id , TABLE_ADRESS : adress, TABLE_COMPANY_NAME: c.name_company,TABLE_COMPANY_LOGIN: c.login,TABLE_COMPANY_EMAIL:c.email,TABLE_COMPANY_UCI:c.uci }
+        dicCompany={TABLE_COMPANY_ID :c.id , TABLE_ADRESS : adress, TABLE_COMPANY_TYPE : c.type, TABLE_COMPANY_NAME: c.name_company,TABLE_COMPANY_LOGIN: c.login,TABLE_COMPANY_EMAIL:c.email,TABLE_COMPANY_UCI:c.uci }
         response= dicCompany
     else:
         response=False
