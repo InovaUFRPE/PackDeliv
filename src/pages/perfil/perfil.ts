@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Geolocation } from "@ionic-native/geolocation";
@@ -19,6 +19,8 @@ import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
 })
 export class PerfilPage {
 
+  @ViewChild('mapCanvas') map: GoogleMap;
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private geolocation: Geolocation) {
@@ -38,14 +40,12 @@ export class PerfilPage {
 
   public loadMap() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      let element: HTMLElement = document.getElementById('map');
 
-      let map: GoogleMap = GoogleMaps.create(element);
-
-      // listen to MAP_READY event
-      // You must wait for this event to fire before adding something to the map or modifying it in anyway
-      map.one(GoogleMapsEvent.MAP_READY).then(() => console.log('Map is ready!'))
-        .catch((error) => console.log('Erro ao criar mapa: ' + error));
+      this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        console.log('Mapa tá pronto');
+      }).catch(() => {
+        console.log('Erro ao gerar o mapa');
+      });
 
       // create LatLng object
       let ionic: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
@@ -58,7 +58,7 @@ export class PerfilPage {
       };
 
       // move the map's camera to position
-      map.moveCamera(position);
+      this.map.moveCamera(position);
 
       // create new marker
       let markerOptions: MarkerOptions = {
@@ -66,7 +66,7 @@ export class PerfilPage {
         title: 'Ionic'
       };
 
-      map.addMarker(markerOptions)
+      this.map.addMarker(markerOptions)
         .then((marker: Marker) => {
           marker.showInfoWindow();
         });
