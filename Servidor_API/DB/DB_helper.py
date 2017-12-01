@@ -84,7 +84,7 @@ class Adress(Base):
     
     id= Column(TABLE_ADRESS_ID,Integer,primary_key=True)
     street = Column(TABLE_ADRESS_STREET, String(255))
-    number = Column(TABLE_ADRESS_NUMBER,Integer, nullable=False)
+    number = Column(TABLE_ADRESS_NUMBER,String(255), nullable=False)
     complement = Column(TABLE_ADRESS_COMPLEMENT,String(255))
     district = Column(TABLE_ADRESS_DISTRICT,String(255), nullable=False)
     postal_code= Column(TABLE_ADRESS_POSTAL_CODE, String(255), nullable= False)
