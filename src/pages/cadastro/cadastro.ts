@@ -16,7 +16,7 @@ import { LoginPage } from "../login/login";
   templateUrl: 'cadastro.html',
 })
 export class CadastroPage {
-  
+
   public dados = {
     nomeUsuario: null,
     cnpj: null,
@@ -132,9 +132,10 @@ export class CadastroPage {
       Email: email
     };
 
-    this.usuarioDAO.cadastrarEmpresa(usuario);
-
-    this.navCtrl.push(LoginPage);
+    this.usuarioDAO.cadastrarEmpresa(usuario, () => {
+      this.navCtrl.push(LoginPage);
+    });
+    
   }
 
 }
