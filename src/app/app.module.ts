@@ -19,7 +19,7 @@ import { PerfilPage } from "../pages/perfil/perfil";
 import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-entregas";
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
 import { Geolocation } from "@ionic-native/geolocation";
-import { GoogleMaps, GoogleMap } from "@ionic-native/google-maps";
+import { GoogleMaps } from "@ionic-native/google-maps";
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { EmailComposer } from "@ionic-native/email-composer";
 

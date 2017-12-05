@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { EmailComposer, EmailComposerOptions } from "@ionic-native/email-composer";
-import { ElementRef } from '@angular/core/src/linker/element_ref';
 
 /**
  * Generated class for the RecuperarSenhaPage page.
@@ -23,6 +22,7 @@ export class RecuperarSenhaPage {
   }
 
   public sendEmail() {
+    console.log(this.inputEmail)
     this.emailComposer.isAvailable().then((available: boolean) => {
       if (available) {
         let options: EmailComposerOptions = {

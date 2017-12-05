@@ -1,4 +1,4 @@
-import { Component,Input, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { LoginPage } from "../login/login";

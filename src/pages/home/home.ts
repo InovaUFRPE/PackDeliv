@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas";
 import { PerfilPage } from "../perfil/perfil";
 import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
-import { LoginPage } from "../login/login";
 
 
 /**
