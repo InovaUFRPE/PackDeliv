@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, CameraPosition } from '@ionic-native/google-maps';
+import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, CameraPosition, GoogleMapOptions } from '@ionic-native/google-maps';
 import { Geolocation } from "@ionic-native/geolocation";
 
 /**
@@ -36,11 +36,16 @@ export class MonitorarEntregasPage {
 
   loadMap(coords: LatLng) {
     let element: HTMLElement = document.getElementById('map');
-    let map: GoogleMap = this.googleMaps.create(element);
+    let config: GoogleMapOptions = {
+      controls: {
+        myLocationButton: true,
+        zoom: true
+      }
+    };
+    
+    let map: GoogleMap = this.googleMaps.create(element, config);
 
     map.one(GoogleMapsEvent.MAP_READY).then(() => {
-      console.log('Map is ready!');
-
       let curPos: LatLng = new LatLng(coords.lat, coords.lng);
 
       let position: CameraPosition<LatLng> = {
