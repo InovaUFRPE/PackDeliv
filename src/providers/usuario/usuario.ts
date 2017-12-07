@@ -27,16 +27,17 @@ export class UsuarioProvider {
   public logar(credentials: any, callback) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');
+    
     // Implements request to API
     this.http.post(this.url + 'login', credentials, { headers: headers })
     .subscribe((response) => {
       // Treat response
-      let user = response.json().response;
-      if (user['login']){
-        callback(true)
-      }
-      else{
-        callback(false)
+      var user = response.json().response;
+      if (user['Login']){
+        callback(true);
+      } else {
+        callback(false);
       }
     }, (error) => {
       throw error;
@@ -52,31 +53,32 @@ export class UsuarioProvider {
 
     this.http.get(this.url+'cnpj/'+cnpj)
     .subscribe((response) => {
-      var resp = response.json();
-      usuario['Endereco']={};
-      if (resp.status !== "ERROR"){
-        usuario['id'] = ""
-        usuario['Id_endereco'] = "";
-        usuario['Nome_fantasia'] = resp.fantasia
-        usuario['Endereco']['Logradouro'] = resp.logradouro
-        usuario['Endereco']['Numero'] = resp.numero
-        usuario['Endereco']['Complemento'] = resp.complemento
-        usuario['Endereco']['Bairro'] = resp.bairro
-        usuario['Endereco']['CEP'] = resp.cep
-        usuario['Endereco']['Cidade'] = resp.municipio
-        usuario['Endereco']['Estado'] = resp.uf
-        usuario['Endereco']['Pais'] = ""
-        console.log(usuario)
-        this.inserirEmpresa(usuario, success);
-      }
-      else{
-        alert(response.json().message);
-      }
-    }, (error) => {
+        var resp = response.json();
+        usuario['Endereco']={};
+        if (resp.status !== "ERROR"){
+          usuario['id'] = ""
+          usuario['Id_endereco'] = "";
+          usuario['Nome_fantasia'] = resp.fantasia
+          usuario['Endereco']['Logradouro'] = resp.logradouro
+          usuario['Endereco']['Numero'] = resp.numero
+          usuario['Endereco']['Complemento'] = resp.complemento
+          usuario['Endereco']['Bairro'] = resp.bairro
+          usuario['Endereco']['CEP'] = resp.cep
+          usuario['Endereco']['Cidade'] = resp.municipio
+          usuario['Endereco']['Estado'] = resp.uf
+          usuario['Endereco']['Pais'] = ""
+          console.log(usuario)
+          this.inserirEmpresa(usuario, success);
+        }
+        else{
+          alert(response.json().message);
+        }
+      }, (error) => {
       throw error;
-    });
+      });
     }
-//Cadastra a empresa
+
+  //Cadastra a empresa
   public inserirEmpresa(empresa: any, success: any) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
@@ -88,7 +90,8 @@ export class UsuarioProvider {
         throw error;
       });
   }
-//Cadastra o entregador
+
+  //Cadastra o entregador
   public cadastrarentregador(entregador: any){
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));

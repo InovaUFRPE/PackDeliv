@@ -22,8 +22,8 @@ export class LoginPage {
 
   public cadastroPage = CadastroPage;
   public credentials = {
-    username: null,
-    password: null
+    login: null,
+    senha: null
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public usuarioProvider: UsuarioProvider) {

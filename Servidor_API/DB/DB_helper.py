@@ -41,7 +41,7 @@ class Company(Base):
     password = Column(COMPANY_PASSWORD,String(255),nullable=False)
     login=Column(COMPANY_LOGIN,String(255),unique=True,nullable=False)
     email=Column(COMPANY_EMAIL,String(255),unique=True,nullable=False)
-    uci=Column(COMPANY_UCI,Integer,unique=True)#unique company identifier
+    uci=Column(COMPANY_UCI,String(14),unique=True)#unique company identifier
     type=Column(COMPANY_TYPE, String(255))
     __mapper_args__ = {
         'polymorphic_identity': COMPANY,
@@ -98,7 +98,7 @@ class Delivery(Base):
 def getEngine():
 
     user ="root"
-    password=""
+    password="root"
     adress="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
