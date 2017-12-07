@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, CameraPosition } from '@ionic-native/google-maps';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, CameraPosition, GoogleMapOptions } from '@ionic-native/google-maps';
 import { Geolocation } from "@ionic-native/geolocation";
 
 /**
@@ -18,14 +18,14 @@ import { Geolocation } from "@ionic-native/geolocation";
 export class MonitorarEntregasPage {
 
   map: GoogleMap;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, private geolocation: Geolocation, public alertCtrl: AlertController) {
   }
 
   ngAfterViewInit() {
     this.updateCoords();
   }
 
-  updateCoords() {
+  public updateCoords() {
     this.geolocation.getCurrentPosition().then((resp) => {
       let position: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
       this.loadMap(position);
@@ -34,13 +34,18 @@ export class MonitorarEntregasPage {
     });
   }
 
-  loadMap(coords: LatLng) {
+  public loadMap(coords: LatLng) {
     let element: HTMLElement = document.getElementById('map');
-    let map: GoogleMap = this.googleMaps.create(element);
+    let config: GoogleMapOptions = {
+      controls: {
+        myLocationButton: true,
+        zoom: true
+      }
+    };
+
+    let map: GoogleMap = this.googleMaps.create(element, config);
 
     map.one(GoogleMapsEvent.MAP_READY).then(() => {
-      console.log('Map is ready!');
-
       let curPos: LatLng = new LatLng(coords.lat, coords.lng);
 
       let position: CameraPosition<LatLng> = {
@@ -59,11 +64,20 @@ export class MonitorarEntregasPage {
         }
       }).then(marker => {
         marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-          alert('clicou');
+          this.showAlert('Clicou', 'Você clicou no marcador');
         });
       });
 
       map.moveCamera(position);
     });
+  }
+
+  showAlert(title: string, message: string) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }
