@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 import requests
 
 from flask_cors import CORS
-from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman
+from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman, savePackage
 
 INIT_API()
 
@@ -26,7 +26,7 @@ def register_company():
         if (idCompany):
             return jsonify({'response' : {"companyID":str(idCompany)}})
         else:
-            return jsonify({'error' : 'Não foi possivel cadastar'})
+            return jsonify({'error' : 'Não foi possivel cadastrar'})
             
 
 @app.route('/login',methods=['POST'])
@@ -67,9 +67,19 @@ def register_deliveryman():
         if (idDeliveryman):
             return jsonify({'response' : {"companyID":str(idDeliveryman)}})
         else:
-            return jsonify({'error' : 'Não foi possivel cadastar'})
+            return jsonify({'error' : 'Não foi possivel cadastrar'})
 
+@app.route('/package', methods=['POST'])
 
+def register_package():
+    if request.method == 'POST':
+        json = request.get_json()
+        idPackage= savePackage(json)
+
+        if (idPackage):
+            return jsonify({'response' : {"packageID":str(idPackage)}})
+        else:
+            return jsonify({'error' : "Não foi possível cadastrar"})        
 
 if __name__ == '__main__' :
     app.run()

@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String,Boolean, ForeignKey,Date
-from geoalchemy import *
+#from geoalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
@@ -80,8 +80,8 @@ class Package(Base):
     weight=Column(PACKAGE_WEIGHT,Integer,nullable=False)
     shiped=Column(PACKAGE_SHIPPED,Boolean, default=False)
     receiveid=Column(PACKAGE_RECEIVED,Boolean, default=False)
-    local_destiny=GeometryColumn(PACKAGE_LOCAL_DESTINY,Point(2))
-    id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
+    #local_destiny=GeometryColumn(PACKAGE_LOCAL_DESTINY,Point(2))
+    #id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255),nullable=False)
 
 class Delivery(Base):
@@ -171,8 +171,8 @@ def saveVehicle(json_vehicle0):
     id=adress.id
     session.close()
     return id
-def saveDeliveryman(json_deliveryman):
 
+def saveDeliveryman(json_deliveryman):
     id_adress=saveAdress(json_deliveryman[ADRESS])
 
     Session=getSession()
@@ -198,8 +198,31 @@ def saveDeliveryman(json_deliveryman):
 
     session.close()
     return response
-        
-        
+
+def savePackage(json_package):
+    Session=getSession()
+    session=Session()
+    package=Package()
+    package.width=json_package[PACKAGE_WIDTH]
+    package.height=json_package[PACKAGE_HEIGHT]
+    package.length=json_package[PACKAGE_LENGTH]
+    package.weight=json_package[PACKAGE_WEIGHT]
+    package.shiped=json_package[PACKAGE_SHIPPED]
+    package.receiveid=json_package[PACKAGE_RECEIVED]
+    #package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]
+    #package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
+    package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
+    session.add(package)
+    response=False
+    try:
+        session.commit()
+        session.refresh(package)
+        response = package.id
+    except:
+        deleteAdress(id_adress)    
+    session.close()
+    return response
+  
 def saveCompany(json_company):
     id_adress=saveAdress(json_company[ADRESS])
     Session=getSession()
