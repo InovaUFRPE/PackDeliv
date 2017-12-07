@@ -36,7 +36,7 @@ export class UsuarioProvider {
     .subscribe((response) => {
       // Treat response
       var user = response.json().response;
-      if (user['Login']){
+      if (user !== undefined){
         callback(true);
       } else {
         callback(false);
