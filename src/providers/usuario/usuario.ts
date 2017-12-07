@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Empresa } from "../../interfaces/empresa";
+import { Entregador } from '../../interfaces/entregador';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -15,6 +16,9 @@ import 'rxjs/add/operator/do';
 export class UsuarioProvider {
 
   private url: string = 'http://localhost:5000/';
+
+  public static EMPRESA = true;
+  public static ENTREGADOR = false;
 
   constructor(public http: Http) {
   }
@@ -46,7 +50,7 @@ export class UsuarioProvider {
     });
   }
 
-  public cadastrarEmpresa(usuario: any, success: any) {
+  public validarCNPJ(usuario: any, tipo: boolean, success: any) {
     let cnpj: string = usuario.CNPJ
       .split('.')
       .join('')
@@ -70,7 +74,12 @@ export class UsuarioProvider {
           usuario['Endereco']['Cidade'] = resp.municipio;
           usuario['Endereco']['Estado'] = resp.uf;
           usuario['Endereco']['Pais'] = "";
-          this.inserirEmpresa(usuario, success);
+
+          if (tipo) {
+            this.inserirEmpresa(usuario, success);
+          } else {
+            this.cadastrarEntregador(usuario, success);
+          }
         }
         else{
           alert(response.json().message);
@@ -96,13 +105,15 @@ export class UsuarioProvider {
   }
 
   //Cadastra o entregador
-  public cadastrarentregador(entregador: any){
+  public cadastrarEntregador(entregador: Entregador, success: any){
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
-    this.http.post(this.url+'entregador', entregador,{headers: headers})
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(this.url+'deliveryman', entregador,{headers: headers})
     .subscribe( (res) => {
       alert('Entregador cadastrado!');
-      alert('Cadastre o veículo!');
+      success();
     }, (error) => {
       throw error;
     });

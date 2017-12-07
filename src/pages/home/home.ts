@@ -26,13 +26,13 @@ export class HomePage {
     console.log('ionViewDidLoad HomePage');
   }
   abrirPerfil(){
-    this.navCtrl.push(PerfilPage)
+    this.navCtrl.push(PerfilPage);
   }
   abrirSolicitarEntregas(){
-    this.navCtrl.push(SolicitarEntregasPage)
+    this.navCtrl.push(SolicitarEntregasPage);
   }
   abrirMonitorarEntregas(){
-    this.navCtrl.push(MonitorarEntregasPage)
+    this.navCtrl.push(MonitorarEntregasPage);
   }
   sair(){
     this.navCtrl.popToRoot();

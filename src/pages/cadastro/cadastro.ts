@@ -26,7 +26,7 @@ export class CadastroPage {
     emailConf: null
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioDAO: UsuarioProvider,private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
   }
 
   /**
@@ -132,7 +132,7 @@ export class CadastroPage {
       Email: email
     };
 
-    this.usuarioDAO.cadastrarEmpresa(usuario, () => {
+    this.usuarioProvider.validarCNPJ(usuario, UsuarioProvider.EMPRESA, () => {
       this.navCtrl.push(LoginPage);
     });
     

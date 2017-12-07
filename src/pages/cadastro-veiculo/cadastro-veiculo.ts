@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 /**
  * Generated class for the CadastroVeiculoPage page.
@@ -21,7 +22,7 @@ export class CadastroVeiculoPage {
     modelo:null,
   };
   
-  constructor( public navCtrl: NavController, public navParams: NavParams,public toastCtrl:ToastController) {
+  constructor( public navCtrl: NavController, public navParams: NavParams,public toastCtrl:ToastController, private usuarioProvider: UsuarioProvider) {
   }
 
 
@@ -70,16 +71,20 @@ export class CadastroVeiculoPage {
       this.presentToast('Modelo do carro é um campo obrigatório.');
       return;
     }
-   
-  
 
-  var veiculo: object = {
-    placa: placa,
-    ano: ano,
-    modelo: modelo,
-  };
-  
+    var veiculo: object = {
+      placa: placa,
+      ano: ano,
+      modelo: modelo,
+    };
 
+    var entregador = this.navParams.get('user');
+
+    entregador.veiculo = veiculo;
+  
+    this.usuarioProvider.validarCNPJ(entregador, UsuarioProvider.ENTREGADOR, () => {
+      this.irParaLogin();
+    });
   }
 
   public irParaLogin(): void {

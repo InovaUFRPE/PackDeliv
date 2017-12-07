@@ -107,7 +107,7 @@ export class CadastroEntregadorPage {
       return;
     }
     //verifica o tamanho da senha
-    if (senha.length != 6 ) {
+    if (senha.length < 6 ) {
       // Faz algo caso não sejam
       this.presentToast('A senha deve conter no minimo 6 digitos.');
       return;
@@ -144,17 +144,16 @@ export class CadastroEntregadorPage {
     }
     // Cria o objeto usuario
     var entregador: object = {
-
       username: nomeUsuario,
       cnpj: cnpj,
       password: senha,
       nomeCompleto:nomeCompleto,
       email: email
     };
+
     // Passa o objeto usuario para a tela de cadastro de veículo
     //Caminho para cadastrar o entregador
-    //this.usuarioProvider.cadastrarentregador(entregador);
-    this.navCtrl.push(CadastroVeiculoPage, entregador);
+    this.navCtrl.push(CadastroVeiculoPage, {user: entregador});
     
   }
 }
