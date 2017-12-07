@@ -1,23 +1,16 @@
 # coding=utf-8
 from flask import Flask, jsonify, request
 import requests
-from flaskext.mysql import MySQL
+
 from flask_cors import CORS
 from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman
 
 INIT_API()
 
 app = Flask(__name__)
-mysql = MySQL()
+
 CORS(app)
 
-# MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-app.config['MYSQL_DATABASE_DB'] = 'packdeliv'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-
-mysql.init_app(app)
 
 
 
