@@ -1,13 +1,4 @@
-interface Endereco {
-    Logradouro: string,
-    Numero: string,
-    Complemento: string,
-    Bairro: string,
-    CEP: string,
-    Cidade: string,
-    Estado: string,
-    Pais: string
-}
+import { Endereco } from "./endereco";
 
 export interface Empresa {
     id?: number,
