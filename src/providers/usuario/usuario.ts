@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Empresa } from "../../interfaces/empresa";
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -54,20 +56,20 @@ export class UsuarioProvider {
     this.http.get(this.url+'cnpj/'+cnpj)
     .subscribe((response) => {
         var resp = response.json();
-        usuario['Endereco']={};
+        usuario['Endereco'] = {};
+        
         if (resp.status !== "ERROR"){
-          usuario['id'] = ""
+          usuario['id'] = "";
           usuario['Id_endereco'] = "";
-          usuario['Nome_fantasia'] = resp.fantasia
-          usuario['Endereco']['Logradouro'] = resp.logradouro
-          usuario['Endereco']['Numero'] = resp.numero
-          usuario['Endereco']['Complemento'] = resp.complemento
-          usuario['Endereco']['Bairro'] = resp.bairro
-          usuario['Endereco']['CEP'] = resp.cep
-          usuario['Endereco']['Cidade'] = resp.municipio
-          usuario['Endereco']['Estado'] = resp.uf
-          usuario['Endereco']['Pais'] = ""
-          console.log(usuario)
+          usuario['Nome_fantasia'] = resp.fantasia;
+          usuario['Endereco']['Logradouro'] = resp.logradouro;
+          usuario['Endereco']['Numero'] = resp.numero;
+          usuario['Endereco']['Complemento'] = resp.complemento;
+          usuario['Endereco']['Bairro'] = resp.bairro;
+          usuario['Endereco']['CEP'] = resp.cep;
+          usuario['Endereco']['Cidade'] = resp.municipio;
+          usuario['Endereco']['Estado'] = resp.uf;
+          usuario['Endereco']['Pais'] = "";
           this.inserirEmpresa(usuario, success);
         }
         else{
@@ -79,9 +81,11 @@ export class UsuarioProvider {
     }
 
   //Cadastra a empresa
-  public inserirEmpresa(empresa: any, success: any) {
+  public inserirEmpresa(empresa: Empresa, success: any) {
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');
+
     this.http.post(this.url + 'company', empresa, { headers: headers })
       .subscribe((res) => {
         alert('Usuário cadastrado!');
