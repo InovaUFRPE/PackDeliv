@@ -3,7 +3,10 @@ from flask import Flask, jsonify, request
 import requests
 
 from flask_cors import CORS
-from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman, savePackage
+from DB.DB_helper import INIT_API #aveDeliveryman, savePackage
+from Rest_utils.entities_atributes_Names import *
+from Models.company import *
+from Models.adress import * 
 
 INIT_API()
 
@@ -21,10 +24,33 @@ def register_company():
 
     if request.method == 'POST':  
         json = request.get_json()
-        idCompany = saveCompany(json)
         
-        if (idCompany):
-            return jsonify({'response' : {"companyID":str(idCompany)}})
+        json_adress = json[ADRESS]
+        
+        adress = Adress()
+        adress.street=json_adress[ADRESS_STREET]
+        adress.number=json_adress[ADRESS_NUMBER]
+        adress.complement=json_adress[ADRESS_COMPLEMENT]
+        adress.district=json_adress[ADRESS_DISTRICT]
+        adress.postal_code=json_adress[ADRESS_POSTAL_CODE]
+        adress.city=json_adress[ADRESS_CITY]
+        adress.state=json_adress[ADRESS_STATE]
+        adress.country=json_adress[ADRESS_COUNTRY]
+        
+        id_adress = Adress.save(adress)
+        
+        company = Company()
+        company.id_adress = id_adress
+        company.name_company = json[COMPANY_NAME]
+        company.password = json[COMPANY_PASSWORD]
+        company.login = json[COMPANY_LOGIN]
+        company.email = json[COMPANY_EMAIL]
+        company.uci = json[COMPANY_UCI]
+        
+        id_company = Company.save(company)
+        
+        if (id_company):
+            return jsonify({'response' : {"companyID":str(id_company)}})
         else:
             return jsonify({'error' : 'Não foi possivel cadastrar'})
             
@@ -83,7 +109,3 @@ def register_package():
 
 if __name__ == '__main__' :
     app.run()
-
-
-
-

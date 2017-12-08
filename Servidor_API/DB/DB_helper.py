@@ -1,28 +1,35 @@
-from sqlalchemy import create_engine, Column, Integer, String,Boolean, ForeignKey,Date
-#from geoalchemy import *
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
 from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->fix it)
 
+
+def getEngine():
+    user ="root"
+    password="admin"
+    adress="localhost"
+    database_name="packDeliv"
+    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
+
+    return engine
+
+def INIT_API():
+    engine = getEngine()
+    if not database_exists(engine.url):
+        create_database(engine.url)
+    Base.metadata.create_all(bind=engine)
+    return sessionmaker(bind=engine)
+
+def getSession():
+    engine = getEngine()
+    return sessionmaker(bind=engine)
+
+
 Base = declarative_base()
+Session = getSession()
 
-class Adress(Base):
-    __tablename__= ADRESS
-    
-    id= Column(ADRESS_ID,Integer,primary_key=True)
-    street = Column(ADRESS_STREET, String(255))
-    number = Column(ADRESS_NUMBER,String(255), nullable=False)
-    complement = Column(ADRESS_COMPLEMENT,String(255))
-    district = Column(ADRESS_DISTRICT,String(255), nullable=False)
-    postal_code= Column(ADRESS_POSTAL_CODE, String(255), nullable= False)
-    city = Column(ADRESS_CITY, String(255), nullable=False)
-    state = Column(ADRESS_STATE, String(255),nullable=False)
-    country = Column(ADRESS_COUNTRY,String(255),nullable=False)
-
-
-
-class Vehicle(Base):
+'''class Vehicle(Base):
     __tablename__= VEHICLE
 
     id= Column(VEHICLE_ID,Integer,primary_key=True)
@@ -32,21 +39,6 @@ class Vehicle(Base):
     color =Column(VEHICLE_COLOR,String(255),nullable=False)
     ready=Column(VEHICLE_READY, Boolean, default=False)
 
-class Company(Base):
-    __tablename__=COMPANY
-
-    id=Column(COMPANY_ID, Integer, primary_key=True)
-    id_adress=Column(COMPANY_ID_ADRESS,Integer,ForeignKey(Adress.id),nullable=False)
-    name_company=Column(COMPANY_NAME,String(255),nullable=False)
-    password = Column(COMPANY_PASSWORD,String(255),nullable=False)
-    login=Column(COMPANY_LOGIN,String(255),unique=True,nullable=False)
-    email=Column(COMPANY_EMAIL,String(255),unique=True,nullable=False)
-    uci=Column(COMPANY_UCI,String(14),unique=True)#unique company identifier
-    type=Column(COMPANY_TYPE, String(255))
-    __mapper_args__ = {
-        'polymorphic_identity': COMPANY,
-        'polymorphic_on':type
-    }
 
 class Deliveryman(Company):
     __tablename__=DELIVERYMAN
@@ -94,48 +86,6 @@ class Delivery(Base):
     id_service_order=Column(DELIVERY_ID_SERVICE_ORDER,Integer,ForeignKey(Service_order.id,onupdate="CASCADE", ondelete="CASCADE"))
     id_package=Column(DELIVERY_ID_PACKAGE,Integer,ForeignKey(Package.id,onupdate="CASCADE", ondelete="CASCADE"))
 
-
-def getEngine():
-
-    user ="root"
-    password="root"
-    adress="localhost"
-    database_name="packDeliv"
-    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
-
-    return engine
-
-def INIT_API():
-    engine = getEngine()
-    if not database_exists(engine.url):
-        create_database(engine.url)
-    Base.metadata.create_all(bind=engine)
-    return sessionmaker(bind=engine)
-
-def getSession():
-    engine = getEngine()
-    return sessionmaker(bind=engine)
-
-
-def saveAdress(json_adress):
-
-    Session = getSession()
-    session=Session()
-    adress = Adress()
-    adress.street=json_adress[ADRESS_STREET]
-    adress.number=json_adress[ADRESS_NUMBER]
-    adress.complement=json_adress[ADRESS_COMPLEMENT]
-    adress.district=json_adress[ADRESS_DISTRICT]
-    adress.postal_code=json_adress[ADRESS_POSTAL_CODE]
-    adress.city=json_adress[ADRESS_CITY]
-    adress.state=json_adress[ADRESS_STATE]
-    adress.country=json_adress[ADRESS_COUNTRY]
-    session.add(adress)
-    session.commit()
-    session.refresh(adress)
-    id=adress.id
-    session.close()
-    return id
 
 def deleteAdress(id):
     Session = getSession()
@@ -221,46 +171,5 @@ def savePackage(json_package):
     except:
         deleteAdress(id_adress)    
     session.close()
-    return response
+    return response '''
   
-def saveCompany(json_company):
-    id_adress=saveAdress(json_company[ADRESS])
-    Session=getSession()
-    session=Session()
-    company=Company()
-    company.id_adress=id_adress
-    company.name_company=json_company[COMPANY_NAME]
-    company.password=json_company[COMPANY_PASSWORD]
-    company.login=json_company[COMPANY_LOGIN]
-    company.email=json_company[COMPANY_EMAIL]
-    company.uci=json_company[COMPANY_UCI]
-    session.add(company)
-    response = False
-    try:
-        session.commit()
-        session.refresh(company)
-        response = company.id
-    except:
-        deleteAdress(id_adress)
-
-    session.close()
-    return response
-
-def getCompany(json_company):
-    login=json_company['login']
-    senha=json_company['senha']
-    Session=getSession()
-    session=Session()
-    response= session.query(Company).filter(Company.login == login , Company.password==senha).all()
-    if len(response)==1:
-        c=response[0]
-        adress=getAdress(c.id_adress)["response"]
-        #dic= company.__dict__
-        #dicCompany={key : value for key, value in dic.items() if key != '_sa_instance_state' }
-        dicCompany={COMPANY_ID :c.id , ADRESS : adress, COMPANY_TYPE : c.type, COMPANY_NAME: c.name_company,COMPANY_LOGIN: c.login,COMPANY_EMAIL:c.email,COMPANY_UCI:c.uci , COMPANY_TYPE:c.type}
-        response= dicCompany
-    else:
-        response=False
-    return response
-
-
