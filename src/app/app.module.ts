@@ -22,6 +22,7 @@ import { Geolocation } from "@ionic-native/geolocation";
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { EmailComposer } from "@ionic-native/email-composer";
+import { SessionProvider } from '../providers/session/session';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { EmailComposer } from "@ionic-native/email-composer";
     RemoteProvider,
     Geolocation,
     GoogleMaps,
-    EmailComposer
+    EmailComposer,
+    SessionProvider
   ]
 })
 export class AppModule {}
