@@ -1,0 +1,67 @@
+<!--
+  Generated template for the CadastrarPacotePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  
+    <h1 class="titulo">Cadastre o destino do pacote</h1>
+  
+    <ion-navbar>
+      <ion-title>CadastrarPacote</ion-title>
+    </ion-navbar>
+  
+    <ion-list>
+      
+          <ion-item>
+            <ion-label floating>Rua</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.rua" id="inputRua" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Numero</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.numero" id="inputNumero" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Complemento</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.complemento" id="inputComplemento" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Bairro</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.bairro" id="inputBairro" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>CEP</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.cep" id="inputCEP" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Cidade</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.cidade" id="inputCidade" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Estado</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.estado" id="inputEstado" required></ion-input>
+          </ion-item>
+  
+          <div text-center>
+            <button ion-button large color="verd" round large (click)=>
+              Proximo
+            </button>
+    
+       
+       <!--coloco um botão para ir a outra tela e nela cadastrar endereço de saida e destino-->
+        </ion-list>
+  
+  </ion-header>
+  
+  
+  <ion-content padding>
+  
+  </ion-content>
+  
