@@ -35,6 +35,7 @@ export class UsuarioProvider {
   public logar(credentials: any, callback) {
     let headers = new Headers();
     let empresa= new Empresa();
+    let endereco = new Endereco();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
     // Implements request to API
@@ -46,9 +47,10 @@ export class UsuarioProvider {
       var userEndereco = user.Endereco
       console.log(userEndereco)
       console.log(empresa)
+      console.log(user.Senha)
       if (user !== undefined){
         //passando as informações de endereço para um objeto endereço
-        /*endereco.Bairro = userEndereco.Bairro
+        endereco.Bairro = userEndereco.Bairro
         endereco.CEP = userEndereco.CEP
         endereco.Cidade = userEndereco.Cidade
         endereco.Complemento = userEndereco.Complemento
@@ -56,20 +58,20 @@ export class UsuarioProvider {
         endereco.Logradouro = userEndereco.Logradouro
         endereco.Numero = userEndereco.Numero
         endereco.Pais = userEndereco.Pais
-        */
+      
         if (user.CNH) {
           //não sei como funciona o 
           //callback(this.objetos.entregador);
         }
         else {
           //passando as informações do usuário para um Objeto empresa
-          /*empresa.CNPJ = user.CNPJ
+          empresa.Id_Endereco = userEndereco.Id
+          empresa.CNPJ = user.CNPJ
           empresa.Email = user.Email
           empresa.Endereco = endereco
-          empresa.Id_Endereco = user.Id_endereco
           empresa.Login = user.Login
           empresa.Nome_fantasia = user.Nome_fantasia
-          empresa.Senha = user.Senha*/
+          empresa.Senha = user.Senha
           callback(user);
         }
       } else {

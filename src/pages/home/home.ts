@@ -22,9 +22,11 @@ export class HomePage {
   session = this.navParams.get('session')
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
+
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+    console.log(this.session)
   }
   abrirPerfil(){
     this.navCtrl.push(PerfilPage);
@@ -36,6 +38,7 @@ export class HomePage {
     this.navCtrl.push(MonitorarEntregasPage);
   }
   sair(){
+    this.session.closeSession();
     this.navCtrl.popToRoot();
   }
 }
