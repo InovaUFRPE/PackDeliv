@@ -1,9 +1,9 @@
+import { SessionProvider } from './../../providers/session/session';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas";
 import { PerfilPage } from "../perfil/perfil";
 import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
-
 
 /**
  * Generated class for the HomePage page.
@@ -19,9 +19,10 @@ import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas"
 })
 export class HomePage {
   rootPage = PerfilPage
+  session = this.navParams.get('session')
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }

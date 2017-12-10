@@ -1,8 +1,9 @@
+import { EmailComposer } from '@ionic-native/email-composer';
+import { Empresa } from './../../interfaces/empresa';
+import { Endereco } from './../../interfaces/endereco';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Empresa } from "../../interfaces/empresa";
 import { Entregador } from '../../interfaces/entregador';
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -19,8 +20,9 @@ export class UsuarioProvider {
 
   public static EMPRESA = true;
   public static ENTREGADOR = false;
-
-  constructor(public http: Http) {
+  constructor(
+    public http: Http
+  ) {
   }
 
   /**
@@ -32,16 +34,44 @@ export class UsuarioProvider {
    */
   public logar(credentials: any, callback) {
     let headers = new Headers();
+    let empresa= new Empresa();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
-    
     // Implements request to API
     this.http.post(this.url + 'login', credentials, { headers: headers })
     .subscribe((response) => {
       // Treat response
       var user = response.json().response;
+      console.log(user)
+      var userEndereco = user.Endereco
+      console.log(userEndereco)
+      console.log(empresa)
       if (user !== undefined){
-        callback(true);
+        //passando as informações de endereço para um objeto endereço
+        /*endereco.Bairro = userEndereco.Bairro
+        endereco.CEP = userEndereco.CEP
+        endereco.Cidade = userEndereco.Cidade
+        endereco.Complemento = userEndereco.Complemento
+        endereco.Estado = userEndereco.Estado
+        endereco.Logradouro = userEndereco.Logradouro
+        endereco.Numero = userEndereco.Numero
+        endereco.Pais = userEndereco.Pais
+        */
+        if (user.CNH) {
+          //não sei como funciona o 
+          //callback(this.objetos.entregador);
+        }
+        else {
+          //passando as informações do usuário para um Objeto empresa
+          /*empresa.CNPJ = user.CNPJ
+          empresa.Email = user.Email
+          empresa.Endereco = endereco
+          empresa.Id_Endereco = user.Id_endereco
+          empresa.Login = user.Login
+          empresa.Nome_fantasia = user.Nome_fantasia
+          empresa.Senha = user.Senha*/
+          callback(user);
+        }
       } else {
         callback(false);
       }
