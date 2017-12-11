@@ -11,7 +11,7 @@ DELIVERY='Entrega'
 PACKAGE='Pacote'
 
 
-COMPANY_ID = 'id'        
+COMPANY_ID = 'Id'        
 COMPANY_ID_ADRESS ='Id_endereco'
 COMPANY_NAME='Nome_fantasia'
 COMPANY_PASSWORD ='Senha'
@@ -66,7 +66,9 @@ PACKAGE_WEIGHT='Peso'
 PACKAGE_SHIPPED='Expedido'
 PACKAGE_RECEIVED='Recebido'
 PACKAGE_LOCAL_DESTINY='Destino'
-PACKAGE_ID_ADRESS ='Id_endereco'
+PACKAGE_LOCAL_START='Endereço Inicio'
+PACKAGE_ID_START_ADRESS='Id_endereco_inicio'
+PACKAGE_ID_ADRESS ='Id_endereco_final'
 PACKAGE_CURRENT_STATIC_LOCATION='Local_atual_estatico'
 
 

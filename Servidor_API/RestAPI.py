@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 import requests
 
 from flask_cors import CORS
-from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman, savePackage
+from DB.DB_helper import INIT_API, saveCompany, getCompany, saveDeliveryman, savePackage, editCompany, getPackages, saveAdress
 
 INIT_API()
 
@@ -79,7 +79,39 @@ def register_package():
         if (idPackage):
             return jsonify({'response' : {"packageID":str(idPackage)}})
         else:
-            return jsonify({'error' : "Não foi possível cadastrar"})        
+            return jsonify({'error' : "Não foi possível cadastrar"})  
+@app.route('/edit_company', methods=['POST'])
+
+def edit_company():
+    if request.method == 'POST':  
+        json = request.get_json()
+        response = editCompany(json)
+
+        if (response):
+            return jsonify({'response' : "editado"})
+        else:
+            return jsonify({'error' : 'Não foi possivel editar'})
+    
+@app.route('/getPackage/<idDestino>', methods=['GET'])
+
+def getAllPackage(idDestino):
+    if request.method == 'GET':
+        response=getPackages(idDestino)
+        if (response):
+            return jsonify({'response' : response})
+        else:
+            return jsonify({'error' : 'Não foi possuem pacotes para esse destino'})
+
+@app.route('/adress', methods=['POST'])
+
+def register_adress():
+    if request.method == 'POST':  
+        json = request.get_json()
+        response = saveAdress(json)
+        if (response):
+            return jsonify({'response' : response})
+        else:
+            return jsonify({'error' : 'Não foi possivel salvar'})
 
 if __name__ == '__main__' :
     app.run()
