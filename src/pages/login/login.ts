@@ -6,6 +6,7 @@ import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
+import { PerfilPage } from '../perfil/perfil';
 /**
  * Generated class for the LoginPage page.
  *
@@ -34,7 +35,7 @@ export class LoginPage {
     public sessionProvider: SessionProvider
   ) {
   }
-
+  
   /**
    * Compara as credenciais fornecidas com as credenciais
    * do banco de dados através da API RESTful, redireciona
@@ -52,7 +53,7 @@ export class LoginPage {
         console.log(this.usuarioProvider)
         console.log(this.sessionProvider)
         this.sessionProvider.openSession(resposta)
-        this.navCtrl.push(HomePage,{session: this.sessionProvider});
+        this.navCtrl.push(PerfilPage,{session: this.sessionProvider});
       } else {
         this.presentToast('Login ou Senha incorretos, tente novamente.');
       }

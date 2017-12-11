@@ -32,7 +32,7 @@ export class SessionProvider {
  
   getUser():any{
     return this.user
-  }
+  }  
 
   openSession(credentials: any):void{
     this.user = credentials

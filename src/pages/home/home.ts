@@ -20,8 +20,9 @@ import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas"
 export class HomePage {
   rootPage = PerfilPage
   session = this.navParams.get('session')
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public sessionProvider: SessionProvider) {
+  }  
 
   
   ionViewDidLoad() {
@@ -29,13 +30,13 @@ export class HomePage {
     console.log(this.session)
   }
   abrirPerfil(){
-    this.navCtrl.push(PerfilPage);
+    this.navCtrl.push(PerfilPage,{session: this.sessionProvider});
   }
   abrirSolicitarEntregas(){
-    this.navCtrl.push(SolicitarEntregasPage);
+    this.navCtrl.push(SolicitarEntregasPage,{session: this.sessionProvider});
   }
   abrirMonitorarEntregas(){
-    this.navCtrl.push(MonitorarEntregasPage);
+    this.navCtrl.push(MonitorarEntregasPage,{session: this.sessionProvider});
   }
   sair(){
     this.session.closeSession();
