@@ -35,7 +35,7 @@ export class PerfilPage {
   }
 
   public irParaEditarPerfil() {
-    this.navCtrl.push(EditarPerfilPage);
+    this.navCtrl.push(EditarPerfilPage,{session: this.sessionProvider});
   } 
 
   

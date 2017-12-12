@@ -6,6 +6,7 @@ import { Http, Headers } from '@angular/http';
 import { Entregador } from '../../interfaces/entregador';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import { Jsonp } from '@angular/http/src/http';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -44,12 +45,12 @@ export class UsuarioProvider {
       // Treat response
       var user = response.json().response;
       console.log(user)
-      var userEndereco = user.Endereco
       console.log(userEndereco)
       console.log(empresa)
       console.log(user.Senha)
       if (user !== undefined){
         //passando as informações de endereço para um objeto endereço
+        var userEndereco = user.Endereco
         endereco.Bairro = userEndereco.Bairro
         endereco.CEP = userEndereco.CEP
         endereco.Cidade = userEndereco.Cidade
@@ -83,13 +84,13 @@ export class UsuarioProvider {
   }
 
   public validarCNPJ(usuario: any, tipo: boolean, success: any) {
-    let cnpj: string = usuario.CNPJ
+    usuario.CNPJ= usuario.CNPJ
       .split('.')
       .join('')
       .replace('/','')
       .replace('-','');
 
-    this.http.get(this.url+'cnpj/'+cnpj)
+    this.http.get(this.url+'cnpj/'+usuario.CNPJ)
     .subscribe((response) => {
         var resp = response.json();
         usuario['Endereco'] = {};
@@ -150,4 +151,19 @@ export class UsuarioProvider {
       throw error;
     });
   }
+
+  public atualizarPerfilEmpresa(usuario:Empresa,success:any){
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(this.url+'edit_company', usuario,{headers: headers})
+    .subscribe( (res) => {
+      alert('Perfil atualizado!');
+      success();
+    }, (error) => {
+      throw error;
+    });
+  }
+
 }
