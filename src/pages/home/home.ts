@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas";
 import { PerfilPage } from "../perfil/perfil";
 import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
+import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 
 
 /**
@@ -29,7 +30,7 @@ export class HomePage {
     this.navCtrl.push(PerfilPage);
   }
   abrirSolicitarEntregas(){
-    this.navCtrl.push(SolicitarEntregasPage);
+    this.navCtrl.push(CadastroPacotePage);
   }
   abrirMonitorarEntregas(){
     this.navCtrl.push(MonitorarEntregasPage);

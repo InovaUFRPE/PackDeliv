@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
+import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
+import { Endereco } from "../../interfaces/endereco"
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -31,7 +33,7 @@ export class CadastroPacotePage {
   /**
    * Realiza o cadastro de endereço de destino para o pacote
    * no banco de dados.
-   * 
+   *
    * Feito por: Augusto Paiva, 08/12/2017
    */
 
@@ -41,12 +43,16 @@ export class CadastroPacotePage {
       duration: 3000,
       position: 'bottom'
     });
-  
+
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
     });
-  
+
     toast.present();
+  }
+
+  irParaCadastrarPacote2(){
+    this.navCtrl.push(CadastroPacote2Page);
   }
 
   public cadastrarPacote(): void{
@@ -88,7 +94,17 @@ export class CadastroPacotePage {
       this.presentToast('O estado é um campo obrigatório.');
       return;
     }
-    
+
+    let endereco = new Endereco();
+    endereco.Logradouro = rua;
+    endereco.Numero = numero;
+    endereco.Complemento = complemento;
+    endereco.Bairro = bairro;
+    endereco.CEP = cep;
+    endereco.Cidade = cidade;
+    endereco.Estado = estado;
+
+    this.navCtrl.push(CadastroPacote2Page, {endereco: endereco })
     //aqui deve ter uma criação de objeto para ser mandada para o usuario provider
 
   }

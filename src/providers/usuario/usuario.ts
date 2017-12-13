@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Empresa } from "../../interfaces/empresa";
 import { Entregador } from '../../interfaces/entregador';
+import { Pacote } from '../../interfaces/pacote'
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -118,4 +119,19 @@ export class UsuarioProvider {
       throw error;
     });
   }
+
+  public cadastrarPacote(pacote: Pacote, success: any){
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(this.url+"package", pacote,{headers: headers})
+    .subscribe( (res) => {
+      alert('Pacote cadastrado!');
+      success();
+    }, (error) => {
+      throw error;
+    });
+  }
+
 }
