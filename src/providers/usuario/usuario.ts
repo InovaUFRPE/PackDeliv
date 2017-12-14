@@ -119,7 +119,7 @@ export class UsuarioProvider {
       throw error;
     });
   }
-
+  //cadastrar pacote
   public cadastrarPacote(pacote: Pacote, success: any){
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
@@ -133,5 +133,19 @@ export class UsuarioProvider {
       throw error;
     });
   }
+  
+public atualizarPerfilEmpresa(usuario:Empresa,success:any){
+  let headers = new Headers();
+  headers.append('X-Auth-Token', localStorage.getItem('token'));
+  headers.append('Content-Type', 'application/json');
+
+  this.http.post(this.url+'edit_company', usuario,{headers: headers})
+  .subscribe( (res) => {
+    alert('Perfil atualizado!');
+    success();
+  }, (error) => {
+    throw error;
+  });
+}
 
 }
