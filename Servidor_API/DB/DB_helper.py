@@ -30,7 +30,7 @@ class Vehicle(Base):
     licence_plate = Column(VEHICLE_LICENSE_PLATE, String(255),unique=True, nullable=False)
     year=Column(VEHICLE_YEAR, Integer,nullable=False)
     model = Column(VEHICLE_MODEL,String(255),nullable=False)
-    color =Column(VEHICLE_COLOR,String(255),nullable=False)
+    color =Column(VEHICLE_COLOR,String(255))
     ready=Column(VEHICLE_READY, Boolean, default=False)
 
 class Company(Base):
@@ -158,46 +158,48 @@ def getAdress(id):
     else:
         return {"response" : "invalid adress"}
 
-def saveVehicle(json_vehicle0):
+
+def saveVehicle(json_vehicle):
     Session= getSession()
     session=Session()
     vehicle=Vehicle()
-    vehicle.licence_plate=json_vehicle['']
-    vehicle.model=json_vehicle['']
-    vehicle.year=json_vehicle['']
-    vehicle.ready=json_vehicle['']
-    vehicle.color=json_vehicle['']
+    vehicle.licence_plate=json_vehicle[VEHICLE_LICENSE_PLATE]
+    vehicle.model=json_vehicle[VEHICLE_MODEL]
+    vehicle.year=json_vehicle[VEHICLE_YEAR]
+    #vehicle.ready=json_vehicle['']
+    #vehicle.color=json_vehicle['']
     session.add(vehicle)
     session.commit()
     session.refresh(vehicle)
-    id=adress.id
+    id=vehicle.id
     session.close()
     return id
 
+
+
 def saveDeliveryman(json_deliveryman):
     id_adress=saveAdress(json_deliveryman[ADRESS])
-
+    id_vehicle=saveVehicle(json_deliveryman[VEHICLE])
     Session=getSession()
     session=Session()
     deliveryman=Deliveryman()
 
     deliveryman.dui=json_deliveryman[DELIVERYMAN_DUI]
-
+    deliveryman.Id_veiculo=id_vehicle
     deliveryman.id_adress=id_adress
     deliveryman.name_company=json_deliveryman[COMPANY_NAME]
+    deliveryman.name_deliveryman=json_deliveryman[DELIVERYMAN_NAME]
     deliveryman.password=json_deliveryman[COMPANY_PASSWORD]
     deliveryman.login=json_deliveryman[COMPANY_LOGIN]
     deliveryman.email=json_deliveryman[COMPANY_EMAIL]
     deliveryman.uci=json_deliveryman[COMPANY_UCI]
-    deliveryman.name_deliveryman=json_deliveryman[DELIVERYMAN_NAME]
+
     session.add(deliveryman)
     response = False
-    try:
-        session.commit()
-        session.refresh(deliveryman)
-        response = deliveryman.id
-    except:
-        deleteAdress(id_adress)
+    session.commit()
+    session.refresh(deliveryman)
+    response = deliveryman.id
+    #deleteAdress(id_adress)
 
     session.close()
     return response

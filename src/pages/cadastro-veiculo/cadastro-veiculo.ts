@@ -74,7 +74,7 @@ export class CadastroVeiculoPage {
       return;
     }
 
-    var veiculo: object = {
+    var Veiculo: object = {
       placa: placa,
       ano: ano,
       modelo: modelo,
@@ -83,7 +83,7 @@ export class CadastroVeiculoPage {
 
     var entregador = this.navParams.get('user');
 
-    entregador.veiculo = veiculo;
+    entregador.Veiculo = Veiculo;
 
   
     this.usuarioProvider.validarCNPJ(entregador, UsuarioProvider.ENTREGADOR, () => {
