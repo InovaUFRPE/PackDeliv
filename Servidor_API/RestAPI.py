@@ -92,11 +92,11 @@ def edit_company():
         else:
             return jsonify({'error' : 'Não foi possivel editar'})
     
-@app.route('/getPackage/<idDestino>', methods=['GET'])
+@app.route('/getPackage/<idSaida>', methods=['GET'])
 
-def getAllPackage(idDestino):
+def getAllPackage(idSaida):
     if request.method == 'GET':
-        response=getPackages(idDestino)
+        response=getPackages(idSaida)
         if (response):
             return jsonify({'response' : response})
         else:

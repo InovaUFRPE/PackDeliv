@@ -7,6 +7,7 @@ import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { PerfilPage } from '../perfil/perfil';
+import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 /**
  * Generated class for the LoginPage page.
  *
@@ -32,6 +33,7 @@ export class LoginPage {
     public navParams: NavParams, 
     public toastCtrl: ToastController, 
     public usuarioProvider: UsuarioProvider,
+    
   ) {
   }
   
@@ -47,8 +49,19 @@ export class LoginPage {
     this.usuarioProvider.logar(this.credentials, (resposta) => {
       if (resposta) {
         
-        SessionProvider.openSession(resposta)
-        this.navCtrl.push(HomePage);
+        // Vai para a tela Home e manda os dados do usuário para ela
+
+        SessionProvider.openSession(resposta);
+        this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Endereco.Id)
+        
+        let TIME_IN_MS = 2000;
+        let hideFooterTimeout = setTimeout( () => {
+             this.navCtrl.push(HomePage);
+        }, TIME_IN_MS);
+
+        
+
+
       } else {
         this.presentToast('Login ou Senha incorretos, tente novamente.');
       }
@@ -61,15 +74,6 @@ export class LoginPage {
 
   public irParaRecuperarSenha() {
     this.navCtrl.push(RecuperarSenhaPage);
-  }
-
-  /**
-    *A função login() é apenas para saber se o menu lateral estava pegando
-    *já que pela função fazerLogin() não teria como saber visto que
-    *ela não está pegando
-    */
-  public login() {
-    this.navCtrl.push(HomePage);
   }
 
   presentToast(message: string) {

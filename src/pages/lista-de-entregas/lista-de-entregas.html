@@ -14,6 +14,19 @@
 </ion-header>
 
 
-<ion-content>
-  <div #map id="map" style="height:100%;"></div>
+
+<ion-content padding>
+
+    <ion-card *ngFor="let pacote of lista">
+        <H1>Pacote</H1><P></P>
+        Altura: {{pacote.Altura}}<p></p>
+        Comprimento: {{pacote.Comprimento}}<p></p>
+        Largura: {{pacote.Largura}}<p></p>
+        Peso: {{pacote.Peso}}<p></p>
+        <H1>Destino</H1><p></p>
+        Bairro:{{pacote.Destino['response'].Bairro}}<p></p>
+        Rua:{{pacote.Destino['response'].Logradouro}}<p></p>
+        Numero:{{pacote.Destino['response'].Numero}}<p></p>
+        Cidade:{{pacote.Destino['response'].Cidade}}<p></p>
+    </ion-card>
 </ion-content>

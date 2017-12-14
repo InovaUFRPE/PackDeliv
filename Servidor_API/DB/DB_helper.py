@@ -234,7 +234,7 @@ def getPackages(id):
     Session=getSession()
     session=Session()
     response= session.query(Package).filter(Package.id_adress_start==id).all()
-    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.shiped,PACKAGE_RECEIVED:p.received,PACKAGE_LOCAL_DESTINY: getAdress(p.id_adress_destiny) ,PACKAGE_LOCAL_START:getAdress(p.id_adress_destiny)} for p in response]
+    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.weight,PACKAGE_RECEIVED:p.received,PACKAGE_LOCAL_DESTINY: getAdress(p.id_adress_destiny) ,PACKAGE_LOCAL_START:getAdress(p.id_adress_destiny)} for p in response]
     return listPackage
 
 

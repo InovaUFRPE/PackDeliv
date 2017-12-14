@@ -5,7 +5,6 @@ import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas"
 import { PerfilPage } from "../perfil/perfil";
 import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
-import { CadastroPacote2Page } from '../cadastro-pacote2/cadastro-pacote2';
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 
 /**
@@ -22,9 +21,10 @@ import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 })
 export class HomePage {
   rootPage = ListaDeEntregasPage;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public sessionProvider: SessionProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   } 
+
+  
 
   abrirPerfil(){
     this.navCtrl.push(PerfilPage);

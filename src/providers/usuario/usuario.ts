@@ -9,6 +9,10 @@ import { Pacote } from '../../interfaces/pacote'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import { Jsonp } from '@angular/http/src/http';
+import { requestIonicCallback } from 'ionic-angular/util/util';
+import { SessionProvider } from '../session/session';
+import { LoginPage } from '../../pages/login/login';
+import { ListaDeEntregasPage } from '../../pages/lista-de-entregas/lista-de-entregas';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -46,13 +50,10 @@ export class UsuarioProvider {
     .subscribe((response) => {
       // Treat response
       var user = response.json().response;
-      console.log(user)
-      console.log(userEndereco)
-      console.log(empresa)
-      console.log(user.Senha)
       if (user !== undefined){
         //passando as informações de endereço para um objeto endereço
         var userEndereco = user.Endereco
+        endereco.Id = userEndereco.Id
         endereco.Bairro = userEndereco.Bairro
         endereco.CEP = userEndereco.CEP
         endereco.Cidade = userEndereco.Cidade
@@ -61,6 +62,7 @@ export class UsuarioProvider {
         endereco.Logradouro = userEndereco.Logradouro
         endereco.Numero = userEndereco.Numero
         endereco.Pais = userEndereco.Pais
+        console.log(userEndereco)
       
         if (user.CNH) {
           //não sei como funciona o 
@@ -183,6 +185,16 @@ public atualizarPerfilEmpresa(usuario:Empresa,success:any){
   }, (error) => {
     throw error;
   });
+}
+
+public pegarTodosPacotes(id:any){
+  this.http.get(this.url+'getPackage/'+id)
+  .subscribe((response) => {
+      var resp = response.json();
+      console.log(resp['response']);
+      ListaDeEntregasPage.listaentregas = resp['response'];
+  });
+  
 }
 
 }

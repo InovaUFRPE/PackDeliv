@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { SessionProvider } from '../../providers/session/session';
 
 /**
  * Generated class for the ListaDeEntregasPage page.
@@ -14,12 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'lista-de-entregas.html',
 })
 export class ListaDeEntregasPage {
+  static listaentregas:any;
+  lista=ListaDeEntregasPage.listaentregas;
+  constructor(public navCtrl: NavController, public navParams: NavParams,sessionProvider:SessionProvider) {
+    console.log(ListaDeEntregasPage.listaentregas);
+    console.log(this.lista);
+  } 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListaDeEntregasPage');
-  }
 
 }

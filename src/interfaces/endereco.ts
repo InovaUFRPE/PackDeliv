@@ -1,4 +1,5 @@
 export class Endereco {
+    Id: string;
     Logradouro: string
     Numero: string
     Complemento: string
