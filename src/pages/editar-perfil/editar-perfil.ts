@@ -17,8 +17,8 @@ import { UsuarioProvider } from '../../providers/usuario/usuario';
   templateUrl: 'editar-perfil.html',
 })
 export class EditarPerfilPage {
-  session = this.navParams.get('session');
-  user =this.session.user;
+
+  user =SessionProvider.getUser();
   
   
   public dados = {
@@ -55,12 +55,12 @@ export class EditarPerfilPage {
     var usuario: object = {
       Email: email
     };
-    this.session.user.Email=email
-    this.usuarioProvider.atualizarPerfilEmpresa(this.session.user,  () => {
+    SessionProvider.getUser().Email=email
+    this.usuarioProvider.atualizarPerfilEmpresa(SessionProvider.getUser(),  () => {
       this.navCtrl.push(PerfilPage);
     });
 
-    this.navCtrl.push(PerfilPage,{session: this.sessionProvider})
+    this.navCtrl.push(PerfilPage)
 
   }
   presentToast(message:string) {
@@ -81,7 +81,7 @@ export class EditarPerfilPage {
   }
 
   abrirPerfil(){
-    this.navCtrl.push(PerfilPage,{session: this.sessionProvider})
+    this.navCtrl.push(PerfilPage)
   }
 
 }

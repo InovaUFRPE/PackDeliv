@@ -12,17 +12,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SessionProvider {
   
-  private user: any
-  public status: boolean = false
+  private static user: any
+  public static status: boolean = false
   constructor(public http: Http) {
     console.log('Hello Session Provider Provider');  
   }
 
-  getStatus():boolean{
+  static getStatus():boolean{
     return this.status
   }
 
-  setStatus():void{
+  static setStatus():void{
     if (this.status == true){
       this.status = false
     }else {
@@ -30,16 +30,16 @@ export class SessionProvider {
     }
   }
  
-  getUser():any{
+  static getUser():any{
     return this.user
   }  
 
-  openSession(credentials: any):void{
+  static openSession(credentials: any):void{
     this.user = credentials
     this.setStatus()
   }
   
-  closeSession():void{
+  static closeSession():void{
     this.setStatus()
     this.user = null
   }

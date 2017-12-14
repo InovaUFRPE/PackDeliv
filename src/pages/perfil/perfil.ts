@@ -19,9 +19,7 @@ import { Empresa } from '../../interfaces/empresa';
   templateUrl: 'perfil.html',
 })
 export class PerfilPage {
-  session = this.navParams.get('session');
-
-  user =this.session.user;
+  user =SessionProvider.getUser();
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -35,7 +33,7 @@ export class PerfilPage {
   }
 
   public irParaEditarPerfil() {
-    this.navCtrl.push(EditarPerfilPage,{session: this.sessionProvider});
+    this.navCtrl.push(EditarPerfilPage);
   } 
 
   

@@ -32,7 +32,6 @@ export class LoginPage {
     public navParams: NavParams, 
     public toastCtrl: ToastController, 
     public usuarioProvider: UsuarioProvider,
-    public sessionProvider: SessionProvider
   ) {
   }
   
@@ -48,12 +47,8 @@ export class LoginPage {
     this.usuarioProvider.logar(this.credentials, (resposta) => {
       if (resposta) {
         
-        // Vai para a tela Home e manda os dados do usuário para ela
-        console.log(resposta)
-        console.log(this.usuarioProvider)
-        console.log(this.sessionProvider)
-        this.sessionProvider.openSession(resposta)
-        this.navCtrl.push(HomePage,{session: this.sessionProvider});
+        SessionProvider.openSession(resposta)
+        this.navCtrl.push(HomePage);
       } else {
         this.presentToast('Login ou Senha incorretos, tente novamente.');
       }

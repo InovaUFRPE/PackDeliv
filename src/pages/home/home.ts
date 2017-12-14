@@ -6,6 +6,7 @@ import { PerfilPage } from "../perfil/perfil";
 import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 import { CadastroPacote2Page } from '../cadastro-pacote2/cadastro-pacote2';
+import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 
 /**
  * Generated class for the HomePage page.
@@ -20,28 +21,22 @@ import { CadastroPacote2Page } from '../cadastro-pacote2/cadastro-pacote2';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  rootPage = MonitorarEntregasPage;
-  session = this.navParams.get('session')
+  rootPage = ListaDeEntregasPage;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public sessionProvider: SessionProvider) {
   } 
 
-  
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-    console.log(this.session)
-  }
   abrirPerfil(){
-    this.navCtrl.push(PerfilPage,{session: this.sessionProvider});
+    this.navCtrl.push(PerfilPage);
   }
   abrirSolicitarEntregas(){
-    this.navCtrl.push(CadastroPacotePage,{session: this.sessionProvider});
+    this.navCtrl.push(CadastroPacotePage);
   }
   abrirMonitorarEntregas(){
-    this.navCtrl.push(MonitorarEntregasPage,{session: this.sessionProvider});
+    this.navCtrl.push(MonitorarEntregasPage);
   }
   sair(){
-    this.session.closeSession();
+    SessionProvider.closeSession();
     this.navCtrl.popToRoot();
   }
 }
