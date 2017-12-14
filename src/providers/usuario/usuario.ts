@@ -4,11 +4,8 @@ import { Endereco } from './../../interfaces/endereco';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Entregador } from '../../interfaces/entregador';
-<<<<<<< HEAD
 import { Pacote } from '../../interfaces/pacote'
 
-=======
->>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import { Jsonp } from '@angular/http/src/http';
@@ -103,7 +100,7 @@ export class UsuarioProvider {
         if (resp.status !== "ERROR"){
           usuario['id'] = "";
           usuario['Id_endereco'] = "";
-          usuario['Nome_fantasia'] = resp.fantasia;
+          usuario['Nome'] = resp.nome;
           usuario['Endereco']['Logradouro'] = resp.logradouro;
           usuario['Endereco']['Numero'] = resp.numero;
           usuario['Endereco']['Complemento'] = resp.complemento;
@@ -156,32 +153,20 @@ export class UsuarioProvider {
       throw error;
     });
   }
-<<<<<<< HEAD
   //cadastrar pacote
   public cadastrarPacote(pacote: Pacote, success: any){
-=======
-
-  public atualizarPerfilEmpresa(usuario:Empresa,success:any){
->>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
 
-<<<<<<< HEAD
     this.http.post(this.url+"package", pacote,{headers: headers})
     .subscribe( (res) => {
       alert('Pacote cadastrado!');
-=======
-    this.http.post(this.url+'edit_company', usuario,{headers: headers})
-    .subscribe( (res) => {
-      alert('Perfil atualizado!');
->>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
       success();
     }, (error) => {
       throw error;
     });
   }
-<<<<<<< HEAD
   
 public atualizarPerfilEmpresa(usuario:Empresa,success:any){
   let headers = new Headers();
@@ -196,7 +181,5 @@ public atualizarPerfilEmpresa(usuario:Empresa,success:any){
     throw error;
   });
 }
-=======
->>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
 
 }

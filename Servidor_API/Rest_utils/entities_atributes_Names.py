@@ -13,7 +13,7 @@ PACKAGE='Pacote'
 
 COMPANY_ID = 'Id'        
 COMPANY_ID_ADRESS ='Id_endereco'
-COMPANY_NAME='Nome_fantasia'
+COMPANY_NAME='Nome'
 COMPANY_PASSWORD ='Senha'
 COMPANY_LOGIN ='Login'
 COMPANY_EMAIL ='Email' 
@@ -24,7 +24,7 @@ DELIVERYMAN_ID= 'id'
 DELIVERYMAN_ID_VEHICLE= 'Id_veiculo'
 DELIVERYMAN_ID_COMPANY = 'id_empresa'
 DELIVERYMAN_DUI= 'CNH' #driver unique identifier
-DELIVERYMAN_AVAILABILITY= 'Disponibilidade'
+DELIVERYMAN_STATUS= 'Status'
 DELIVERYMAN_READY= 'Apto'
 DELIVERYMAN_LOCALIZATION= 'Localizacao'
 

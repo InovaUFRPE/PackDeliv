@@ -19,6 +19,7 @@ class Adress(Base):
     city = Column(ADRESS_CITY, String(255), nullable=False)
     state = Column(ADRESS_STATE, String(255),nullable=False)
     country = Column(ADRESS_COUNTRY,String(255),nullable=False)
+    #add coluna de localização
 
 
 
@@ -54,7 +55,7 @@ class Deliveryman(Company):
     Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id,onupdate="CASCADE", ondelete="CASCADE"))
     #id_company=Column(DELIVERYMAN_ID_COMPANY,Integer,ForeignKey(Company.id,onupdate="CASCADE", ondelete="CASCADE"))
     dui=Column(DELIVERYMAN_DUI,Integer,unique=True,nullable=False)
-    availability=Column(DELIVERYMAN_AVAILABILITY,Boolean, default=False)
+    status=Column(DELIVERYMAN_STATUS,Boolean, default=False)
     ready=Column(DELIVERYMAN_READY,Boolean, default=False)
     #localization = GeometryColumn(DELIVERYMAN_LOCALIZATION,Point(2))
 
@@ -79,7 +80,7 @@ class Package(Base):
     length=Column(PACKAGE_LENGTH,Integer,nullable=False)
     weight=Column(PACKAGE_WEIGHT,Integer,nullable=False)
     shiped=Column(PACKAGE_SHIPPED,Boolean, default=False)
-    receiveid=Column(PACKAGE_RECEIVED,Boolean, default=False)
+    received=Column(PACKAGE_RECEIVED,Boolean, default=False)
     id_adress_start=Column(PACKAGE_ID_START_ADRESS,Integer)
     id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255),nullable=False)
@@ -228,8 +229,8 @@ def savePackage(json_package):
 def getPackages(id):
     Session=getSession()
     session=Session()
-    response= session.query(Package).filter(Package.id_adress_destiny==id).all()
-    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.shiped,PACKAGE_RECEIVED:p.receiveid,PACKAGE_LOCAL_DESTINY: getAdress(p.id_adress_destiny) ,PACKAGE_LOCAL_START:getAdress(p.id_adress_destiny)} for p in response]
+    response= session.query(Package).filter(Package.id_adress_start==id).all()
+    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.shiped,PACKAGE_RECEIVED:p.received,PACKAGE_LOCAL_DESTINY: getAdress(p.id_adress_destiny) ,PACKAGE_LOCAL_START:getAdress(p.id_adress_destiny)} for p in response]
     return listPackage
 
 

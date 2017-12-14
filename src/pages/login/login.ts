@@ -53,7 +53,7 @@ export class LoginPage {
         console.log(this.usuarioProvider)
         console.log(this.sessionProvider)
         this.sessionProvider.openSession(resposta)
-        this.navCtrl.push(PerfilPage,{session: this.sessionProvider});
+        this.navCtrl.push(HomePage,{session: this.sessionProvider});
       } else {
         this.presentToast('Login ou Senha incorretos, tente novamente.');
       }

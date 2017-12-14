@@ -5,6 +5,7 @@ import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas"
 import { PerfilPage } from "../perfil/perfil";
 import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
+import { CadastroPacote2Page } from '../cadastro-pacote2/cadastro-pacote2';
 
 /**
  * Generated class for the HomePage page.
@@ -19,11 +20,11 @@ import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
   templateUrl: 'home.html',
 })
 export class HomePage {
-  rootPage = PerfilPage
+  rootPage = MonitorarEntregasPage;
   session = this.navParams.get('session')
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public sessionProvider: SessionProvider) {
-  }  
+  } 
 
   
   ionViewDidLoad() {
@@ -34,11 +35,7 @@ export class HomePage {
     this.navCtrl.push(PerfilPage,{session: this.sessionProvider});
   }
   abrirSolicitarEntregas(){
-<<<<<<< HEAD
-    this.navCtrl.push(CadastroPacotePage);
-=======
-    this.navCtrl.push(SolicitarEntregasPage,{session: this.sessionProvider});
->>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
+    this.navCtrl.push(CadastroPacotePage,{session: this.sessionProvider});
   }
   abrirMonitorarEntregas(){
     this.navCtrl.push(MonitorarEntregasPage,{session: this.sessionProvider});
