@@ -1,3 +1,4 @@
+import { SessionProvider } from './../../providers/session/session';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
@@ -5,7 +6,7 @@ import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
-
+import { PerfilPage } from '../perfil/perfil';
 /**
  * Generated class for the LoginPage page.
  *
@@ -26,9 +27,15 @@ export class LoginPage {
     senha: ""
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public usuarioProvider: UsuarioProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public toastCtrl: ToastController, 
+    public usuarioProvider: UsuarioProvider,
+    public sessionProvider: SessionProvider
+  ) {
   }
-
+  
   /**
    * Compara as credenciais fornecidas com as credenciais
    * do banco de dados através da API RESTful, redireciona
@@ -40,8 +47,13 @@ export class LoginPage {
     // Make request to API and pass user data to HomePage
     this.usuarioProvider.logar(this.credentials, (resposta) => {
       if (resposta) {
+        
         // Vai para a tela Home e manda os dados do usuário para ela
-        this.navCtrl.push(HomePage, { user: resposta });
+        console.log(resposta)
+        console.log(this.usuarioProvider)
+        console.log(this.sessionProvider)
+        this.sessionProvider.openSession(resposta)
+        this.navCtrl.push(PerfilPage,{session: this.sessionProvider});
       } else {
         this.presentToast('Login ou Senha incorretos, tente novamente.');
       }

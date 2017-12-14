@@ -1,11 +1,17 @@
+import { EmailComposer } from '@ionic-native/email-composer';
+import { Empresa } from './../../interfaces/empresa';
+import { Endereco } from './../../interfaces/endereco';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Empresa } from "../../interfaces/empresa";
 import { Entregador } from '../../interfaces/entregador';
+<<<<<<< HEAD
 import { Pacote } from '../../interfaces/pacote'
 
+=======
+>>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import { Jsonp } from '@angular/http/src/http';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -20,8 +26,9 @@ export class UsuarioProvider {
 
   public static EMPRESA = true;
   public static ENTREGADOR = false;
-
-  constructor(public http: Http) {
+  constructor(
+    public http: Http
+  ) {
   }
 
   /**
@@ -33,16 +40,46 @@ export class UsuarioProvider {
    */
   public logar(credentials: any, callback) {
     let headers = new Headers();
+    let empresa= new Empresa();
+    let endereco = new Endereco();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
-    
     // Implements request to API
     this.http.post(this.url + 'login', credentials, { headers: headers })
     .subscribe((response) => {
       // Treat response
       var user = response.json().response;
+      console.log(user)
+      console.log(userEndereco)
+      console.log(empresa)
+      console.log(user.Senha)
       if (user !== undefined){
-        callback(true);
+        //passando as informações de endereço para um objeto endereço
+        var userEndereco = user.Endereco
+        endereco.Bairro = userEndereco.Bairro
+        endereco.CEP = userEndereco.CEP
+        endereco.Cidade = userEndereco.Cidade
+        endereco.Complemento = userEndereco.Complemento
+        endereco.Estado = userEndereco.Estado
+        endereco.Logradouro = userEndereco.Logradouro
+        endereco.Numero = userEndereco.Numero
+        endereco.Pais = userEndereco.Pais
+      
+        if (user.CNH) {
+          //não sei como funciona o 
+          //callback(this.objetos.entregador);
+        }
+        else {
+          //passando as informações do usuário para um Objeto empresa
+          empresa.Id_Endereco = userEndereco.Id
+          empresa.CNPJ = user.CNPJ
+          empresa.Email = user.Email
+          empresa.Endereco = endereco
+          empresa.Login = user.Login
+          empresa.Nome_fantasia = user.Nome_fantasia
+          empresa.Senha = user.Senha
+          callback(user);
+        }
       } else {
         callback(false);
       }
@@ -52,13 +89,13 @@ export class UsuarioProvider {
   }
 
   public validarCNPJ(usuario: any, tipo: boolean, success: any) {
-    let cnpj: string = usuario.CNPJ
+    usuario.CNPJ= usuario.CNPJ
       .split('.')
       .join('')
       .replace('/','')
       .replace('-','');
 
-    this.http.get(this.url+'cnpj/'+cnpj)
+    this.http.get(this.url+'cnpj/'+usuario.CNPJ)
     .subscribe((response) => {
         var resp = response.json();
         usuario['Endereco'] = {};
@@ -119,20 +156,32 @@ export class UsuarioProvider {
       throw error;
     });
   }
+<<<<<<< HEAD
   //cadastrar pacote
   public cadastrarPacote(pacote: Pacote, success: any){
+=======
+
+  public atualizarPerfilEmpresa(usuario:Empresa,success:any){
+>>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
     let headers = new Headers();
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
 
+<<<<<<< HEAD
     this.http.post(this.url+"package", pacote,{headers: headers})
     .subscribe( (res) => {
       alert('Pacote cadastrado!');
+=======
+    this.http.post(this.url+'edit_company', usuario,{headers: headers})
+    .subscribe( (res) => {
+      alert('Perfil atualizado!');
+>>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
       success();
     }, (error) => {
       throw error;
     });
   }
+<<<<<<< HEAD
   
 public atualizarPerfilEmpresa(usuario:Empresa,success:any){
   let headers = new Headers();
@@ -147,5 +196,7 @@ public atualizarPerfilEmpresa(usuario:Empresa,success:any){
     throw error;
   });
 }
+=======
+>>>>>>> 615f8f9a23c100bbdff4b26996a7f1235e4f2bf4
 
 }

@@ -13,4 +13,7 @@ export class Pacote {
     idDestiny:number
     inicialAdress:Endereco
     destinyAdress:Endereco
+    constructor(){
+        
+    }
 }

@@ -13,9 +13,9 @@ import 'rxjs/add/operator/map';
 export class SessionProvider {
   
   private user: any
-
-  constructor(public http: Http,public status: boolean = false) {
-    console.log('Hello SessionProvider Provider');  
+  public status: boolean = false
+  constructor(public http: Http) {
+    console.log('Hello Session Provider Provider');  
   }
 
   getStatus():boolean{
@@ -32,7 +32,7 @@ export class SessionProvider {
  
   getUser():any{
     return this.user
-  }
+  }  
 
   openSession(credentials: any):void{
     this.user = credentials

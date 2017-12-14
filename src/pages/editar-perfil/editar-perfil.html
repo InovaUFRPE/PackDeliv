@@ -27,25 +27,29 @@
       <ion-list>
       
         <ion-item>
-          <ion-label floating style="color: #144F45">Usuário</ion-label>
-          <ion-input></ion-input>
+          <ion-label fixed style="color: #144F45">
+            Usuário:
+          </ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username" id="nome"   value={{user.Login}}  ></ion-input>
         </ion-item>
       
-        <ion-item>
-          <ion-label floating style="color: #144F45">Telefone</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
       
         <ion-item>
-          <ion-label floating style="color: #144F45">E-mail</ion-label>
-          <ion-input></ion-input>
+          <ion-label floating>Novo E-mail</ion-label>
+          <ion-input type="email"  [(ngModel)]="dados.email"  class="inputEmail" ></ion-input>
         </ion-item>
+    
+        <ion-item>
+          <ion-label floating>Confirmar</ion-label>
+          <ion-input type="email"  [(ngModel)]="dados.emailConf" class="inputEmail"  ></ion-input>
+        </ion-item>
+
       
       </ion-list>
     </div>
     
     <div>
-      <button ion-button style="width:170px" color="verd" round (click)="abrirPerfil()">confirmar</button>
+      <button ion-button style="width:170px" color="verd" round (click)="Atualizar()">confirmar</button>
     </div>
     
     <div>

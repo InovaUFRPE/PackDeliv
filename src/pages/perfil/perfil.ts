@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
+import { SessionProvider } from '../../providers/session/session';
+import { Empresa } from '../../interfaces/empresa';
+
 
 /**
  * Generated class for the PerfilPage page.
@@ -16,17 +19,25 @@ import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
   templateUrl: 'perfil.html',
 })
 export class PerfilPage {
+  session = this.navParams.get('session');
 
+  user =this.session.user;
+  
   constructor(public navCtrl: NavController, 
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public sessionProvider: SessionProvider) {
+    
   }
 
+  
   public login() {
     this.navCtrl.push(HomePage);
   }
 
   public irParaEditarPerfil() {
-    this.navCtrl.push(EditarPerfilPage);
+    this.navCtrl.push(EditarPerfilPage,{session: this.sessionProvider});
   } 
+
+  
 
 }

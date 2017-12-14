@@ -7,4 +7,7 @@ export class Endereco {
     Cidade: string
     Estado: string
     Pais: string
+    constructor(){
+        
+    }
 }

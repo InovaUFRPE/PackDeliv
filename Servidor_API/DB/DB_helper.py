@@ -80,8 +80,8 @@ class Package(Base):
     weight=Column(PACKAGE_WEIGHT,Integer,nullable=False)
     shiped=Column(PACKAGE_SHIPPED,Boolean, default=False)
     receiveid=Column(PACKAGE_RECEIVED,Boolean, default=False)
-    #local_destiny=GeometryColumn(PACKAGE_LOCAL_DESTINY,Point(2))
-    #id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
+    id_adress_start=Column(PACKAGE_ID_START_ADRESS,Integer)
+    id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255),nullable=False)
 
 class Delivery(Base):
@@ -98,7 +98,7 @@ class Delivery(Base):
 def getEngine():
 
     user ="root"
-    password="root"
+    password=""
     adress="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
@@ -203,14 +203,16 @@ def savePackage(json_package):
     Session=getSession()
     session=Session()
     package=Package()
+
     package.width=json_package[PACKAGE_WIDTH]
     package.height=json_package[PACKAGE_HEIGHT]
     package.length=json_package[PACKAGE_LENGTH]
     package.weight=json_package[PACKAGE_WEIGHT]
-    package.shiped=json_package[PACKAGE_SHIPPED]
-    package.receiveid=json_package[PACKAGE_RECEIVED]
-    #package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]
-    #package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
+
+    #package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]]
+
+    package.id_adress_start=json_package[PACKAGE_ID_START_ADRESS]
+    package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
     package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
     session.add(package)
     response=False
@@ -222,6 +224,16 @@ def savePackage(json_package):
         deleteAdress(id_adress)    
     session.close()
     return response
+
+def getPackages(id):
+    Session=getSession()
+    session=Session()
+    response= session.query(Package).filter(Package.id_adress_destiny==id).all()
+    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.shiped,PACKAGE_RECEIVED:p.receiveid,PACKAGE_LOCAL_DESTINY: getAdress(p.id_adress_destiny) ,PACKAGE_LOCAL_START:getAdress(p.id_adress_destiny)} for p in response]
+    return listPackage
+
+
+
   
 def saveCompany(json_company):
     id_adress=saveAdress(json_company[ADRESS])
@@ -262,5 +274,19 @@ def getCompany(json_company):
     else:
         response=False
     return response
+
+def editCompany(json_company):
+    Session=getSession()
+    session=Session()
+    id=json_company[COMPANY_ID]
+    response= session.query(Company).filter(Company.id == id).all()
+    company=response[0]
+    
+    company.email=json_company[COMPANY_EMAIL]
+
+    session.add(company)
+    session.commit()
+    session.close()
+    return True
 
 

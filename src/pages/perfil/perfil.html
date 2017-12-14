@@ -22,20 +22,73 @@
 
     <div class="container">
       <ion-list>
+
+        <ion-item>
+          <ion-label fixed style="color: #144F45">
+            Nome: 
+          </ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.Nome_fantasia}} ></ion-input>
+        </ion-item>
       
         <ion-item>
           <ion-label fixed style="color: #144F45">
             Usuário:
           </ion-label>
-          <ion-input type="text" [disabled]="true" data-ng-model="user.username"></ion-input>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username" id="nome"   value={{user.Login}}  ></ion-input>
         </ion-item>
       
         <ion-item>
           <ion-label fixed style="color: #144F45">
-            Telefone:
+            E-Mail:
           </ion-label>
-          <ion-input type="text" [disabled]="true" data-ng-model="user.cnpj"></ion-input>
+          <ion-input style="color:black"  type="text"  data-ng-model="user.email" value={{user.Email}} ></ion-input>
         </ion-item>
+
+        <ion-item>
+          <ion-label fixed style="color: #144F45">
+            CNPJ:
+          </ion-label>
+          <ion-input style="color:black" type="text" [disabled]="true" data-ng-model="user.email" value={{user.CNPJ}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45">
+              CEP:
+            </ion-label>
+            <ion-input  style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.Endereco.CEP}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45">
+              Bairro:
+            </ion-label>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.Endereco.Bairro}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45" >
+              Complemento:
+            </ion-label>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.Endereco.Complemento}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45">
+              Número:
+            </ion-label>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.Endereco.Numero}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45">
+              Logradouro:
+            </ion-label>
+            <ion-input style="color:black" type="text" [disabled]="true" data-ng-model="user.email" value={{user.Endereco.Logradouro}} ></ion-input>
+        </ion-item>
+
+
+
+
       
       </ion-list>
     </div>
