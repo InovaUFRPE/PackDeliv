@@ -53,7 +53,7 @@ export class CadastroEntregadorPage {
    */
   public irParaCadastroVeiculo(){
     // Pega as informações do formulário
-    var nomeUsuario = this.dados.nomeUsuario;
+    var login = this.dados.nomeUsuario;
     var nomeCompleto = this.dados.nomeCompleto;
     var cnpj = this.dados.cnpj;
     var cnh=this.dados.cnh;
@@ -63,7 +63,7 @@ export class CadastroEntregadorPage {
     var emailConf=this.dados.emailConf;
 
 
-    if (nomeUsuario==undefined ) {
+    if (login==undefined ) {
       // Faz algo caso não sejam
       this.presentToast('O login é um campo obrigatório.');
       return;
@@ -144,12 +144,15 @@ export class CadastroEntregadorPage {
     }
     // Cria o objeto usuario
     var entregador: object = {
-      username: nomeUsuario,
-      cnpj: cnpj,
-      password: senha,
+    
+      Login: login,
+      CNPJ: cnpj,
+      Senha: senha,
       nomeCompleto:nomeCompleto,
-      email: email
+      Email: email,
+      CNH: cnh
     };
+    
 
     // Passa o objeto usuario para a tela de cadastro de veículo
     //Caminho para cadastrar o entregador

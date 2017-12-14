@@ -86,6 +86,7 @@ export class UsuarioProvider {
   }
 
   public validarCNPJ(usuario: any, tipo: boolean, success: any) {
+    console.log(usuario)
     usuario.CNPJ= usuario.CNPJ
       .split('.')
       .join('')
@@ -113,6 +114,7 @@ export class UsuarioProvider {
           if (tipo) {
             this.inserirEmpresa(usuario, success);
           } else {
+            console.log("aqui krai")
             this.cadastrarEntregador(usuario, success);
           }
         }
@@ -138,6 +140,8 @@ export class UsuarioProvider {
         throw error;
       });
   }
+
+  
 
   //Cadastra o entregador
   public cadastrarEntregador(entregador: Entregador, success: any){

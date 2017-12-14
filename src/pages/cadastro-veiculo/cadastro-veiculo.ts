@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { Entregador } from '../../interfaces/entregador';
 
 /**
  * Generated class for the CadastroVeiculoPage page.
@@ -24,6 +25,7 @@ export class CadastroVeiculoPage {
   
   constructor( public navCtrl: NavController, public navParams: NavParams,public toastCtrl:ToastController, private usuarioProvider: UsuarioProvider) {
   }
+  
 
 
   presentToast(message:string) {
@@ -77,10 +79,12 @@ export class CadastroVeiculoPage {
       ano: ano,
       modelo: modelo,
     };
+    
 
     var entregador = this.navParams.get('user');
 
     entregador.veiculo = veiculo;
+
   
     this.usuarioProvider.validarCNPJ(entregador, UsuarioProvider.ENTREGADOR, () => {
       this.irParaLogin();

@@ -54,7 +54,7 @@ class Deliveryman(Company):
     id = Column(DELIVERYMAN_ID,Integer, ForeignKey(Company.id), primary_key=True)
     Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id,onupdate="CASCADE", ondelete="CASCADE"))
     #id_company=Column(DELIVERYMAN_ID_COMPANY,Integer,ForeignKey(Company.id,onupdate="CASCADE", ondelete="CASCADE"))
-    dui=Column(DELIVERYMAN_DUI,Integer,unique=True,nullable=False)
+    dui=Column(DELIVERYMAN_DUI,String(255),unique=True,nullable=False)
     status=Column(DELIVERYMAN_STATUS,Boolean, default=False)
     ready=Column(DELIVERYMAN_READY,Boolean, default=False)
     #localization = GeometryColumn(DELIVERYMAN_LOCALIZATION,Point(2))
