@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angul
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { LoginPage } from "../login/login";
 
+
 /**
  * Generated class for the CadastroPage page.
  *

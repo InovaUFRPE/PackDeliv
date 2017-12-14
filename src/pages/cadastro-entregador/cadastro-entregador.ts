@@ -148,7 +148,7 @@ export class CadastroEntregadorPage {
       Login: login,
       CNPJ: cnpj,
       Senha: senha,
-      nomeCompleto:nomeCompleto,
+      Nome_completo:nomeCompleto,
       Email: email,
       CNH: cnh
     };

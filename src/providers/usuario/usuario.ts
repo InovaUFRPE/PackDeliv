@@ -114,7 +114,6 @@ export class UsuarioProvider {
           if (tipo) {
             this.inserirEmpresa(usuario, success);
           } else {
-            console.log("aqui krai")
             this.cadastrarEntregador(usuario, success);
           }
         }

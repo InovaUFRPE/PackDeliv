@@ -21,6 +21,7 @@ COMPANY_UCI= 'CNPJ' # unique identifier of company
 COMPANY_TYPE= 'Tipo'
 
 DELIVERYMAN_ID= 'id'
+DELIVERYMAN_NAME='Nome_completo'
 DELIVERYMAN_ID_VEHICLE= 'Id_veiculo'
 DELIVERYMAN_ID_COMPANY = 'id_empresa'
 DELIVERYMAN_DUI= 'CNH' #driver unique identifier

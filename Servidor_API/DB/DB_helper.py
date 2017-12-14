@@ -52,6 +52,7 @@ class Company(Base):
 class Deliveryman(Company):
     __tablename__=DELIVERYMAN
     id = Column(DELIVERYMAN_ID,Integer, ForeignKey(Company.id), primary_key=True)
+    name_deliveryman=Column(DELIVERYMAN_NAME,String(255),nullable=False)
     Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id,onupdate="CASCADE", ondelete="CASCADE"))
     #id_company=Column(DELIVERYMAN_ID_COMPANY,Integer,ForeignKey(Company.id,onupdate="CASCADE", ondelete="CASCADE"))
     dui=Column(DELIVERYMAN_DUI,String(255),unique=True,nullable=False)
@@ -187,7 +188,8 @@ def saveDeliveryman(json_deliveryman):
     deliveryman.password=json_deliveryman[COMPANY_PASSWORD]
     deliveryman.login=json_deliveryman[COMPANY_LOGIN]
     deliveryman.email=json_deliveryman[COMPANY_EMAIL]
-    #deliveryman.uci=json_deliveryman[COMPANY_UCI]
+    deliveryman.uci=json_deliveryman[COMPANY_UCI]
+    deliveryman.name_deliveryman=json_deliveryman[DELIVERYMAN_NAME]
     session.add(deliveryman)
     response = False
     try:

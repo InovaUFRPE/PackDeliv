@@ -29,6 +29,7 @@ export class CadastroPacotePage {
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
+    console.log('cadastrar')
   }
   /**
    * Realiza o cadastro de endereço de destino para o pacote
