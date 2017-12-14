@@ -94,7 +94,7 @@ export class CadastroEntregadorPage {
       this.presentToast('O CNH é um campo obrigatório.');
       return;
     }
-    if (cnh.length !=  12 ) {
+    if (cnh.length !=  11 ) {
       // Faz algo caso não sejam
       this.presentToast('CNH inválido.');
       return;
