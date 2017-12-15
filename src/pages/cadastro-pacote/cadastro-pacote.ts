@@ -13,8 +13,8 @@ import { Endereco } from "../../interfaces/endereco"
 
 @IonicPage()
 @Component({
-  selector: 'page-cadastrar-pacote',
-  templateUrl: 'cadastrar-pacote.html',
+  selector: 'page-cadastro-pacote',
+  templateUrl: 'cadastro-pacote.html',
 })
 export class CadastroPacotePage {
 
@@ -73,10 +73,6 @@ export class CadastroPacotePage {
     }
     if (numero==undefined ) {
       this.presentToast('O Numero é um campo obrigatório.');
-      return;
-    }
-    if (complemento==undefined ) {
-      this.presentToast('O complemento é um campo obrigatório.');
       return;
     }
     if (bairro==undefined ) {

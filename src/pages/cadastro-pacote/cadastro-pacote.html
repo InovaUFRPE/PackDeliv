@@ -6,46 +6,54 @@
 -->
 <ion-header>
   
-    <h1 class="titulo">Cadastre o destino do pacote</h1>
-  
     <ion-navbar>
-      <ion-title>CadastrarPacote</ion-title>
+      <ion-title>cadastroPacote2</ion-title>
     </ion-navbar>
   
     <ion-list>
       
           <ion-item>
-            <ion-label floating>Altura</ion-label>
+            <ion-label floating>Rua</ion-label>
             <ion-input type="text" [(ngModel)]="dados.rua" id="inputRua" required></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-label floating>Largura</ion-label>
+            <ion-label floating>Número</ion-label>
             <ion-input type="text" [(ngModel)]="dados.numero" id="inputNumero" required></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-label floating>Comprimento</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.complemento" id="inputComplemento" required></ion-input>
+            <ion-label floating>Complemento</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.complemento" id="inputComplemento" ></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-label floating>Peso</ion-label>
+            <ion-label floating>Bairro</ion-label>
             <ion-input type="text" [(ngModel)]="dados.bairro" id="inputBairro" required></ion-input>
           </ion-item>
   
-          
+          <ion-item>
+            <ion-label floating>CEP</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.cep" id="inputCEP" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Cidade</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.cidade" id="inputCidade" required></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label floating>Estado</ion-label>
+            <ion-input type="text" [(ngModel)]="dados.estado" id="inputEstado" required></ion-input>
+          </ion-item>
+  
           <div text-center>
-            <button ion-button clear color="verd" (click)="irParaCadastrarPacote2()">Cadastre-se</button>
+            <button ion-button large color="verd" round large (click)="cadastrarPacote()
+            ">Proximo</button>
           </div>
     
-       
+  
         </ion-list>
   
   </ion-header>
-  
-  
-  <ion-content padding>
-  
-  </ion-content>
   

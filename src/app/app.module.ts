@@ -16,16 +16,19 @@ import { RemoteProvider } from '../providers/remote/remote';
 import { ListaDeEntregasPage } from "../pages/lista-de-entregas/lista-de-entregas";
 import { MonitorarEntregasPage } from "../pages/monitorar-entregas/monitorar-entregas";
 import { PerfilPage } from "../pages/perfil/perfil";
-import { SolicitarEntregasPage } from "../pages/solicitar-entregas/solicitar-entregas";
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
 import { Geolocation } from "@ionic-native/geolocation";
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { EmailComposer } from "@ionic-native/email-composer";
 import { SessionProvider } from '../providers/session/session';
+import { CadastroPacotePage } from '../pages/cadastro-pacote/cadastro-pacote';
+import { CadastroPacote2Page } from '../pages/cadastro-pacote2/cadastro-pacote2';
 
 @NgModule({
   declarations: [
+    CadastroPacotePage,
+    CadastroPacote2Page,
     MyApp,
     HomePage,
     LoginPage,
@@ -36,7 +39,6 @@ import { SessionProvider } from '../providers/session/session';
     ListaDeEntregasPage,
     MonitorarEntregasPage,
     PerfilPage,
-    SolicitarEntregasPage,
     RecuperarSenhaPage,
     EditarPerfilPage
   ],
@@ -50,6 +52,8 @@ import { SessionProvider } from '../providers/session/session';
     MyApp,
     HomePage,
     LoginPage,
+    CadastroPacotePage,
+    CadastroPacote2Page,
     CadastroPage,
     EscolhaCadastroPage,
     CadastroEntregadorPage,
@@ -57,7 +61,6 @@ import { SessionProvider } from '../providers/session/session';
     ListaDeEntregasPage,
     MonitorarEntregasPage,
     PerfilPage,
-    SolicitarEntregasPage,
     RecuperarSenhaPage,
     EditarPerfilPage
   ],
