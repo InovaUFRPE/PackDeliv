@@ -80,6 +80,7 @@ export class CadastroPacote2Page {
     pacote.length = comprimento
     pacote.weight = peso
     pacote.destinyAdress = endereco
+    console.log(pacote);
     this.usuarioProvider.cadastrarPacote(pacote, () => {
       this.navCtrl.push(HomePage);
     });

@@ -23,7 +23,12 @@ export class EditarPerfilPage {
   
   public dados = {
     email: null,
-    emailConf: null
+    emailConf: null,
+    cep:null,
+    bairro:null,
+    complemento:null,
+    numero:null,
+    logradouro:null
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public sessionProvider: SessionProvider,private toastCtrl: ToastController,public usuarioProvider:UsuarioProvider) {
@@ -34,17 +39,7 @@ export class EditarPerfilPage {
     var email = this.dados.email;
     var emailConf = this.dados.emailConf;
     //verifica se o campo não está vazio
-    if (email ==undefined ) {
-      // Faz algo caso não sejam
-      this.presentToast('O E-mail é um campo obrigatório.');
-      return;
-    }
-    //verifica se o campo não está vazio
-    if (emailConf==undefined) {
-      // Faz algo caso não sejam
-      this.presentToast('Confirmar E-mail é obrigatório.');
-      return;
-    }
+    
     
     // Compara se os e-mails digitados são correspondentes
     if (email !== emailConf) {
@@ -52,10 +47,37 @@ export class EditarPerfilPage {
       this.presentToast('Os E-mails não são correspondentes.');
       return;
     }
+
+
+    var cep = this.dados.cep;
+    var bairro = this.dados.bairro;
+    var complemento = this.dados.complemento;
+    var numero = this.dados.numero;
+    var logradouro = this.dados.logradouro;
+    if(cep!=null){
+      SessionProvider.getUser().Endereco.CEP=cep
+    }
+    if(bairro!=null){
+      SessionProvider.getUser().Endereco.Bairro=bairro
+    }
+    if(complemento!=null){
+      SessionProvider.getUser().Endereco.Complemento=complemento
+    }
+    if(numero!=null){
+      SessionProvider.getUser().Endereco.Numero=numero
+    }
+    if(logradouro!=null){
+      SessionProvider.getUser().Endereco.Logradouro=logradouro
+    }
+    
     var usuario: object = {
       Email: email
     };
+    
     SessionProvider.getUser().Email=email
+    
+
+    
     this.usuarioProvider.atualizarPerfilEmpresa(SessionProvider.getUser(),  () => {
       this.navCtrl.push(PerfilPage);
     });

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas";
 import { PerfilPage } from "../perfil/perfil";
-import { SolicitarEntregasPage } from "../solicitar-entregas/solicitar-entregas";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 

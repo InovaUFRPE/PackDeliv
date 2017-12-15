@@ -101,6 +101,9 @@ export class CadastroPacotePage {
     endereco.Cidade = cidade;
     endereco.Estado = estado;
 
+    console.log(endereco);
+    
+
     this.navCtrl.push(CadastroPacote2Page, {endereco: endereco })
     //aqui deve ter uma criação de objeto para ser mandada para o usuario provider
 

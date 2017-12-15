@@ -32,11 +32,44 @@
           </ion-label>
           <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username" id="nome"   value={{user.Login}}  ></ion-input>
         </ion-item>
-      
-      
+        <ion-item>
+          <ion-label fixed style="color: #144F45">
+            CEP:
+          </ion-label>
+          <ion-input  style="color:black"  type="text"  data-ng-model="user.cep" [(ngModel)]="dados.cep"  placeholder={{user.Endereco.CEP}} ></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label fixed style="color: #144F45">
+            Bairro:
+          </ion-label>
+          <ion-input style="color:black"  type="text"  data-ng-model="user.bairro" [(ngModel)]="dados.bairro"  placeholder={{user.Endereco.Bairro}} ></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label fixed style="color: #144F45" >
+            Complemento:
+          </ion-label>
+          <ion-input style="color:black"  type="text"  data-ng-model="user.complemento" [(ngModel)]="dados.complemento"  placeholder={{user.Endereco.Complemento}} id="complemento" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label fixed style="color: #144F45">
+            Número:
+          </ion-label>
+          <ion-input style="color:black"  type="text"  data-ng-model="user.numero" [(ngModel)]="dados.numero" placeholder={{user.Endereco.Numero}} ></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label fixed style="color: #144F45">
+            Logradouro:
+          </ion-label>
+          <ion-input style="color:black" type="text"  data-ng-model="user.logradouro" [(ngModel)]="dados.logradouro"  placeholder={{user.Endereco.Logradouro}} ></ion-input>
+      </ion-item>
+          
         <ion-item>
           <ion-label floating>Novo E-mail</ion-label>
-          <ion-input type="email"  [(ngModel)]="dados.email"  class="inputEmail" ></ion-input>
+          <ion-input type="email"  [(ngModel)]="dados.email"  class="inputEmail" placeholder={{user.Email}} ></ion-input>
         </ion-item>
     
         <ion-item>
