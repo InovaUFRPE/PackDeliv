@@ -158,6 +158,29 @@ def getAdress(id):
     else:
         return {"response" : "invalid adress"}
 
+def editAdress(json_adress):
+    Session = getSession()
+    session=Session()
+    id=json_adress[ADRESS_ID]
+    response=session.query(Adress).filter(Adress.id == id).all()
+    
+    if len(response)==1:
+        adress=response[0]
+        adress.street=json_adress[ADRESS_STREET]
+        adress.number=json_adress[ADRESS_NUMBER]
+        adress.complement=json_adress[ADRESS_COMPLEMENT]
+        adress.district=json_adress[ADRESS_DISTRICT]
+        adress.postal_code=json_adress[ADRESS_POSTAL_CODE]
+        adress.city=json_adress[ADRESS_CITY]
+        adress.state=json_adress[ADRESS_STATE]
+        adress.country=json_adress[ADRESS_COUNTRY]
+        session.add(adress)
+        session.commit()
+        session.refresh(adress)
+        session.close()
+        return {"response" : adress }
+    else:
+        return {"response" : "invalid adress"}
 
 def saveVehicle(json_vehicle):
     Session= getSession()
@@ -286,7 +309,8 @@ def editCompany(json_company):
     id=json_company[COMPANY_ID]
     response= session.query(Company).filter(Company.id == id).all()
     company=response[0]
-    
+    json_adress=json_company[ADRESS]
+    editAdress(json_adress)
     company.email=json_company[COMPANY_EMAIL]
 
     session.add(company)
