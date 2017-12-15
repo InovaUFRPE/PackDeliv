@@ -84,7 +84,7 @@ class Package(Base):
     received=Column(PACKAGE_RECEIVED,Boolean, default=False)
     id_adress_start=Column(PACKAGE_ID_START_ADRESS,Integer)
     id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
-    static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255),nullable=False)
+    static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
 
 class Delivery(Base):
     __tablename__=DELIVERY
@@ -228,6 +228,7 @@ def saveDeliveryman(json_deliveryman):
     return response
 
 def savePackage(json_package):
+    print(json_package)
     Session=getSession()
     session=Session()
     package=Package()
@@ -236,20 +237,19 @@ def savePackage(json_package):
     package.height=json_package[PACKAGE_HEIGHT]
     package.length=json_package[PACKAGE_LENGTH]
     package.weight=json_package[PACKAGE_WEIGHT]
-
-    #package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]]
-
+    package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]
+    package.local_start=json_package[PACKAGE_LOCAL_START]
     package.id_adress_start=json_package[PACKAGE_ID_START_ADRESS]
-    package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
-    package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
+    
+    #package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
+    #package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
+
     session.add(package)
     response=False
-    try:
-        session.commit()
-        session.refresh(package)
-        response = package.id
-    except:
-        deleteAdress(id_adress)    
+    
+    session.commit()
+    session.refresh(package)
+    response = package.id    
     session.close()
     return response
 

@@ -66,10 +66,12 @@ PACKAGE_LENGTH='Comprimento'
 PACKAGE_WEIGHT='Peso'
 PACKAGE_SHIPPED='Expedido'
 PACKAGE_RECEIVED='Recebido'
-PACKAGE_LOCAL_DESTINY='Destino'
-PACKAGE_LOCAL_START='Endereço Inicio'
 PACKAGE_ID_START_ADRESS='Id_endereco_inicio'
 PACKAGE_ID_ADRESS ='Id_endereco_final'
+
+
+PACKAGE_LOCAL_DESTINY='Endereco_Destino'
+PACKAGE_LOCAL_START='Endereco_Inicio'
 PACKAGE_CURRENT_STATIC_LOCATION='Local_atual_estatico'
 
 

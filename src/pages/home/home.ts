@@ -19,7 +19,7 @@ import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  rootPage = ListaDeEntregasPage;
+  rootPage = PerfilPage;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   } 
 

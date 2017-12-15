@@ -2,17 +2,17 @@ import { Endereco } from "./endereco";
 
 export class Pacote {
     id?:number
-    width:number
-    height:number
-    length:number
-    weight:number
-    shipped:boolean
-    received:boolean
+    Largura:number
+    Altura:number
+    Comprimento:number
+    Peso:number
+    Expedido:boolean
+    Recebido:boolean
     
-    idAdress:number
-    idDestiny:number
-    inicialAdress:Endereco
-    destinyAdress:Endereco
+    Id_endereco_inicio:number
+    Id_endereco_final:number
+    Endereco_Inicio:Endereco
+    Endereco_Destino:Endereco
     constructor(){
         
     }
