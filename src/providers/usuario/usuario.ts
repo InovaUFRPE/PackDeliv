@@ -77,7 +77,7 @@ export class UsuarioProvider {
           empresa.Login = user.Login
           empresa.Nome_fantasia = user.Nome_fantasia
           empresa.Senha = user.Senha
-          callback(user);
+          callback(empresa);
         }
       } else {
         callback(false);

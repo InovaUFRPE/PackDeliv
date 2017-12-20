@@ -24,6 +24,7 @@ import { EmailComposer } from "@ionic-native/email-composer";
 import { SessionProvider } from '../providers/session/session';
 import { CadastroPacotePage } from '../pages/cadastro-pacote/cadastro-pacote';
 import { CadastroPacote2Page } from '../pages/cadastro-pacote2/cadastro-pacote2';
+import { PacoteProvider } from '../providers/pacote/pacote';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { CadastroPacote2Page } from '../pages/cadastro-pacote2/cadastro-pacote2'
     Geolocation,
     GoogleMaps,
     EmailComposer,
-    SessionProvider
+    SessionProvider,
+    PacoteProvider
   ]
 })
 export class AppModule {}
