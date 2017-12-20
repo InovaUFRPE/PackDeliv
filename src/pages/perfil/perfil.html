@@ -39,9 +39,9 @@
       
         <ion-item>
           <ion-label fixed style="color: #144F45">
-            E-Mail:
+            E-mail:
           </ion-label>
-          <ion-input style="color:black"  type="text"  data-ng-model="user.email" value={{user.Email}} ></ion-input>
+          <ion-input style="color:black"  [disabled]="true" type="text"  data-ng-model="user.email" value={{user.Email}} ></ion-input>
         </ion-item>
 
         <ion-item>
@@ -66,7 +66,7 @@
         </ion-item>
 
         <ion-item>
-            <ion-label fixed style="color: #144F45" >
+            <ion-label style="color: #144F45" >
               Complemento:
             </ion-label>
             <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.Endereco.Complemento}} ></ion-input>
