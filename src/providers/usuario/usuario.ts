@@ -75,8 +75,9 @@ export class UsuarioProvider {
           empresa.Email = user.Email
           empresa.Endereco = endereco
           empresa.Login = user.Login
-          empresa.Nome_fantasia = user.Nome_fantasia
+          empresa.Nome = user.Nome
           empresa.Senha = user.Senha
+          console.log(empresa)
           callback(empresa);
         }
       } else {

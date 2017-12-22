@@ -1,4 +1,4 @@
-from DB_helper import *
+from DB.DB_helper import *
 from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
@@ -21,6 +21,7 @@ class LatLng:
 class CombinationController:
 
     def join_packages(self, vol, position):
+        combinationDAO = CombinationDAO()
         packages = combinationDAO.select_packages(position)
         volInicial = vol
         service_order = Service_order()

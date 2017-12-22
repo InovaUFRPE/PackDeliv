@@ -2,10 +2,9 @@ from sqlalchemy import create_engine, Column, Integer, String,Boolean, ForeignKe
 #from geoalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 import datetime
 from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->fix it)
-
 Base = declarative_base()
 
 class Adress(Base):
@@ -72,7 +71,7 @@ class Service_order(Base):
     #code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,Date)
     finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,Date)
-    #list_package = relationship('Package')
+    list_package = relationship('Package')
 
 class Package(Base):
     __tablename__ = PACKAGE
@@ -88,7 +87,7 @@ class Package(Base):
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
     started_date = Column(DateTime, default=datetime.datetime.utcnow)
     Service_order_id = Column(Integer , ForeignKey('Service_order.id'))
-
+    Service_order = relationship('Service_order', back_populates='list_package')
 class Delivery(Base):
     __tablename__=DELIVERY
 
