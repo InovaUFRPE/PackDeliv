@@ -16,7 +16,10 @@ combinationCtrl = combination.CombinationController()
 CORS(app)
 
 # route responsible to make the combination of packages
+
+
 @app.route('/join-packages', methods=['POST'])
+
 
 def match_packages():
     car = request.get_json()
@@ -27,3 +30,11 @@ def match_packages():
         return jsonify({'response': info_service_order})
     except ValueError:
         return jsonify({'error': 'Volume ou localização inválidos'})
+
+
+@app.route('/routes', methods=['POST'])
+
+
+def create_route():
+    address = request.get_json()
+    pass

@@ -1,15 +1,16 @@
-from sqlalchemy import create_engine, Column, Integer, String,Boolean, ForeignKey,Date
+from sqlalchemy import create_engine, Column, Integer, String,Boolean, ForeignKey,Date,DateTime
 #from geoalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
+import datetime
 from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->fix it)
 
 Base = declarative_base()
 
 class Adress(Base):
     __tablename__= ADRESS
-    
+
     id= Column(ADRESS_ID,Integer,primary_key=True)
     street = Column(ADRESS_STREET, String(255))
     number = Column(ADRESS_NUMBER,String(255), nullable=False)
@@ -66,15 +67,15 @@ class Deliveryman(Company):
 
 class Service_order(Base):
     __tablename__=SERVICE_ORDER
-    
+
     id=Column(SERVICE_ORDER_ID, Integer, primary_key=True)
-    code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
+    #code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,Date)
     finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,Date)
-
+    #list_package = relationship('Package')
 
 class Package(Base):
-    __tablename__=PACKAGE
+    __tablename__ = PACKAGE
     id=Column(PACKAGE_ID, Integer, primary_key=True)
     width=Column(PACKAGE_WIDTH,Integer,nullable=False)
     height=Column(PACKAGE_HEIGHT,Integer,nullable=False)
@@ -85,6 +86,8 @@ class Package(Base):
     id_adress_start=Column(PACKAGE_ID_START_ADRESS,Integer)
     id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
+    started_date = Column(DateTime, default=datetime.datetime.utcnow)
+    Service_order_id = Column(Integer , ForeignKey('Service_order.id'))
 
 class Delivery(Base):
     __tablename__=DELIVERY
@@ -163,7 +166,7 @@ def editAdress(json_adress):
     session=Session()
     id=json_adress[ADRESS_ID]
     response=session.query(Adress).filter(Adress.id == id).all()
-    
+
     if len(response)==1:
         adress=response[0]
         adress.street=json_adress[ADRESS_STREET]
@@ -240,16 +243,16 @@ def savePackage(json_package):
     package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]
     package.local_start=json_package[PACKAGE_LOCAL_START]
     package.id_adress_start=json_package[PACKAGE_ID_START_ADRESS]
-    
+
     #package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
     #package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
 
     session.add(package)
     response=False
-    
+
     session.commit()
     session.refresh(package)
-    response = package.id    
+    response = package.id
     session.close()
     return response
 
@@ -262,7 +265,7 @@ def getPackages(id):
 
 
 
-  
+
 def saveCompany(json_company):
     id_adress=saveAdress(json_company[ADRESS])
     Session=getSession()
@@ -318,4 +321,6 @@ def editCompany(json_company):
     session.close()
     return True
 
+#Criando Endereço para a Combinação
 
+#endereço 1 = {"Id":"" , "Logradouro":"adm123" }
