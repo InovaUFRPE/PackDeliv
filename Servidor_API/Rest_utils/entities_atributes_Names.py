@@ -9,6 +9,13 @@ VEHICLE='Veiculo'
 SERVICE_ORDER='Ordem_de_servico'
 DELIVERY='Entrega'
 PACKAGE='Pacote'
+LOCALIZATION="Localizacao"
+CLIENT="Cliente"
+
+CLIENTE_ID="Id"
+CLIENTE_UPI="CPF"#unique client identifier
+CLIENTE_NAME="Nome"
+
 
 
 COMPANY_ID = 'id'        
@@ -37,6 +44,11 @@ ADRESS_POSTAL_CODE = 'CEP'
 ADRESS_CITY= 'Cidade'
 ADRESS_STATE= 'Estado'
 ADRESS_COUNTRY= 'Pais'
+ADRESS_TYPE= 'Tipo'
+
+ADRESS_COMPANY_MATRIX='endereco_empresa_matriz'
+ADRESS_COMPANY='endereco_empresa'
+ADRESS_CLIENT='endereco_cliente'
 
 VEHICLE_ID= 'id'
 VEHICLE_LICENSE_PLATE= 'placa'
@@ -44,6 +56,8 @@ VEHICLE_YEAR = 'ano'
 VEHICLE_MODEL = 'modelo'
 VEHICLE_COLOR = 'cor'
 VEHICLE_READY= 'apto'
+VEHICLE_VOLUME= 'volume'
+
 
 SERVICE_ORDER_ID='Id'
 SERVICE_ORDER_IDENTIFIER_CODE='Codigo'
@@ -68,7 +82,15 @@ PACKAGE_RECEIVED='Recebido'
 PACKAGE_LOCAL_DESTINY='Destino'
 PACKAGE_ID_ADRESS ='Id_endereco'
 PACKAGE_CURRENT_STATIC_LOCATION='Local_atual_estatico'
+PACKAGE_VOLUME="volume"
 
+LOCALIZATION_ID="Id"
+LOCALIZATION_LAT="Lat"
+LOCALIZATION_LONG="Long"
+LOCALIZATION_TYPE="Tipo"
+
+LOCALIZATION_ADRESS="localizacao_endereco"
+LOCALIZATION_DELIVERYMAN="localizacao_entregador"
 
 
 

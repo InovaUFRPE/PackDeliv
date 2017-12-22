@@ -1,6 +1,7 @@
-
+import enum
+import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Boolean
-from sqlalchemy import ForeignKey, Date, Float
+from sqlalchemy import ForeignKey, Date, Float, Enum, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
@@ -8,31 +9,18 @@ from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->
 
 Base = declarative_base()
 
-class Localization(Base):
-    __tablename__= LOCALIZATION
-    id= Column(LOCALIZATION_ID,Integer,primary_key=True)
-    lat=Column(LOCALIZATION_LAT,Float(), nullable=False)
-    long=Column(LOCALIZATION_LONG, nullable=False)
-    type=Column(LOCALIZATION_TYPE, String(255))
+class AdressTypeEnum(enum.Enum):
+    adress_type_1=ADRESS_COMPANY_MATRIX
+    adress_type_2=ADRESS_COMPANY
+    adress_type_3=ADRESS_CLIENT
 
-    __mapper_args__ = {
-        'polymorphic_identity': LOCALIZATION,
-        'polymorphic_on':type
-    }
+class Client(Base):
+    __tablename__=CLIENT
 
-class Localization_adress(Localization):
-    __tablename__=LOCALIZATION_ADRESS
-
-    __mapper_args__ = {
-        'polymorphic_identity':LOCALIZATION_ADRESS,
-    }
-
-class Localization_deliveryman(Localization):
-    __tablename__=LOCALIZATION_DELIVERYMAN
-
-    __mapper_args__ = {
-        'polymorphic_identity':LOCALIZATION_ADRESS,
-    }
+    id= Column(CLIENT_ID,Integer,primary_key=True)
+    upi=Column(CLIENTE_UPI,String(11),unique=True)#unique company identifier
+    name=Column(CLIENTE_NAME,String(255),nullable=False)
+    adress=relationship(ADRESS)
 
 class Adress(Base):
     __tablename__= ADRESS
@@ -46,20 +34,13 @@ class Adress(Base):
     city = Column(ADRESS_CITY, String(255), nullable=False)
     state = Column(ADRESS_STATE, String(255),nullable=False)
     country = Column(ADRESS_COUNTRY,String(255),nullable=False)
-    type=Column(ADRESS_TYPE, String(255))
+    lat=Column(LOCALIZATION_LAT,Float(), nullable=False)
+    long=Column(LOCALIZATION_LONG,,Float(), nullable=False)
 
+    id_company=Column(Integer, ForeignKey(COMPANY+'.'+COMPANY_ID))
+    id_client=Column(Integer, ForeignKey(CLIENT+'.'+CLIENT_ID))
 
-    __mapper_args__ = {
-        'polymorphic_identity': ADRESS,
-        'polymorphic_on':type
-    }
-    #add coluna de localização
-
-class Adress_company(Adress):
-    __mapper_args__ = {
-        'polymorphic_identity':ADRESS_COMPANY,
-    }
-
+    type=Column(ADRESS_TYPE, Enum(AdressTypeEnum))
 
 class Vehicle(Base):
     __tablename__= VEHICLE
@@ -70,47 +51,49 @@ class Vehicle(Base):
     model = Column(VEHICLE_MODEL,String(255),nullable=False)
     color =Column(VEHICLE_COLOR,String(255))
     ready=Column(VEHICLE_READY, Boolean, default=False)
+    volume=Column(VEHICLE_VOLUME,Integer,nullable=False)
+
 
 class Company(Base):
     __tablename__=COMPANY
 
     id=Column(COMPANY_ID, Integer, primary_key=True)
-    id_adress=Column(COMPANY_ID_ADRESS,Integer,ForeignKey(Adress.id),nullable=False)
+    #id_adress=Column(COMPANY_ID_ADRESS,Integer,ForeignKey(Adress.id),nullable=False)
     name_company=Column(COMPANY_NAME,String(255),nullable=False)
     password = Column(COMPANY_PASSWORD,String(255),nullable=False)
     login=Column(COMPANY_LOGIN,String(255),unique=True,nullable=False)
     email=Column(COMPANY_EMAIL,String(255),unique=True,nullable=False)
     uci=Column(COMPANY_UCI,String(14),unique=True)#unique company identifier
     type=Column(COMPANY_TYPE, String(255))
+    adress=relationship(ADRESS)
     __mapper_args__ = {
         'polymorphic_identity': COMPANY,
         'polymorphic_on':type
     }
+    #o enum ja trata sem precisar utilizar uma especialização
     #adicionar o relacionamento com endereço de empresa
-    #adiccionar o relacionamento com endereço(esse é pra multiplos endereços de entrega)
+    #utilizar  Query-Enabled Properties para os dois endereços,
+    #pois desse modo daria para manter os enums?
+    #adicionar o relacionamento com endereço(esse é pra multiplos endereços de entrega)
 
 class Deliveryman(Company):
     __tablename__=DELIVERYMAN
     id = Column(DELIVERYMAN_ID,Integer, ForeignKey(Company.id), primary_key=True)
     name_deliveryman=Column(DELIVERYMAN_NAME,String(255),nullable=False)
-    Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id,onupdate="CASCADE", ondelete="CASCADE"))
     dui=Column(DELIVERYMAN_DUI,String(255),unique=True,nullable=False)
     status=Column(DELIVERYMAN_STATUS,Boolean, default=False)
     ready=Column(DELIVERYMAN_READY,Boolean, default=False)
+    lat=Column(LOCALIZATION_LAT,Float(), nullable=False)
+    long=Column(LOCALIZATION_LONG,,Float(), nullable=False)
 
-    #adicionar localização, relacionamento também
-    #adicionar o relacionamento com empresa, e veiculo.
+    Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id))
+    Vehicle=relationship(VEHICLE)
     __mapper_args__ = {
         'polymorphic_identity':DELIVERYMAN,
     }
 
-class Service_order(Base):
-    __tablename__=SERVICE_ORDER
+
     
-    id=Column(SERVICE_ORDER_ID, Integer, primary_key=True)
-    code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
-    shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,Date)
-    finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,Date)
     #adicionar o relacionamento com entregas para que possa se realizar a lista de pacotes
 
 
@@ -123,21 +106,36 @@ class Package(Base):
     weight=Column(PACKAGE_WEIGHT,Integer,nullable=False)
     shiped=Column(PACKAGE_SHIPPED,Boolean, default=False)
     received=Column(PACKAGE_RECEIVED,Boolean, default=False)
+    volume=Column(PACKAGE_VOLUME,Integer,nullable=False)
     id_adress_start=Column(PACKAGE_ID_START_ADRESS,Integer)
     id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
+    
+    
     #adicionar o relacionamento com entrega
+    #adcionar o relacionamento com endereço
+    #utilizar  Query-Enabled Properties para os dois endereços,
+    #pois desse modo daria para manter os enums?
+
 
 class Delivery(Base):
     __tablename__=DELIVERY
 
     id=Column(DELIVERY_ID, Integer, primary_key=True)
     code=Column(DELIVERY_IDENTIFIER_CODE, String(255))
-    shipping_date=Column(DELIVERY_SHIPPING_DATE,Date)
-    finalization_date=Column(DELIVERY_FINALIZATION_DATE,Date)
+    shipping_date=Column(DELIVERY_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
+    finalization_date=Column(DELIVERY_FINALIZATION_DATE,DateTime, default=False)
     id_service_order=Column(DELIVERY_ID_SERVICE_ORDER,Integer,ForeignKey(Service_order.id,onupdate="CASCADE", ondelete="CASCADE"))
     id_package=Column(DELIVERY_ID_PACKAGE,Integer,ForeignKey(Package.id,onupdate="CASCADE", ondelete="CASCADE"))
     #adionar o relacionamento com ordem de serviço e pacote
+
+class Service_order(Base):
+    __tablename__=SERVICE_ORDER
+    
+    id=Column(SERVICE_ORDER_ID, Integer, primary_key=True)
+    code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
+    shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
+    finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,DateTime, default=False)
 
 def getEngine():
 
