@@ -55,6 +55,8 @@ DELIVERY_ID='Id'
 DELIVERY_IDENTIFIER_CODE='codigo'
 DELIVERY_SHIPPING_DATE='Data_expedicao'
 DELIVERY_FINALIZATION_DATE='Data_finalizacao'
+#!/usr/bin/python3.5
+
 DELIVERY_ID_SERVICE_ORDER='Id_ordem_de_servico'
 DELIVERY_ID_PACKAGE='Id_pacote Varchar'
 DELIVERY_ID_SUCESS='Sucesso'
