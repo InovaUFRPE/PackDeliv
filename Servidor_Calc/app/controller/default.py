@@ -1,19 +1,15 @@
 #!/usr/bin/python3.5
+"""API creation module."""
 
-# API related modules import statement
-from flask import Flask, jsonify, request
-import requests
-from flask_cors import CORS
+from flask import jsonify, request
+# import requests
 
 # Core and utils related modules import statement
-from controller import combination
-from utils import LatLng
+from lib.utils import LatLng
+from app import app
+from controller.combination import CombinationController
 
-# declarations
-app = Flask(__name__)
-combinationCtrl = combination.CombinationController()
-
-CORS(app)
+combinationCtrl = CombinationController()
 
 
 @app.route('/join-packages', methods=['POST'])
@@ -34,7 +30,3 @@ def create_route():
     """Function responsible for IO related to route management."""
     address = request.get_json()
     pass
-
-
-if __name__ == "__main__":
-    app.run()

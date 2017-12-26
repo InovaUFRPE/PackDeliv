@@ -1,5 +1,7 @@
 #!/usr/bin/python3.5
 """Combination Data Access Object module, create the CombinationDAO class."""
+
+# SQLAlchemy related imports
 from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
