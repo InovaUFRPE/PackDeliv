@@ -2,10 +2,9 @@
 """Combination Controller module, create the controller for combination."""
 
 import datetime
-from dao import combination
-from utils import LatLng
+from app.dao.combination import CombinationDAO
 
-combinationDAO = combination.CombinationDAO()
+combinationDAO = CombinationDAO()
 
 
 class CombinationController:

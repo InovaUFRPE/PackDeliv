@@ -5,9 +5,9 @@ from flask import jsonify, request
 # import requests
 
 # Core and utils related modules import statement
-from lib.utils import LatLng
 from app import app
-from controller.combination import CombinationController
+from app.lib.utils import LatLng
+from app.controller.combination import CombinationController
 
 combinationCtrl = CombinationController()
 
