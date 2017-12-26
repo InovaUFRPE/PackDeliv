@@ -2,7 +2,8 @@
 """Combination Controller module, create the controller for combination."""
 
 import datetime
-from app.dao.combination import CombinationDAO
+from dao.combination import CombinationDAO
+from model.model import Service_order
 
 combinationDAO = CombinationDAO()
 
