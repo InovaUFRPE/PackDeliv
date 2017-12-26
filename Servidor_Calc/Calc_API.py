@@ -15,13 +15,10 @@ combinationCtrl = combination.CombinationController()
 
 CORS(app)
 
-# route responsible to make the combination of packages
-
 
 @app.route('/join-packages', methods=['POST'])
-
-
 def match_packages():
+    """Function responsible for IO related to combination of packages."""
     car = request.get_json()
     try:
         vol = int(car['vol'])
@@ -33,8 +30,11 @@ def match_packages():
 
 
 @app.route('/routes', methods=['POST'])
-
-
 def create_route():
+    """Function responsible for IO related to route management."""
     address = request.get_json()
     pass
+
+
+if __name__ == "__main__":
+    app.run()
