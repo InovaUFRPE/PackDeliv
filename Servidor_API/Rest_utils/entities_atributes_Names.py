@@ -12,13 +12,13 @@ PACKAGE='Pacote'
 LOCALIZATION="Localizacao"
 CLIENT="Cliente"
 
-CLIENTE_ID="Id"
-CLIENTE_UPI="CPF"#unique client identifier
-CLIENTE_NAME="Nome"
+CLIENT_ID='Id'
+CLIENT_UPI='CPF'#unique client identifier
+CLIENT_NAME='Nome'
 
 
 
-COMPANY_ID = 'id'        
+COMPANY_ID = 'Id'        
 COMPANY_ID_ADRESS ='Id_endereco'
 COMPANY_NAME='Nome_fantasia'
 COMPANY_PASSWORD ='Senha'
@@ -30,6 +30,8 @@ COMPANY_TYPE= 'Tipo'
 DELIVERYMAN_ID= 'id'
 DELIVERYMAN_ID_VEHICLE= 'Id_veiculo'
 DELIVERYMAN_ID_COMPANY = 'id_empresa'
+DELIVERYMAN_NAME='Nome'
+DELIVERYMAN_STATUS='Status'
 DELIVERYMAN_DUI= 'CNH' #driver unique identifier
 DELIVERYMAN_AVAILABILITY= 'Disponibilidade'
 DELIVERYMAN_READY= 'Apto'
@@ -79,8 +81,8 @@ PACKAGE_LENGTH='Comprimento'
 PACKAGE_WEIGHT='Peso'
 PACKAGE_SHIPPED='Expedido'
 PACKAGE_RECEIVED='Recebido'
-PACKAGE_LOCAL_DESTINY='Destino'
-PACKAGE_ID_ADRESS ='Id_endereco'
+PACKAGE_ID_ADRESS_START ='Id_endereco_inicio'
+PACKAGE_ID_ADRESS_DESTINY ='Id_endereco_destino'
 PACKAGE_CURRENT_STATIC_LOCATION='Local_atual_estatico'
 PACKAGE_VOLUME="volume"
 

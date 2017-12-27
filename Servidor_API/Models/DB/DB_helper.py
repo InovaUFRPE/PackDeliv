@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey, Date, Float, Enum, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->fix it)
 
 Base = declarative_base()
@@ -18,8 +18,8 @@ class Client(Base):
     __tablename__=CLIENT
 
     id= Column(CLIENT_ID,Integer,primary_key=True)
-    upi=Column(CLIENTE_UPI,String(11),unique=True)#unique company identifier
-    name=Column(CLIENTE_NAME,String(255),nullable=False)
+    upi=Column(CLIENT_UPI,String(11),unique=True)#unique company identifier
+    name=Column(CLIENT_NAME,String(255),nullable=False)
     adresses=relationship(ADRESS)
 
 class Adress(Base):
@@ -37,10 +37,10 @@ class Adress(Base):
     lat=Column(LOCALIZATION_LAT,Float(), nullable=False)
     long=Column(LOCALIZATION_LONG,Float(), nullable=False)
 
-    id_company=Column(Integer, ForeignKey(COMPANY+'.'+COMPANY_ID))
-    id_client=Column(Integer, ForeignKey(CLIENT+'.'+CLIENT_ID))
+    id_company=Column(COMPANY+'_'+COMPANY_ID,Integer, ForeignKey(COMPANY+'.'+COMPANY_ID))
+    id_client=Column(CLIENT+'_'+CLIENT_ID,Integer, ForeignKey(CLIENT+'.'+CLIENT_ID))
 
-    type=Column(ADRESS_TYPE, Enum(AdressTypeEnum))
+    type=Column(ADRESS_TYPE, Enum('endereco_empresa_matriz','endereco_empresa','endereco_cliente'))
 
 class Vehicle(Base):
     __tablename__= VEHICLE
@@ -108,8 +108,8 @@ class Package(Base):
     received=Column(PACKAGE_RECEIVED,Boolean, default=False)
     volume=Column(PACKAGE_VOLUME,Integer,nullable=False)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
-    id_adress_start=Column(PACKAGE_ID_START_ADRESS,Integer)
-    id_adress_destiny=Column(PACKAGE_ID_ADRESS,Integer)
+    id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)
+    id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)
     
     adresses=relationship(Adress)
     deliveries=relationship(DELIVERY, back_populates="package")
@@ -141,7 +141,7 @@ class Service_order(Base):
 def getEngine():
 
     user ="root"
-    password=""
+    password="Arretterr@"
     adress="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)

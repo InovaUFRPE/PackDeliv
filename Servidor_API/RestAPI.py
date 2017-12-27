@@ -2,8 +2,10 @@
 from flask import Flask
 
 from flask_cors import CORS
-from DB.DB_helper import INIT_API
-from Views.viewHelper import app
+from Models.DB.DB_helper import INIT_API
+
+
+app = Flask(__name__)
 
 INIT_API()
 
