@@ -10,7 +10,8 @@ class CompanyView(MethodView):
         return jsonify({"testeGet": id_company})
     
     def post(self):
-        return jsonify({"testePost": "123"})
+        json = request.get_json()
+        return jsonify({"testePost":json })
     
     def put(self,id_company):
         return jsonify({"testePut": id_company})

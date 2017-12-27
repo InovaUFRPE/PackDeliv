@@ -1,6 +1,8 @@
 from flask import Flask
+from flask_cors import CORS
+from Models.DB.DB_helper import INIT_API
 
-app = Flask(__name__)
+
 
 def register_view(app,view, endpoint, url, choiceMethods=['GET'], pk=None, pk_type='int'):
 
@@ -14,3 +16,9 @@ def register_view(app,view, endpoint, url, choiceMethods=['GET'], pk=None, pk_ty
     if any(x in ['GET', 'PUT', 'DELETE'] for x in choiceMethods ) and pk != None :
         app.add_url_rule('%s<%s:%s>' % (url, pk_type, pk), view_func=view_func,methods=[x for x in ['GET', 'PUT', 'DELETE'] if x in choiceMethods])
     
+app = Flask(__name__)
+INIT_API()
+CORS(app)
+       
+if __name__ == '__main__' :
+    app.run()
