@@ -3,7 +3,7 @@ from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker
-from Rest_utils.entities_atributes_Names import *
+from utilities.entities_atributes_Names import *
 
 class LatLng:
     """docstring for LatLng."""
