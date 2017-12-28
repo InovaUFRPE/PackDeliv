@@ -141,7 +141,7 @@ class Service_order(Base):
 def getEngine():
 
     user ="root"
-    password="Arretterr@"
+    password=""
     adress="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
@@ -157,7 +157,8 @@ def INIT_API():
 
 def getSession():
     engine = getEngine()
-    return sessionmaker(bind=engine)
+    Session=sessionmaker(bind=engine)
+    return Session()
 
 
 
