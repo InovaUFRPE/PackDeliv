@@ -3,7 +3,6 @@
 
 from random import randint
 
-
 class LatLng:
     """Class for use with coordinates."""
 
@@ -30,11 +29,12 @@ class Package:
         self.height = height
         self.lenght = lenght
         self.weight = weight
+        self.vol = self.width * self.height * self.lenght
         self.address = address
 
-    def __repr__(self):
+    def get(self):
         """Representation method for Package."""
-        return str(vars(self))
+        return vars(self)
 
 
 class Address:
@@ -51,9 +51,10 @@ class Address:
         self.state = state
         self.country = country
 
-    def __repr__(self):
+
+    def get(self):
         """Representation method for Package."""
-        return str(vars(self))
+        return vars(self)
 
 
 def popular():
@@ -75,10 +76,10 @@ def popular():
     cidade3 = "jaboatao dos guararapes"
 
     address1 = Address(rua1, 182, "", bairro3, cep1, cidade1, "pe", "brasil")
-    address2 = Address(rua2, 308, '', bairro1, cep2, cidade2, 'pe', 'brasil')
+    address2 = Address(rua2, 308, "", bairro1, cep2, cidade2, 'pe', 'brasil')
     address3 = Address(rua3, 100, "c", bairro2, cep3, cidade3, "pe", "brasil")
     address4 = Address(rua1, 174, "", bairro3, cep1, cidade1, "pe", "brasil")
-    address5 = Address(rua2, 309, '', bairro1, cep2, cidade2, 'pe', 'brasil')
+    address5 = Address(rua2, 309, "", bairro1, cep2, cidade2, 'pe', 'brasil')
     address6 = Address(rua3, 101, "a", bairro2, cep3, cidade3, "pe", "brasil")
 
     list_address = [address1, address2, address3, address4, address5, address6]
@@ -88,10 +89,10 @@ def popular():
     list_package = {}
 
     for i in range(12):
-        p = Package(width=randint(1, 10), height=randint(1, 10), lenght=randint(1, 10), weight=randint(10, 25), address=list_address[i % 6])
-        if p.address.district == bairro1:
+        p = Package(width=randint(1, 10), height=randint(1, 10), lenght=randint(1, 10), weight=randint(10, 25), address=list_address[i % 6].get())
+        if p.address['district'] == bairro1:
             list_bairro1.append(p)
-        elif p.address.district == bairro2:
+        elif p.address['district'] == bairro2:
             list_bairro2.append(p)
         else:
             list_bairro3.append(p)

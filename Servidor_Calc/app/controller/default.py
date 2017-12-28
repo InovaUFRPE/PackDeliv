@@ -21,8 +21,8 @@ def match_packages():
     try:
         vol = int(car['vol'])
         # position = LatLng(car['position'])
-        info_service_order = combinationCtrl.join_packages(vol)
-        return jsonify({'response': info_service_order})
+        info_service_order = combinationCtrl.join_packages(vol, None)
+        return jsonify(info_service_order)
     except ValueError:
         return jsonify({'error': 'Volume ou localização inválidos'})
 
