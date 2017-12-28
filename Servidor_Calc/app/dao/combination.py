@@ -2,7 +2,7 @@
 """Combination Data Access Object module, create the CombinationDAO class."""
 
 # import requests
-from lib.utils import popular
+from app.lib.utils import popular
 
 
 class CombinationDAO:

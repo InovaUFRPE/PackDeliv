@@ -1,14 +1,17 @@
 #!/usr/bin/python3.5
 """API creation module."""
 
+# Flask related imports
 from flask import jsonify, request
 
 # Core and utils related modules import statement
 from app import app
-# from lib.utils import LatLng
-from controller.combination import CombinationController
+from app.controller.combination import CombinationController
+from app.dao.combination import CombinationDAO
+from pprint import pprint
 
 combinationCtrl = CombinationController()
+combinationDAO = CombinationDAO()
 
 
 @app.route('/join-packages', methods=['POST'])
@@ -29,3 +32,10 @@ def create_route():
     """Function responsible for IO related to route management."""
     # address = request.get_json()
     pass
+
+
+@app.route('/test', methods=['GET'])
+def test():
+    """Test function."""
+    pprint(combinationDAO.select_packages(None))
+    return jsonify()

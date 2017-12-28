@@ -24,13 +24,17 @@ class LatLng:
 class Package:
     """Package model class."""
 
-    def __init__(self, width, height, lenght, weight, adress):
+    def __init__(self, width, height, lenght, weight, address):
         """Initialization for Package object."""
         self.width = width
         self.height = height
         self.lenght = lenght
         self.weight = weight
-        self.adress = adress
+        self.address = address
+
+    def __repr__(self):
+        """Representation method for Package."""
+        return str(vars(self))
 
 
 class Address:
@@ -46,6 +50,10 @@ class Address:
         self.city = city
         self.state = state
         self.country = country
+
+    def __repr__(self):
+        """Representation method for Package."""
+        return str(vars(self))
 
 
 def popular():
@@ -80,15 +88,10 @@ def popular():
     list_package = {}
 
     for i in range(12):
-        p = Package()
-        p.address = list_address[i % 6]
-        p.height = randint(1, 10)
-        p.lenght = randint(1, 10)
-        p.width = randint(1, 10)
-        p.weight = randint(10, 50)
-        if p.adress.district == bairro1:
+        p = Package(width=randint(1, 10), height=randint(1, 10), lenght=randint(1, 10), weight=randint(10, 25), address=list_address[i % 6])
+        if p.address.district == bairro1:
             list_bairro1.append(p)
-        elif p.adress.district == bairro2:
+        elif p.address.district == bairro2:
             list_bairro2.append(p)
         else:
             list_bairro3.append(p)
