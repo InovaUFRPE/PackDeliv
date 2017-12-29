@@ -14,13 +14,7 @@ class AdressTypeEnum(enum.Enum):
     adress_type_2=ADRESS_COMPANY
     adress_type_3=ADRESS_CLIENT
 
-class Client(Base):
-    __tablename__=CLIENT
 
-    id= Column(CLIENT_ID,Integer,primary_key=True)
-    upi=Column(CLIENT_UPI,String(11),unique=True)#unique company identifier
-    name=Column(CLIENT_NAME,String(255),nullable=False)
-    adresses=relationship(ADRESS)
 
 class Adress(Base):
     __tablename__= ADRESS
@@ -41,6 +35,14 @@ class Adress(Base):
     id_client=Column(CLIENT+'_'+CLIENT_ID,Integer, ForeignKey(CLIENT+'.'+CLIENT_ID))
 
     type=Column(ADRESS_TYPE, Enum('endereco_empresa_matriz','endereco_empresa','endereco_cliente'))
+
+class Client(Base):
+    __tablename__=CLIENT
+
+    id= Column(CLIENT_ID,Integer,primary_key=True)
+    upi=Column(CLIENT_UPI,String(11),unique=True)#unique company identifier
+    name=Column(CLIENT_NAME,String(255),nullable=False)
+    adresses=relationship(Adress.__name__)
 
 class Vehicle(Base):
     __tablename__= VEHICLE
@@ -65,7 +67,7 @@ class Company(Base):
     email=Column(COMPANY_EMAIL,String(255),unique=True,nullable=False)
     uci=Column(COMPANY_UCI,String(14),unique=True)#unique company identifier
     type=Column(COMPANY_TYPE, String(255))
-    adresses=relationship(ADRESS)
+    adresses=relationship(Adress.__name__)
     __mapper_args__ = {
         'polymorphic_identity': COMPANY,
         'polymorphic_on':type
@@ -87,7 +89,7 @@ class Deliveryman(Company):
     long=Column(LOCALIZATION_LONG,Float(), nullable=False)
 
     Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id))
-    Vehicle=relationship(VEHICLE)
+    Vehicle=relationship(Vehicle.__name__)
     __mapper_args__ = {
         'polymorphic_identity':DELIVERYMAN,
     }
@@ -111,10 +113,12 @@ class Package(Base):
     id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)
     id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)
     
-    adresses=relationship(Adress)
-    deliveries=relationship(DELIVERY, back_populates="package")
-    #adress posuira dois endereços a diferença estará no tipo
-
+    #adresses=relationship(Adress.__name__)
+    #deliveries=relationship(Delivery.__name__, back_populates="package")
+    #adress posuira dois endereços a diferença estará no tipo, tentar especificar como o
+    #join do relacionamento irá funcionar para que ele mantenha as dois keys estrangeiras
+    #tentar manter o __name__ em Delivery no outro relacionamento, caso não consiga
+    # por o nome direto
 
 class Delivery(Base):
     __tablename__=DELIVERY
@@ -125,9 +129,7 @@ class Delivery(Base):
     finalization_date=Column(DELIVERY_FINALIZATION_DATE,DateTime, default=False)
     id_service_order=Column(DELIVERY_ID_SERVICE_ORDER,ForeignKey(SERVICE_ORDER+'.'+SERVICE_ORDER_ID))
     id_package=Column(DELIVERY_ID_PACKAGE,Integer,ForeignKey(PACKAGE+'.'+PACKAGE_ID))
-    package=relationship(PACKAGE,back_populates="deliveries")
-
-    #adionar o relacionamento com ordem de serviço e pacote
+    package=relationship(Package.__name__)
 
 class Service_order(Base):
     __tablename__=SERVICE_ORDER
@@ -136,12 +138,15 @@ class Service_order(Base):
     code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,DateTime, default=False)
-    packages=relationship(DELIVERY)
+    packages=relationship(Delivery.__name__)
+    #adionar o relacionamento com ordem de serviço e pacote
+
+
 
 def getEngine():
 
     user ="root"
-    password=""
+    password="Arretterr@"
     adress="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
