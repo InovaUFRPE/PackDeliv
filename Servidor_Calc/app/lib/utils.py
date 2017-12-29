@@ -3,13 +3,15 @@
 
 from random import randint
 
+
 class LatLng:
     """Class for use with coordinates."""
 
-    def __init__(self, lat, lng):
+    def __init__(self, coordinates):
         """Init the LatLng object."""
-        self.__lat = int(lat)
-        self.__lng = int(lng)
+        splited_coords = coordinates.split(';')
+        self.__lat = int(splited_coords[0])
+        self.__lng = int(splited_coords[1])
 
     def get_lat(self):
         """Get latitude value."""
@@ -23,6 +25,8 @@ class LatLng:
 class Package:
     """Package model class."""
 
+    __ID = 0
+
     def __init__(self, width, height, lenght, weight, address):
         """Initialization for Package object."""
         self.width = width
@@ -31,6 +35,8 @@ class Package:
         self.weight = weight
         self.vol = self.width * self.height * self.lenght
         self.address = address
+        self.id = Package.__ID + 1
+        Package.__ID += 1
 
     def get(self):
         """Representation method for Package."""
@@ -50,7 +56,6 @@ class Address:
         self.city = city
         self.state = state
         self.country = country
-
 
     def get(self):
         """Representation method for Package."""

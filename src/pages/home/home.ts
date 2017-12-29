@@ -28,16 +28,19 @@ export class HomePage {
 
 
 
-  abrirPerfil(){
+  public abrirPerfil() {
     this.navCtrl.push(PerfilPage);
   }
-  abrirSolicitarEntregas(){
+
+  public abrirSolicitarEntregas() {
     this.navCtrl.push(CadastroPacotePage);
   }
-  abrirMonitorarEntregas(){
+
+  public abrirMonitorarEntregas() {
     this.navCtrl.push(MonitorarEntregasPage);
   }
-  emitirOrdemDeServico() {
+
+  public emitirOrdemDeServico() {
     var volume: number = SessionProvider.getUser().car.volume;
 
     this.geolocation.getCurrentPosition().then((resp) => {
