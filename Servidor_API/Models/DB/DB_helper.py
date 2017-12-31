@@ -1,3 +1,4 @@
+# coding=utf-8
 import enum
 import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Boolean
@@ -13,6 +14,7 @@ class AdressTypeEnum(enum.Enum):
     adress_type_1=ADRESS_COMPANY_MATRIX
     adress_type_2=ADRESS_COMPANY
     adress_type_3=ADRESS_CLIENT
+
 
 
 
@@ -54,6 +56,15 @@ class Vehicle(Base):
     color =Column(VEHICLE_COLOR,String(255))
     ready=Column(VEHICLE_READY, Boolean, default=False)
     volume=Column(VEHICLE_VOLUME,Integer,nullable=False)
+    
+    def as_dict(self):
+       return { VEHICLE_ID: self.id,
+                VEHICLE_LICENSE_PLATE: self.licence_plate,
+                VEHICLE_YEAR: self.year,
+                VEHICLE_MODEL: self.model,
+                VEHICLE_COLOR: self.color,
+                VEHICLE_READY: self.ready,
+                VEHICLE_VOLUME: self.volume }
 
 
 class Company(Base):
@@ -164,7 +175,3 @@ def getSession():
     engine = getEngine()
     Session=sessionmaker(bind=engine)
     return Session()
-
-
-
-
