@@ -1,23 +1,20 @@
 
+from Models.DB.DB_helper import getSession,Client
+from Models.DAO.DAO_utils import printError,checkType
 
-from Models.DB.DB_helper import getSession, Vehicle
-from Models.DAO.DAO_utils import printError, checkType
-
-
-class VehicleDAO():
-
+class ClientDao():
     def __init__(self):
         pass
 
-    def save(self,vehicle):
+    def save(self,client):
         session = getSession()
         response = None
         try:
-            checkType('Vehicle',vehicle)
-            session.add(vehicle)
+            checkType('Client',client)
+            session.add(client)
             session.commit()
-            session.refresh(vehicle)
-            id=vehicle.id
+            session.refresh(client)
+            id=client.id
             session.close()
             response = id
 
@@ -27,12 +24,13 @@ class VehicleDAO():
         
         return response
     
-    def update(self,vehicle):
+    def update(self,client):
         session = getSession()
         response = None
         try:
-            checkType('Vehicle',vehicle)
-            session.add(vehicle)
+            checkType('Client',client)
+            session.add(client)
+            print(client)
             session.commit()
             session.close()
             response = True
@@ -46,8 +44,8 @@ class VehicleDAO():
     def delete(self,id):
         session = getSession()
         try:
-            
-            session.query(Vehicle).filter(Vehicle.id == id).delete()
+            checkType('Client',client)
+            session.query(Client).filter(Client.id == id).delete()
             session.commit()
             session.close()
             return True
@@ -59,13 +57,13 @@ class VehicleDAO():
         session = getSession()
         try:
             if id == None:
-                response=session.query(Vehicle).all()
-                response=[vehicle for vehicle in response]
-
+                response=session.query(Client).all()
+                response=[client for client in response]
             else:
-                response=session.query(Vehicle).filter(Vehicle.id == id).all()
+                response=session.query(Client).filter(Client.id == id).all()
                 response=response[0]
             return response
         except:
             printError()
-            return False    
+            return False
+

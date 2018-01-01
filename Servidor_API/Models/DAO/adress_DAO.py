@@ -1,53 +1,69 @@
 
-from Rest_utils.entities_atributes_Names import *
-from Models.DB.DB_helper import getSession
-from Models.DAO.DAO_utils import printError
+from Models.DB.DB_helper import getSession,Adress
+from Models.DAO.DAO_utils import printError,checkType
 
 
-class adressDao():
+class AdressDao():
 
     def __init__(self):
-        session = getSession()
+        pass
 
     def save(self,adress):
+        session = getSession()
+        response = None
         try:
-            self.session.add(adress)
-            self.session.commit()
-            self.session.refresh(adress)
+            checkType('Adress',adress)
+            session.add(adress)
+            session.commit()
+            session.refresh(adress)
             id=adress.id
             session.close()
-            return id
+            response = id
 
         except:
             printError()
-            return False
+            response = False
+        
+        return response
     
     def update(self,adress):
+        session = getSession()
+        response = None
         try:
-            self.session.add(adress)
-            self.session.commit()
-            self.session.refresh(adress)
+            checkType('Adress',adress)
+            session.add(adress)
+            print(adress)
+            session.commit()
+            session.close()
+            response = True
+
+        except:
+            printError()
+            response = False
+        
+        return response
+    
+    def delete(self,id):
+        session = getSession()
+        try:
+            checkType('Adress',adress)
+            session.query(Adress).filter(Adress.id == id).delete()
+            session.commit()
             session.close()
             return True
         except:
             printError()
             return False
-    
-    def delete(self,id):
-        try:
-            self.session.query(Adress).filter(Adress.id == id).delete()
-            self.session.commit()
-            self.session.close()
-            return True
-        except:
-            printError()
-            return False
+
     def select(self,id=None):
+        session = getSession()
         try:
             if id == None:
-                response=self.session.query(Adress).all()
+                response=session.query(Adress).all()
+                response=[adress for adress in response]
             else:
-                response=self.session.query(Adress).filter(Adress.id == id).all()
+                response=session.query(Adress).filter(Adress.id == id).all()
+                response=response[0]
             return response
         except:
             printError()

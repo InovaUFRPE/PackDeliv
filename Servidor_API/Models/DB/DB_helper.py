@@ -9,11 +9,6 @@ from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->
 
 Base = declarative_base()
 
-class AdressTypeEnum(enum.Enum):
-    adress_type_1=ADRESS_COMPANY_MATRIX
-    adress_type_2=ADRESS_COMPANY
-    adress_type_3=ADRESS_CLIENT
-
 
 
 class Adress(Base):
@@ -36,6 +31,32 @@ class Adress(Base):
 
     type=Column(ADRESS_TYPE, Enum('endereco_empresa_matriz','endereco_empresa','endereco_cliente'))
 
+    def as_dict(self):
+     return { ADRESS_ID: self.id,
+              ADRESS_STREET: self.street,
+              ADRESS_NUMBER: self.number,
+              ADRESS_COMPLEMENT: self.complement,
+              ADRESS_DISTRICT: self.district,
+              ADRESS_CITY: self.city,
+              ADRESS_STATE: self.state,
+              ADRESS_COUNTRY: self.country,
+              LOCALIZATION_LAT: self.lat,
+              LOCALIZATION_LONG: self.long,
+              COMPANY+'_'+COMPANY_ID: self.id_company,
+              CLIENT+'_'+CLIENT_ID: self.id_client,
+              ADRESS_TYPE: self.type
+
+              }
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
+
+
 class Client(Base):
     __tablename__=CLIENT
 
@@ -43,6 +64,22 @@ class Client(Base):
     upi=Column(CLIENT_UPI,String(11),unique=True)#unique company identifier
     name=Column(CLIENT_NAME,String(255),nullable=False)
     adresses=relationship(Adress.__name__)
+
+    def as_dict(self):
+     return { CLIENT_ID: self.id,
+              CLIENT_UPI: self.upi,
+              CLIENT_NAME: self.name,
+              ADRESSES: self.adresses,
+              }
+
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 class Vehicle(Base):
     __tablename__= VEHICLE
@@ -54,13 +91,31 @@ class Vehicle(Base):
     color =Column(VEHICLE_COLOR,String(255))
     ready=Column(VEHICLE_READY, Boolean, default=False)
     volume=Column(VEHICLE_VOLUME,Integer,nullable=False)
+    
+
+    def as_dict(self):
+     return { VEHICLE_ID: self.id,
+              VEHICLE_LICENSE_PLATE: self.licence_plate,
+              VEHICLE_YEAR: self.year,
+              VEHICLE_MODEL: self.model,
+              VEHICLE_COLOR: self.color,
+              VEHICLE_READY: self.ready,
+              VEHICLE_VOLUME: self.volume}
+              
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 
 class Company(Base):
     __tablename__=COMPANY
 
     id=Column(COMPANY_ID, Integer, primary_key=True)
-    #id_adress=Column(COMPANY_ID_ADRESS,Integer,ForeignKey(Adress.id),nullable=False)
     name_company=Column(COMPANY_NAME,String(255),nullable=False)
     password = Column(COMPANY_PASSWORD,String(255),nullable=False)
     login=Column(COMPANY_LOGIN,String(255),unique=True,nullable=False)
@@ -77,6 +132,22 @@ class Company(Base):
     #utilizar  Query-Enabled Properties para os dois endereços,
     #pois desse modo daria para manter os enums?
     #adicionar o relacionamento com endereço(esse é pra multiplos endereços de entrega)
+    def as_dict(self):
+     return { COMPANY_ID: self.id,
+              COMPANY_NAME: self.name_company,
+              COMPANY_EMAIL: self.email,
+              COMPANY_UCI: self.uci,
+              COMPANY_TYPE: self.type,
+              ADRESSES: self.adresses}
+              
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 class Deliveryman(Company):
     __tablename__=DELIVERYMAN
@@ -87,12 +158,32 @@ class Deliveryman(Company):
     ready=Column(DELIVERYMAN_READY,Boolean, default=False)
     lat=Column(LOCALIZATION_LAT,Float(), nullable=False)
     long=Column(LOCALIZATION_LONG,Float(), nullable=False)
-
     Id_veiculo=Column(DELIVERYMAN_ID_VEHICLE,Integer,ForeignKey(Vehicle.id))
-    Vehicle=relationship(Vehicle.__name__)
+
+    vehicle=relationship(Vehicle.__name__)
     __mapper_args__ = {
         'polymorphic_identity':DELIVERYMAN,
     }
+
+    def as_dict(self):
+     return { DELIVERYMAN_ID: self.id,
+              DELIVERYMAN_NAME: self.name_deliveryman,
+              DELIVERYMAN_DUI: self.email,
+              DELIVERYMAN_STATUS: self.status,
+              DELIVERYMAN_READY: self.ready,
+              LOCALIZATION_LAT: self.lat
+              LOCALIZATION_LONG: self.long
+              VEHICLE: self.vehicle
+              }
+              
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 
     
@@ -110,26 +201,70 @@ class Package(Base):
     received=Column(PACKAGE_RECEIVED,Boolean, default=False)
     volume=Column(PACKAGE_VOLUME,Integer,nullable=False)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
-    id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)
-    id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)
+    id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)#adress company id
+    id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)#adress client id
+
     
     #adresses=relationship(Adress.__name__)
     #deliveries=relationship(Delivery.__name__, back_populates="package")
     #adress posuira dois endereços a diferença estará no tipo, tentar especificar como o
-    #join do relacionamento irá funcionar para que ele mantenha as dois keys estrangeiras
+    #join do relacionamento irá funcionar para que ele mantenha as duas keys estrangeiras
     #tentar manter o __name__ em Delivery no outro relacionamento, caso não consiga
     # por o nome direto
+
+    def as_dict(self):
+     return { PACKAGE_ID: self.id,
+              PACKAGE_WIDTH: self.width,
+              PACKAGE_HEIGHT: self.height,
+              PACKAGE_LENGTH: self.length,
+              PACKAGE_WEIGHT: self.weight,
+              PACKAGE_SHIPPED: self.shiped
+              PACKAGE_RECEIVED: self.received
+              PACKAGE_VOLUME: self.volume
+              PACKAGE_ID_ADRESS_START: self.id_adress_start
+              PACKAGE_ID_ADRESS_DESTINY: self.id_adress_destiny          
+              }
+              
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 class Delivery(Base):
     __tablename__=DELIVERY
 
     id=Column(DELIVERY_ID, Integer, primary_key=True)
     code=Column(DELIVERY_IDENTIFIER_CODE, String(255))
+    status=Column()
     shipping_date=Column(DELIVERY_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(DELIVERY_FINALIZATION_DATE,DateTime, default=False)
     id_service_order=Column(DELIVERY_ID_SERVICE_ORDER,ForeignKey(SERVICE_ORDER+'.'+SERVICE_ORDER_ID))
     id_package=Column(DELIVERY_ID_PACKAGE,Integer,ForeignKey(PACKAGE+'.'+PACKAGE_ID))
+    status=Column(DELIVERY_STATUS, Enum('em fila','não confirmada','saiu para entrega','a caminho da casa do cliente'))
+    type=Column(DELIVERY_TYPE, Enum('entrega','coleta'))
     package=relationship(Package.__name__)
+
+    def as_dict(self):
+     return { DELIVERY_ID: self.id,
+              DELIVERY_IDENTIFIER_CODE: self.code,
+              DELIVERY_SHIPPING_DATE: self.shipping_date,
+              DELIVERY_FINALIZATION_DATE: self.length,
+              DELIVERY_ID_SERVICE_ORDER: self.weight,
+              PACKAGE: self.package         
+              }
+              
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 class Service_order(Base):
     __tablename__=SERVICE_ORDER
@@ -138,9 +273,24 @@ class Service_order(Base):
     code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,DateTime, default=False)
-    packages=relationship(Delivery.__name__)
+    deliveries=relationship(Delivery.__name__)
     #adionar o relacionamento com ordem de serviço e pacote
-
+    def as_dict(self):
+     return { SERVICE_ORDER_ID: self.id,
+              SERVICE_ORDER_IDENTIFIER_CODE: self.code,
+              SERVICE_ORDER_SHIPPING_DATE: self.shipping_date,
+              SERVICE_ORDER_FINALIZATION_DATE: self.finalization_date,
+              DELIVERIES: self.deliveries         
+              }
+              
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
 
 
 def getEngine():
