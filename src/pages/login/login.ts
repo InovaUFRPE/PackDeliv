@@ -8,6 +8,7 @@ import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { PerfilPage } from '../perfil/perfil';
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
+import { HomeEntregadorPage } from '../home-entregador/home-entregador'
 /**
  * Generated class for the LoginPage page.
  *
@@ -68,6 +69,9 @@ export class LoginPage {
     });
   }
 
+  public login(){
+    this.navCtrl.push(HomeEntregadorPage)
+  }
   public irParaEscolhaCadastro() {
     this.navCtrl.push(EscolhaCadastroPage);
   }
