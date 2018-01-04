@@ -20,7 +20,7 @@ export class HomeEntregadorPage {
   
   entregas = ListaDeEntregasPage;
   perfil = PerfilPage;
-  configuração = ConfiguracaoPage;
+  configuracao = ConfiguracaoPage;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
