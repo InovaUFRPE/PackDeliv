@@ -11,5 +11,5 @@ CORS(app)
 
 if __name__ == '__main__' :
     vehicle_view.initializeView(app)
-    
+
     app.run()

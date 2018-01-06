@@ -1,71 +1,68 @@
 from Models.DB.DB_helper import getSession, Vehicle
 
-class VehicleDAO:
-    @staticmethod
-    def find(id_vehicle):
-        session=getSession()
-        
-        try:
-            vehicle = session.query(Vehicle).get(id_vehicle)
-            return vehicle
-        except Exception as error:
-            raise error
-        finally:
-            session.close()
-    
-    @staticmethod
-    def insert(vehicle):
-        session=getSession()
-        
-        try:
-            session.add(vehicle)
-            session.commit()
-            session.refresh(vehicle)
-        except Exception as error:
-            raise error
-        finally:
-            session.close()
 
-        return vehicle
-    
-    @staticmethod
-    def update(vehicle):
-        session=getSession()
-        
-        try:
-            update_dict = {}
-            if vehicle.licence_plate != None:
-                update_dict[Vehicle.licence_plate] = vehicle.licence_plate
-            if vehicle.year != None:
-                update_dict[Vehicle.year] = vehicle.year
-            if vehicle.model != None:
-                update_dict[Vehicle.model] = vehicle.model
-            if vehicle.color != None:
-                update_dict[Vehicle.color] = vehicle.color
-            if vehicle.ready != None:
-                update_dict[Vehicle.ready] = vehicle.ready
-            if vehicle.volume != None:
-                update_dict[Vehicle.ready] = vehicle.volume
-                
-            updated_rows = session.query(Vehicle).filter(Vehicle.id == vehicle.id).update(update_dict)
-            session.commit()
-            return updated_rows
-        except Exception as error:
-            raise error
-        finally:
-            session.close()
+from Models.DB.DB_helper import getSession, Vehicle
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
-        return vehicle
-    
-    @staticmethod
-    def remove(id_vehicle):
-        session=getSession()
-        
+
+class VehicleDAO():
+
+    def __init__(self):
+        pass
+
+    def save(self,vehicle):
+        session = getSession()
+        checkType('Vehicle',vehicle)
+        session.add(vehicle)
+        session.commit()
+        session.refresh(vehicle)
+        session.close()
+
+        return vehicle.id
+
+    def update(self,editedVehicle):
+        session = getSession()
+        response = False
         try:
-            records_deleted = session.query(Vehicle).filter(Vehicle.id == id_vehicle).delete()
+            checkType('Vehicle',editedVehicle)
+            vehicle = session.query(Vehicle).filter(Vehicle.id == editedVehicle.id).first()
+            if vehicle != None:
+                vehicle = changeEditedAttr(vehicle,editedVehicle)
+                session.add(vehicle)
+                session.commit()
+                session.close()
+                response = True
+            else:
+                response = False
+
+        except:
+            printError()
+            response = False
+
+        return response
+
+    def delete(self,id):
+        session = getSession()
+        try:
+            deleted_rows = session.query(Vehicle).filter(Vehicle.id == id).delete()
             session.commit()
-            return records_deleted
-        except Exception as error:
-            raise error
-        finally:
             session.close()
+            return deleted_rows == 1
+        except:
+            printError()
+            return False
+
+    def select(self,id=None):
+        session = getSession()
+        try:
+            if id == None:
+                response=session.query(Vehicle).all()
+                response=[vehicle for vehicle in response]
+
+            else:
+                response=session.query(Vehicle).filter(Vehicle.id == id).all()
+                response=response[0]
+            return response
+        except:
+            printError()
+            return None
