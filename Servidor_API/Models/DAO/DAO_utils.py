@@ -17,3 +17,13 @@ def checkType(nameType,object):
     n_o=object.__class__.__name__
     if n_o != nameType:
         raise TypeError('wrong DAO for class:'+n_o)
+
+def changeEditedAttr(obj,editedObj):
+    diEditedObj=editedObj.__dict__
+    diEditedObj={key : diEditedObj[key] for key in  diEditedObj if key != '_sa_instance_state'}
+    dicObj=obj.__dict__
+    dicObj={key : dicObj[key] for key in  dicObj if key != '_sa_instance_state'}
+    for i in dicObj:
+        if (i in diEditedObj) and (dicObj[i] != diEditedObj[i]):
+            setattr(obj, i, diEditedObj[i])
+    return obj

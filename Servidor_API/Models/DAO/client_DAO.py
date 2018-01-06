@@ -1,6 +1,6 @@
 
 from Models.DB.DB_helper import getSession,Client
-from Models.DAO.DAO_utils import printError,checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 class ClientDao():
     def __init__(self):
@@ -24,11 +24,13 @@ class ClientDao():
         
         return response
     
-    def update(self,client):
+    def update(self,editedClient):
         session = getSession()
         response = None
         try:
-            checkType('Client',client)
+            checkType('Client',editedClient)
+            client=session.query(Client).filter(Client.id == editedClient.id).first()
+            client=changeEditedAttr(client,editedClient)
             session.add(client)
             print(client)
             session.commit()

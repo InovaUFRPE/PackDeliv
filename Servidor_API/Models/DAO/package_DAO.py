@@ -1,7 +1,7 @@
 
 
 from Models.DB.DB_helper import getSession, Package
-from Models.DAO.DAO_utils import printError, checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
 class PackageDao():
@@ -14,6 +14,7 @@ class PackageDao():
         response = None
         try:
             checkType('Package',package)
+
             session.add(package)
             session.commit()
             session.refresh(package)
@@ -27,11 +28,13 @@ class PackageDao():
         
         return response
     
-    def update(self,package):
+    def update(self,editedPackage):
         session = getSession()
         response = None
         try:
-            checkType('Package',package)
+            checkType('Package',editedPackage)
+            package=session.query(Package).filter(Package.id == editedPackage.id).first()
+            package=changeEditedAttr(package,editedPackage)
             session.add(package)
             session.commit()
             session.close()

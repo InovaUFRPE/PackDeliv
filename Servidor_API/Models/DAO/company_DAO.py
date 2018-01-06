@@ -1,6 +1,6 @@
 
 from Models.DB.DB_helper import getSession,Company
-from Models.DAO.DAO_utils import printError,checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
 class CompanyDao():
@@ -12,7 +12,7 @@ class CompanyDao():
         session = getSession()
         response = None
         try:
-            checkType('Company',company)
+            checkType('Company',company)          
             session.add(company)
             session.commit()
             session.refresh(company)
@@ -26,11 +26,13 @@ class CompanyDao():
         
         return response
     
-    def update(self,company):
+    def update(self,editedCompany):
         session = getSession()
         response = None
         try:
-            checkType('Company',company)
+            checkType('Company',editedCompany)
+            company=session.query(Company).filter(Company.id == editedCompany.id).first()
+            company=changeEditedAttr(company,editedCompany)
             session.add(company)
             session.commit()
             session.close()

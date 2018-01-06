@@ -1,6 +1,6 @@
 
 from Models.DB.DB_helper import getSession,Adress
-from Models.DAO.DAO_utils import printError,checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
 class AdressDao():
@@ -26,13 +26,15 @@ class AdressDao():
         
         return response
     
-    def update(self,adress):
+    def update(self,editedAdress):
         session = getSession()
         response = None
         try:
-            checkType('Adress',adress)
+            checkType('Adress',editedAdress)
+            adress=session.query(Adress).filter(Adress.id == editedAdress.id).first()
+            adress=changeEditedAttr(adress,editedAdress)
             session.add(adress)
-            print(adress)
+            
             session.commit()
             session.close()
             response = True

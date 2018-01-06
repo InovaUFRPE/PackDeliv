@@ -1,6 +1,6 @@
 
 from Models.DB.DB_helper import getSession, Service_order
-from Models.DAO.DAO_utils import printError, checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
 class ServiceOrderDao():
@@ -26,11 +26,13 @@ class ServiceOrderDao():
         
         return response
     
-    def update(self,serviceOrder):
+    def update(self,editedServiceOrder):
         session = getSession()
         response = None
         try:
-            checkType('Service_order',serviceOrder)
+            checkType('Service_order',editedServiceOrder)
+            pacserviceOrderkage=session.query(Service_order).filter(Service_order.id == editedServiceOrder.id).first()
+            serviceOrder=changeEditedAttr(serviceOrder,editedServiceOrder)
             session.add(serviceOrder)
             session.commit()
             session.close()

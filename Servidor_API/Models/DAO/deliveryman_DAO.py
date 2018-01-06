@@ -1,7 +1,7 @@
 
 
 from Models.DB.DB_helper import getSession, Deliveryman
-from Models.DAO.DAO_utils import printError,checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
 class DeliverymanDao():
@@ -13,6 +13,7 @@ class DeliverymanDao():
         response = None
         try:
             checkType('Deliveryman',deliveryman)
+            
             session.add(deliveryman)
             session.commit()
             session.refresh(deliveryman)
@@ -26,11 +27,13 @@ class DeliverymanDao():
         
         return response
     
-    def update(self,deliveryman):
+    def update(self,editedDeliveryman):
         session = getSession()
         response = None
         try:
-            checkType('Deliveryman',deliveryman)
+            checkType('Deliveryman',editedDeliveryman)
+            deliveryman=session.query(Deliveryman).filter(Deliveryman.id == editedDeliveryman.id).first()
+            deliveryman=changeEditedAttr(deliveryman,editedDeliveryman)
             session.add(deliveryman)
             session.commit()
             session.close()

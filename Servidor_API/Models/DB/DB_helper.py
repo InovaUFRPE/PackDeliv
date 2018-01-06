@@ -171,8 +171,8 @@ class Deliveryman(Company):
               DELIVERYMAN_DUI: self.email,
               DELIVERYMAN_STATUS: self.status,
               DELIVERYMAN_READY: self.ready,
-              LOCALIZATION_LAT: self.lat
-              LOCALIZATION_LONG: self.long
+              LOCALIZATION_LAT: self.lat,
+              LOCALIZATION_LONG: self.long,
               VEHICLE: self.vehicle
               }
               
@@ -201,6 +201,7 @@ class Package(Base):
     received=Column(PACKAGE_RECEIVED,Boolean, default=False)
     volume=Column(PACKAGE_VOLUME,Integer,nullable=False)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
+    status=Column(PACKAGE_STATUS, Enum('em fila para coleta','em fila para entrega','em analise','entregue','em coleta','em entrega'))
     id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)#adress company id
     id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)#adress client id
 
@@ -218,10 +219,10 @@ class Package(Base):
               PACKAGE_HEIGHT: self.height,
               PACKAGE_LENGTH: self.length,
               PACKAGE_WEIGHT: self.weight,
-              PACKAGE_SHIPPED: self.shiped
-              PACKAGE_RECEIVED: self.received
-              PACKAGE_VOLUME: self.volume
-              PACKAGE_ID_ADRESS_START: self.id_adress_start
+              PACKAGE_SHIPPED: self.shiped,
+              PACKAGE_RECEIVED: self.received,
+              PACKAGE_VOLUME: self.volume,
+              PACKAGE_ID_ADRESS_START: self.id_adress_start,
               PACKAGE_ID_ADRESS_DESTINY: self.id_adress_destiny          
               }
               
@@ -239,12 +240,12 @@ class Delivery(Base):
 
     id=Column(DELIVERY_ID, Integer, primary_key=True)
     code=Column(DELIVERY_IDENTIFIER_CODE, String(255))
-    status=Column()
     shipping_date=Column(DELIVERY_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(DELIVERY_FINALIZATION_DATE,DateTime, default=False)
     id_service_order=Column(DELIVERY_ID_SERVICE_ORDER,ForeignKey(SERVICE_ORDER+'.'+SERVICE_ORDER_ID))
     id_package=Column(DELIVERY_ID_PACKAGE,Integer,ForeignKey(PACKAGE+'.'+PACKAGE_ID))
-    status=Column(DELIVERY_STATUS, Enum('em fila','não confirmada','saiu para entrega','a caminho da casa do cliente'))
+    status=Column(DELIVERY_STATUS, Enum('entregador designado para a coleta','entregador a caminho para coleta',
+    'saiu para entrega','a caminho da casa do cliente','entrega finalizada','coleta finalizada'))
     type=Column(DELIVERY_TYPE, Enum('entrega','coleta'))
     package=relationship(Package.__name__)
 
@@ -254,6 +255,8 @@ class Delivery(Base):
               DELIVERY_SHIPPING_DATE: self.shipping_date,
               DELIVERY_FINALIZATION_DATE: self.length,
               DELIVERY_ID_SERVICE_ORDER: self.weight,
+              DELIVERY_STATUS: self.status,
+              DELIVERY_TYPE: self.type,
               PACKAGE: self.package         
               }
               
@@ -273,6 +276,7 @@ class Service_order(Base):
     code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,DateTime, default=False)
+    status = Column(SERVICE_ORDER_STATUS, Enum('em analise','confirmado','finalizado'))
     deliveries=relationship(Delivery.__name__)
     #adionar o relacionamento com ordem de serviço e pacote
     def as_dict(self):
@@ -280,6 +284,7 @@ class Service_order(Base):
               SERVICE_ORDER_IDENTIFIER_CODE: self.code,
               SERVICE_ORDER_SHIPPING_DATE: self.shipping_date,
               SERVICE_ORDER_FINALIZATION_DATE: self.finalization_date,
+
               DELIVERIES: self.deliveries         
               }
               
@@ -296,10 +301,11 @@ class Service_order(Base):
 def getEngine():
 
     user ="root"
-    password="Arretterr@"
+    password=""
     adress="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
+
 
     return engine
 

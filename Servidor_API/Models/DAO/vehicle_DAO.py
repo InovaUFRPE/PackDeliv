@@ -1,7 +1,7 @@
 
 
 from Models.DB.DB_helper import getSession, Vehicle
-from Models.DAO.DAO_utils import printError, checkType
+from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
 class VehicleDAO():
@@ -27,11 +27,13 @@ class VehicleDAO():
         
         return response
     
-    def update(self,vehicle):
+    def update(self,editedVehicle):
         session = getSession()
         response = None
         try:
-            checkType('Vehicle',vehicle)
+            checkType('Vehicle',editedVehicle)
+            vehicle=session.query(Vehicle).filter(Vehicle.id == editedVehicle.id).first()
+            vehicle=changeEditedAttr(vehicle,editedVehicle)
             session.add(vehicle)
             session.commit()
             session.close()
