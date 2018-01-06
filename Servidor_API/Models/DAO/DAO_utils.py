@@ -24,6 +24,6 @@ def changeEditedAttr(obj,editedObj):
     dicObj=obj.__dict__
     dicObj={key : dicObj[key] for key in  dicObj if key != '_sa_instance_state'}
     for i in dicObj:
-        if (i in diEditedObj) and (dicObj[i] != diEditedObj[i]):
+        if (i in diEditedObj) and (dicObj[i] != diEditedObj[i]) and diEditedObj[i] != None:
             setattr(obj, i, diEditedObj[i])
     return obj
