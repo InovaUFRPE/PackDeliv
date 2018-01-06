@@ -1,10 +1,7 @@
 import json
 from flask import request, jsonify
 from flask.views import MethodView
-from viewHelper import register_view,app 
-
-
-
+from viewHelper import register_view
 
 class PackageView(MethodView):
 
@@ -20,8 +17,9 @@ class PackageView(MethodView):
     def delete(self,id_package):
         return jsonify({"testeDElete": id_package})
 
-endpoint='package_view'
-methods=['GET','POST','PUT','DELETE']
-url='/package/'
-pk='id_package'
-register_view(app,PackageView,endpoint,url,methods,pk)
+def initializeView(app):
+    endpoint='package_view'
+    methods=['GET','POST','PUT','DELETE']
+    url='/package/'
+    pk='id_package'
+    register_view(app,PackageView,endpoint,url,methods,pk)

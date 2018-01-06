@@ -1,3 +1,4 @@
+# coding=utf-8
 import enum
 import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Boolean
@@ -9,11 +10,9 @@ from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->
 
 Base = declarative_base()
 
-
-
 class Adress(Base):
     __tablename__= ADRESS
-    
+
     id= Column(ADRESS_ID,Integer,primary_key=True)
     street = Column(ADRESS_STREET, String(255), nullable=False)
     number = Column(ADRESS_NUMBER,String(255), nullable=False)
@@ -91,7 +90,7 @@ class Vehicle(Base):
     color =Column(VEHICLE_COLOR,String(255))
     ready=Column(VEHICLE_READY, Boolean, default=False)
     volume=Column(VEHICLE_VOLUME,Integer,nullable=False)
-    
+
 
     def as_dict(self):
      return { VEHICLE_ID: self.id,
@@ -101,7 +100,26 @@ class Vehicle(Base):
               VEHICLE_COLOR: self.color,
               VEHICLE_READY: self.ready,
               VEHICLE_VOLUME: self.volume}
-              
+
+    def __str__(self):
+        dic = self.as_dict()
+        string='{ '
+        for i,j in dic.items():
+            string+= str(i) + ' : ' + str(j) + ',\n'
+        string=string[:len(string)-2]
+        string+=' }'
+        return string
+
+
+    def as_dict(self):
+     return { VEHICLE_ID: self.id,
+              VEHICLE_LICENSE_PLATE: self.licence_plate,
+              VEHICLE_YEAR: self.year,
+              VEHICLE_MODEL: self.model,
+              VEHICLE_COLOR: self.color,
+              VEHICLE_READY: self.ready,
+              VEHICLE_VOLUME: self.volume }
+
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -139,7 +157,7 @@ class Company(Base):
               COMPANY_UCI: self.uci,
               COMPANY_TYPE: self.type,
               ADRESSES: self.adresses}
-              
+
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -175,7 +193,7 @@ class Deliveryman(Company):
               LOCALIZATION_LONG: self.long,
               VEHICLE: self.vehicle
               }
-              
+
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -186,7 +204,6 @@ class Deliveryman(Company):
         return string
 
 
-    
     #adicionar o relacionamento com entregas para que possa se realizar a lista de pacotes
 
 
@@ -205,7 +222,7 @@ class Package(Base):
     id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)#adress company id
     id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)#adress client id
 
-    
+
     #adresses=relationship(Adress.__name__)
     #deliveries=relationship(Delivery.__name__, back_populates="package")
     #adress posuira dois endereços a diferença estará no tipo, tentar especificar como o
@@ -223,9 +240,9 @@ class Package(Base):
               PACKAGE_RECEIVED: self.received,
               PACKAGE_VOLUME: self.volume,
               PACKAGE_ID_ADRESS_START: self.id_adress_start,
-              PACKAGE_ID_ADRESS_DESTINY: self.id_adress_destiny          
+              PACKAGE_ID_ADRESS_DESTINY: self.id_adress_destiny
               }
-              
+
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -257,9 +274,9 @@ class Delivery(Base):
               DELIVERY_ID_SERVICE_ORDER: self.weight,
               DELIVERY_STATUS: self.status,
               DELIVERY_TYPE: self.type,
-              PACKAGE: self.package         
+              PACKAGE: self.package
               }
-              
+
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -271,7 +288,7 @@ class Delivery(Base):
 
 class Service_order(Base):
     __tablename__=SERVICE_ORDER
-    
+
     id=Column(SERVICE_ORDER_ID, Integer, primary_key=True)
     code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
@@ -284,10 +301,9 @@ class Service_order(Base):
               SERVICE_ORDER_IDENTIFIER_CODE: self.code,
               SERVICE_ORDER_SHIPPING_DATE: self.shipping_date,
               SERVICE_ORDER_FINALIZATION_DATE: self.finalization_date,
-
-              DELIVERIES: self.deliveries         
+              DELIVERIES: self.deliveries
               }
-              
+
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -320,7 +336,3 @@ def getSession():
     engine = getEngine()
     Session=sessionmaker(bind=engine)
     return Session()
-
-
-
-

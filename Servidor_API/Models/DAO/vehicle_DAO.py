@@ -1,3 +1,4 @@
+from Models.DB.DB_helper import getSession, Vehicle
 
 
 from Models.DB.DB_helper import getSession, Vehicle
@@ -11,48 +12,42 @@ class VehicleDAO():
 
     def save(self,vehicle):
         session = getSession()
-        response = None
-        try:
-            checkType('Vehicle',vehicle)
-            session.add(vehicle)
-            session.commit()
-            session.refresh(vehicle)
-            id=vehicle.id
-            session.close()
-            response = id
+        checkType('Vehicle',vehicle)
+        session.add(vehicle)
+        session.commit()
+        session.refresh(vehicle)
+        session.close()
 
-        except:
-            printError()
-            response = False
-        
-        return response
-    
+        return vehicle.id
+
     def update(self,editedVehicle):
         session = getSession()
-        response = None
+        response = False
         try:
             checkType('Vehicle',editedVehicle)
-            vehicle=session.query(Vehicle).filter(Vehicle.id == editedVehicle.id).first()
-            vehicle=changeEditedAttr(vehicle,editedVehicle)
-            session.add(vehicle)
-            session.commit()
-            session.close()
-            response = True
+            vehicle = session.query(Vehicle).filter(Vehicle.id == editedVehicle.id).first()
+            if vehicle != None:
+                vehicle = changeEditedAttr(vehicle,editedVehicle)
+                session.add(vehicle)
+                session.commit()
+                session.close()
+                response = True
+            else:
+                response = False
 
         except:
             printError()
             response = False
-        
+
         return response
-    
+
     def delete(self,id):
         session = getSession()
         try:
-            
-            session.query(Vehicle).filter(Vehicle.id == id).delete()
+            deleted_rows = session.query(Vehicle).filter(Vehicle.id == id).delete()
             session.commit()
             session.close()
-            return True
+            return deleted_rows == 1
         except:
             printError()
             return False
@@ -70,4 +65,4 @@ class VehicleDAO():
             return response
         except:
             printError()
-            return False    
+            return None

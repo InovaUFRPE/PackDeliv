@@ -1,8 +1,7 @@
 import json
 from flask import request, jsonify
 from flask.views import MethodView
-from viewHelper import register_view,app 
-
+from viewHelper import register_view 
 
 class CompanyView(MethodView):
 
@@ -19,10 +18,9 @@ class CompanyView(MethodView):
     def delete(self,id_company):
         return jsonify({"testeDElete": id_company})
 
-endpoint='company_view'
-methods=['GET','POST','PUT','DELETE']
-url='/company/'
-pk='id_company'
-register_view(app,CompanyView,endpoint,url,methods,pk)
-
-
+def initializeView(app):
+    endpoint='company_view'
+    methods=['GET','POST','PUT','DELETE']
+    url='/company/'
+    pk='id_company'
+    register_view(app,CompanyView,endpoint,url,methods,pk)
