@@ -18,10 +18,15 @@ import { ConfiguracaoPage } from '../configuracao/configuracao'
 })
 export class HomeEntregadorPage {
   
-  entregas = ListaDeEntregasPage;
-  perfil = PerfilPage;
-  configuracao = ConfiguracaoPage;
+  entregas: any
+  perfil: any
+  configuracao: any
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.entregas = ListaDeEntregasPage;
+    this.perfil = PerfilPage;
+    this.configuracao = ConfiguracaoPage;
+
   }
 
   ionViewDidLoad() {
