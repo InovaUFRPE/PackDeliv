@@ -186,6 +186,8 @@ class Deliveryman(Company):
 
 class Package(Base):
     __tablename__=PACKAGE
+    PackageStatus = enum.Enum('PackageStatus', ['em fila para coleta','em fila para entrega','em analise','entregue','em coleta','em entrega'])
+
     id=Column(PACKAGE_ID, Integer, primary_key=True)
     width=Column(PACKAGE_WIDTH,Integer,nullable=False)
     height=Column(PACKAGE_HEIGHT,Integer,nullable=False)
@@ -195,7 +197,7 @@ class Package(Base):
     received=Column(PACKAGE_RECEIVED,Boolean, default=False)
     volume=Column(PACKAGE_VOLUME,Integer,nullable=False)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
-    status=Column(PACKAGE_STATUS, Enum('em fila para coleta','em fila para entrega','em analise','entregue','em coleta','em entrega'))
+    status=Column(PACKAGE_STATUS, Enum(PackageStatus))
     id_address_start=Column(PACKAGE_ID_ADDRESS_START,Integer)#address company id
     id_address_destiny=Column(PACKAGE_ID_ADDRESS_DESTINY,Integer)#address client id
 
@@ -206,19 +208,6 @@ class Package(Base):
     #join do relacionamento irá funcionar para que ele mantenha as duas keys estrangeiras
     #tentar manter o __name__ em Delivery no outro relacionamento, caso não consiga
     # por o nome direto
-
-    def as_dict(self):
-     return { PACKAGE_ID: self.id,
-              PACKAGE_WIDTH: self.width,
-              PACKAGE_HEIGHT: self.height,
-              PACKAGE_LENGTH: self.length,
-              PACKAGE_WEIGHT: self.weight,
-              PACKAGE_SHIPPED: self.shiped,
-              PACKAGE_RECEIVED: self.received,
-              PACKAGE_VOLUME: self.volume,
-              PACKAGE_ID_ADDRESS_START: self.id_address_start,
-              PACKAGE_ID_ADDRESS_DESTINY: self.id_address_destiny
-              }
 
     def __str__(self):
         dic = self.as_dict()

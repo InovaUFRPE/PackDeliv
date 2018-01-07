@@ -1,7 +1,6 @@
 from Models.DB.DB_helper import getSession,Address
 from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
-
 class AddressDao():
     def __init__(self):
         pass
