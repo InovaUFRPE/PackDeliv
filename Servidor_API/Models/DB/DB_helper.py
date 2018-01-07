@@ -191,7 +191,11 @@ class Deliveryman(Company):
               DELIVERYMAN_READY: self.ready,
               LOCALIZATION_LAT: self.lat,
               LOCALIZATION_LONG: self.long,
-              VEHICLE: self.vehicle
+              COMPANY_NAME: self.name_company,
+              COMPANY_EMAIL: self.email,
+              COMPANY_UCI: self.uci,
+              COMPANY_TYPE: self.type,
+              DELIVERYMAN_ID_VEHICLE: self.Id_veiculo
               }
 
     def __str__(self):

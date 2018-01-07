@@ -124,7 +124,7 @@ curl -XDELETE "http://127.0.0.1:5000/company/123123"
   "error": "No company found with id 123123"
 }
 
-curl -XDELETE "http://127.0.0.1:5000/vehicle/1"
+curl -XDELETE "http://127.0.0.1:5000/company/1"
 # Vai retornar sucesso, pois o id existe
 {
   "id": 1

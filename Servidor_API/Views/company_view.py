@@ -85,8 +85,10 @@ class CompanyView(MethodView):
         return missing_fields
 
     @staticmethod
-    def build_object_from_json(json):
-        company = Company()
+    def build_object_from_json(json, company=None):
+        if company == None:
+            company = Company()
+
         company.name_company = json.get(COMPANY_NAME, None)
         company.password = json.get(COMPANY_PASSWORD, None)
         company.login = json.get(COMPANY_LOGIN, None)
