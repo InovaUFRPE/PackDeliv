@@ -46,13 +46,6 @@ class Client(Base):
     name=Column(CLIENT_NAME,String(255),nullable=False)
     addresses=relationship(Address.__name__)
 
-    def as_dict(self):
-     return { CLIENT_ID: self.id,
-              CLIENT_UPI: self.upi,
-              CLIENT_NAME: self.name,
-              ADDRESSES: self.addresses,
-              }
-
     def __str__(self):
         dic = self.as_dict()
         string='{ '
