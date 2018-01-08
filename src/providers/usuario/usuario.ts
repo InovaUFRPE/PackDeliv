@@ -27,16 +27,16 @@ export class UsuarioProvider {
 
   public static EMPRESA = true;
   public static ENTREGADOR = false;
-  constructor(
-    public http: Http
-  ) {
+
+  constructor (public http: Http) {
+
   }
 
   /**
    * Return an object finalUser according to his credentials.
-   * 
+   *
    * Made by: Matheus Campos da Silva, 13/11/2017
-   * @param credentials 
+   * @param credentials
    * An object that contains the user login and password.
    */
   public logar(credentials: any, callback) {
@@ -63,20 +63,20 @@ export class UsuarioProvider {
         endereco.Numero = userEndereco.Numero
         endereco.Pais = userEndereco.Pais
         console.log(userEndereco)
-      
+
         if (user.CNH) {
-          //não sei como funciona o 
+          //não sei como funciona o
           //callback(this.objetos.entregador);
-        }
-        else {
+        } else {
           //passando as informações do usuário para um Objeto empresa
           empresa.Id_Endereco = userEndereco.Id
           empresa.CNPJ = user.CNPJ
           empresa.Email = user.Email
           empresa.Endereco = endereco
           empresa.Login = user.Login
-          empresa.Nome_fantasia = user.Nome_fantasia
+          empresa.Nome = user.Nome
           empresa.Senha = user.Senha
+          console.log(empresa)
           callback(empresa);
         }
       } else {
@@ -99,7 +99,7 @@ export class UsuarioProvider {
     .subscribe((response) => {
         var resp = response.json();
         usuario['Endereco'] = {};
-        
+
         if (resp.status !== "ERROR"){
           usuario['id'] = "";
           usuario['Id_endereco'] = "";
@@ -142,7 +142,7 @@ export class UsuarioProvider {
       });
   }
 
-  
+
 
   //Cadastra o entregador
   public cadastrarEntregador(entregador: Entregador, success: any){
@@ -172,7 +172,7 @@ export class UsuarioProvider {
       throw error;
     });
   }
-  
+
 public atualizarPerfilEmpresa(usuario:Empresa,success:any){
   let headers = new Headers();
   headers.append('X-Auth-Token', localStorage.getItem('token'));
@@ -194,7 +194,7 @@ public pegarTodosPacotes(id:any){
       console.log(resp['response']);
       ListaDeEntregasPage.listaentregas = resp['response'];
   });
-  
+
 }
 
 }

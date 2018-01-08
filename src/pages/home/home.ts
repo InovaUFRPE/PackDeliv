@@ -5,6 +5,9 @@ import { MonitorarEntregasPage } from "../monitorar-entregas/monitorar-entregas"
 import { PerfilPage } from "../perfil/perfil";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
+import { PacoteProvider } from '../../providers/pacote/pacote';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Position } from '../../interfaces/position';
 
 /**
  * Generated class for the HomePage page.
@@ -20,19 +23,36 @@ import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 })
 export class HomePage {
   rootPage = PerfilPage;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  } 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public pacoteProvider: PacoteProvider, public geolocation: Geolocation) {
+  }
 
-  
 
-  abrirPerfil(){
+
+  public abrirPerfil() {
     this.navCtrl.push(PerfilPage);
   }
-  abrirSolicitarEntregas(){
+
+  public abrirSolicitarEntregas() {
     this.navCtrl.push(CadastroPacotePage);
   }
-  abrirMonitorarEntregas(){
+
+  public abrirMonitorarEntregas() {
     this.navCtrl.push(MonitorarEntregasPage);
+  }
+
+  public emitirOrdemDeServico() {
+    var volume: number = SessionProvider.getUser().car.volume;
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let position: Position;
+      position.lat = resp.coords.latitude;
+      position.lng = resp.coords.longitude;
+
+      return this.pacoteProvider.emitirOrdemDeServico(volume, position);
+
+    }).catch(error => {
+      throw error;
+    });
   }
   sair(){
     SessionProvider.closeSession();
