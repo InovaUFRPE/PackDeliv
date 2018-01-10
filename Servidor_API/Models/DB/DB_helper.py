@@ -29,15 +29,6 @@ class Address(Base):
     id_company=Column(COMPANY+'_'+COMPANY_ID,Integer, ForeignKey(COMPANY+'.'+COMPANY_ID))
     id_client=Column(CLIENT+'_'+CLIENT_ID,Integer, ForeignKey(CLIENT+'.'+CLIENT_ID))
 
-    def __str__(self):
-        dic = self.as_dict()
-        string='{ '
-        for i,j in dic.items():
-            string+= str(i) + ' : ' + str(j) + ',\n'
-        string=string[:len(string)-2]
-        string+=' }'
-        return string
-
 class Client(Base):
     __tablename__=CLIENT
 
@@ -45,15 +36,6 @@ class Client(Base):
     upi=Column(CLIENT_UPI,String(11),unique=True)#unique company identifier
     name=Column(CLIENT_NAME,String(255),nullable=False)
     addresses=relationship(Address.__name__)
-
-    def __str__(self):
-        dic = self.as_dict()
-        string='{ '
-        for i,j in dic.items():
-            string+= str(i) + ' : ' + str(j) + ',\n'
-        string=string[:len(string)-2]
-        string+=' }'
-        return string
 
 class Vehicle(Base):
     __tablename__= VEHICLE
@@ -209,75 +191,32 @@ class Package(Base):
     #tentar manter o __name__ em Delivery no outro relacionamento, caso não consiga
     # por o nome direto
 
-    def __str__(self):
-        dic = self.as_dict()
-        string='{ '
-        for i,j in dic.items():
-            string+= str(i) + ' : ' + str(j) + ',\n'
-        string=string[:len(string)-2]
-        string+=' }'
-        return string
-
 class Delivery(Base):
     __tablename__=DELIVERY
+    DeliveryStatus = enum.Enum('DeliveryStatus', ['entregador designado para a coleta','entregador a caminho para coleta', 'saiu para entrega','a caminho da casa do cliente','entrega finalizada','coleta finalizada'])
+    DeliveryType = enum.Enum('DeliveryType', ['entrega','coleta'])
 
     id=Column(DELIVERY_ID, Integer, primary_key=True)
     code=Column(DELIVERY_IDENTIFIER_CODE, String(255))
     shipping_date=Column(DELIVERY_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(DELIVERY_FINALIZATION_DATE,DateTime, default=False)
+    status=Column(DELIVERY_STATUS, Enum(DeliveryStatus), nullable=False)
+    type=Column(DELIVERY_TYPE, Enum(DeliveryType), nullable=False)
     id_service_order=Column(DELIVERY_ID_SERVICE_ORDER,ForeignKey(SERVICE_ORDER+'.'+SERVICE_ORDER_ID))
     id_package=Column(DELIVERY_ID_PACKAGE,Integer,ForeignKey(PACKAGE+'.'+PACKAGE_ID))
-    status=Column(DELIVERY_STATUS, Enum('entregador designado para a coleta','entregador a caminho para coleta',
-    'saiu para entrega','a caminho da casa do cliente','entrega finalizada','coleta finalizada'))
-    type=Column(DELIVERY_TYPE, Enum('entrega','coleta'))
     package=relationship(Package.__name__)
 
-    def as_dict(self):
-     return { DELIVERY_ID: self.id,
-              DELIVERY_IDENTIFIER_CODE: self.code,
-              DELIVERY_SHIPPING_DATE: self.shipping_date,
-              DELIVERY_FINALIZATION_DATE: self.length,
-              DELIVERY_ID_SERVICE_ORDER: self.weight,
-              DELIVERY_STATUS: self.status,
-              DELIVERY_TYPE: self.type,
-              PACKAGE: self.package
-              }
-
-    def __str__(self):
-        dic = self.as_dict()
-        string='{ '
-        for i,j in dic.items():
-            string+= str(i) + ' : ' + str(j) + ',\n'
-        string=string[:len(string)-2]
-        string+=' }'
-        return string
-
-class Service_order(Base):
+class ServiceOrder(Base):
     __tablename__=SERVICE_ORDER
+    ServiceOrderStatus = enum.Enum('ServiceOrderStatus', ['em analise','confirmado','finalizado'])
 
     id=Column(SERVICE_ORDER_ID, Integer, primary_key=True)
     code=Column(SERVICE_ORDER_IDENTIFIER_CODE,String(255),unique=True,nullable=False)
     shipping_date=Column(SERVICE_ORDER_SHIPPING_DATE,DateTime, default=datetime.datetime.utcnow)
     finalization_date=Column(SERVICE_ORDER_FINALIZATION_DATE,DateTime, default=False)
-    status = Column(SERVICE_ORDER_STATUS, Enum('em analise','confirmado','finalizado'))
+    status = Column(SERVICE_ORDER_STATUS, Enum(ServiceOrderStatus), nullable=False)
     deliveries=relationship(Delivery.__name__)
     #adionar o relacionamento com ordem de serviço e pacote
-    def as_dict(self):
-     return { SERVICE_ORDER_ID: self.id,
-              SERVICE_ORDER_IDENTIFIER_CODE: self.code,
-              SERVICE_ORDER_SHIPPING_DATE: self.shipping_date,
-              SERVICE_ORDER_FINALIZATION_DATE: self.finalization_date,
-              DELIVERIES: self.deliveries
-              }
-
-    def __str__(self):
-        dic = self.as_dict()
-        string='{ '
-        for i,j in dic.items():
-            string+= str(i) + ' : ' + str(j) + ',\n'
-        string=string[:len(string)-2]
-        string+=' }'
-        return string
 
 def getEngine():
     user ="root"

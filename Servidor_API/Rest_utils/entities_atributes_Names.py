@@ -18,12 +18,12 @@ CLIENT_NAME='Nome'
 ADDRESSES='Enderecos'
 
 
-COMPANY_ID = 'Id'        
+COMPANY_ID = 'Id'
 COMPANY_ID_ADDRESS ='Id_endereco'
 COMPANY_NAME='Nome_fantasia'
 COMPANY_PASSWORD ='Senha'
 COMPANY_LOGIN ='Login'
-COMPANY_EMAIL ='Email' 
+COMPANY_EMAIL ='Email'
 COMPANY_UCI= 'CNPJ' # unique identifier of company
 COMPANY_TYPE= 'Tipo'
 
@@ -73,7 +73,7 @@ DELIVERY_IDENTIFIER_CODE='codigo'
 DELIVERY_SHIPPING_DATE='Data_expedicao'
 DELIVERY_FINALIZATION_DATE='Data_finalizacao'
 DELIVERY_ID_SERVICE_ORDER='Id_ordem_de_servico'
-DELIVERY_ID_PACKAGE='Id_pacote Varchar'
+DELIVERY_ID_PACKAGE='Id_pacote'
 DELIVERY_ID_SUCESS='Sucesso'
 DELIVERY_STATUS='Status'
 DELIVERY_TYPE='Tipo'
@@ -98,14 +98,3 @@ LOCALIZATION_TYPE="Tipo"
 
 LOCALIZATION_ADDRESS="localizacao_endereco"
 LOCALIZATION_DELIVERYMAN="localizacao_entregador"
-
-
-
-
-
-
-
-
-
-
-

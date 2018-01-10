@@ -98,7 +98,7 @@ class CompanyView(MethodView):
 
         return company
 
-def initializeView(app):
+def initialize_view(app):
     endpoint='company_view'
     methods=['GET','POST','PUT','DELETE']
     url='/company/'

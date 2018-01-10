@@ -106,7 +106,7 @@ class DeliverymanView(MethodView):
 
         return deliveryman
 
-def initializeView(app):
+def initialize_view(app):
     endpoint='deliveryman_view'
     methods=['GET','POST','PUT','DELETE']
     url='/deliveryman/'

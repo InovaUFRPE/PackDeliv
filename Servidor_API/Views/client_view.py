@@ -79,7 +79,7 @@ class ClientView(MethodView):
 
         return missing_fields
 
-def initializeView(app):
+def initialize_view(app):
     endpoint='client_view'
     methods=['GET','POST','PUT','DELETE']
     url='/client/'
