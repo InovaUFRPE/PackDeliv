@@ -4,18 +4,34 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<!--
-  ####DECIDI APAGAR O HEADER POR NAO FAZER SENTIDO NO DESING#####
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>configuracao</ion-title>
-  </ion-navbar>
-
+  <h1>Configurações</h1>
 </ion-header>
-  ####DECIDI APAGAR O HEADER POR NAO FAZER SENTIDO NO DESING#####
--->
 
 <ion-content padding>
+  <ion-card color="verd">
+    <ion-card-header color="light">
+      Status atual
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label color="verd">Escolha uma opção</ion-label>
+          <ion-select [(ngModel)]="statusAtual">
+            <ion-option color="light">Ativo</ion-option>
+            <ion-option color="light">Em serviço</ion-option>
+            <ion-option color="light">Inativo</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <div class="buttons">
+    <button ion-button full color="verd">Editar Perfil</button>
+    <button ion-button block outline color="verd">Sair</button>
+    <button ion-button block outline color="verd">Apagar Conta</button>
+  </div>
+  
+  
 
 </ion-content>
