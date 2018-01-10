@@ -27,6 +27,7 @@ import { CadastroPacote2Page } from '../pages/cadastro-pacote2/cadastro-pacote2'
 import { PacoteProvider } from '../providers/pacote/pacote';
 import { HomeEntregadorPage } from '../pages/home-entregador/home-entregador'
 import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
+import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregador'
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
     RecuperarSenhaPage,
     EditarPerfilPage,
     HomeEntregadorPage,
-    ConfiguracaoPage
+    ConfiguracaoPage,
+    PerfilEntregadorPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
     RecuperarSenhaPage,
     EditarPerfilPage,
     HomeEntregadorPage,
-    ConfiguracaoPage
+    ConfiguracaoPage,
+    PerfilEntregadorPage
   ],
   providers: [
     StatusBar,
