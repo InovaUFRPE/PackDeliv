@@ -1,8 +1,8 @@
 import re
-from Models.DAO.vehicle_DAO import VehicleDAO
+from Models.DAO.vehicle_DAO import VehicleDao
 
 LICENSE_PLATE_REGEX = re.compile("[A-Z][A-Z][A-Z]\-\d\d\d\d")
-dao = VehicleDAO()
+dao = VehicleDao()
 
 class VehicleControl:
     @staticmethod

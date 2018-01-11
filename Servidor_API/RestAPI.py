@@ -2,16 +2,15 @@
 from flask import Flask
 from flask_cors import CORS
 from Models.DB.DB_helper import INIT_API
-from Views import vehicle_view
+from Views import vehicle_view, company_view
 
 app = Flask(__name__)
 
 INIT_API()
 CORS(app)
 
-teste()
-
 if __name__ == '__main__' :
     vehicle_view.initializeView(app)
+    company_view.initializeView(app)
 
     app.run()

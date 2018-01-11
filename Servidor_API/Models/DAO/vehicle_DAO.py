@@ -1,12 +1,8 @@
 from Models.DB.DB_helper import getSession, Vehicle
-
-
-from Models.DB.DB_helper import getSession, Vehicle
 from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 
-class VehicleDAO():
-
+class VehicleDao():
     def __init__(self):
         pass
 
