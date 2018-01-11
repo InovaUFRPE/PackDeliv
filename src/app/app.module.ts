@@ -25,6 +25,10 @@ import { SessionProvider } from '../providers/session/session';
 import { CadastroPacotePage } from '../pages/cadastro-pacote/cadastro-pacote';
 import { CadastroPacote2Page } from '../pages/cadastro-pacote2/cadastro-pacote2';
 import { PacoteProvider } from '../providers/pacote/pacote';
+import { HomeEntregadorPage } from '../pages/home-entregador/home-entregador'
+import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
+import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregador'
+import { OrdemServicoPage } from '../pages/ordem-servico/ordem-servico'
 
 @NgModule({
   declarations: [
@@ -41,7 +45,12 @@ import { PacoteProvider } from '../providers/pacote/pacote';
     MonitorarEntregasPage,
     PerfilPage,
     RecuperarSenhaPage,
-    EditarPerfilPage
+    EditarPerfilPage,
+    HomeEntregadorPage,
+    ConfiguracaoPage,
+    PerfilEntregadorPage,
+    OrdemServicoPage
+    
   ],
   imports: [
     BrowserModule,
@@ -63,7 +72,12 @@ import { PacoteProvider } from '../providers/pacote/pacote';
     MonitorarEntregasPage,
     PerfilPage,
     RecuperarSenhaPage,
-    EditarPerfilPage
+    EditarPerfilPage,
+    HomeEntregadorPage,
+    ConfiguracaoPage,
+    PerfilEntregadorPage,
+    OrdemServicoPage
+    
   ],
   providers: [
     StatusBar,

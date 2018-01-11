@@ -39,8 +39,17 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  verd:      #144f45     
+  verd:       #144f45     
 );
+
+//Variaveis de tabs
+$tabs-md-tab-icon-color: #4d756e;
+$tabs-wp-tab-icon-color: #4d756e;
+$tabs-ios-tab-icon-color:#4d756e;
+$tabs-md-tab-icon-color-active: #144f45;
+$tabs-wp-tab-icon-color-active: #144f45;
+$tabs-ios-tab-icon-color-active:#144f45;
+
 
 
 $toolbar-md-title-text-color: #144f45;
