@@ -29,6 +29,7 @@ import { HomeEntregadorPage } from '../pages/home-entregador/home-entregador'
 import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
 import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregador'
 import { OrdemServicoPage } from '../pages/ordem-servico/ordem-servico'
+import { ServiceProvider } from '../providers/service/service';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { OrdemServicoPage } from '../pages/ordem-servico/ordem-servico'
     GoogleMaps,
     EmailComposer,
     SessionProvider,
-    PacoteProvider
+    PacoteProvider,
+    ServiceProvider
   ]
 })
 export class AppModule {}

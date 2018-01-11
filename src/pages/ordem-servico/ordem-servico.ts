@@ -17,11 +17,11 @@ import { ServiceProvider } from '../../providers/service/service';
 export class OrdemServicoPage {
 
   private url: string = 'http://localhost:8080/';
-  
+
   items: any;
   lista: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: ServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: ServiceProvider) {
   }
 
 
