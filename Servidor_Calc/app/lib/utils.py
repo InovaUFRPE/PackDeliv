@@ -65,12 +65,15 @@ class ServiceOrder:
     """ServiceOrder model class"""
 
     __ID = 0
+    __CODE = 100000
 
     def __init__(self, deliveries, shipping_date, finalization_date):
         """Initialization for ServiceOrder object."""
         self.deliveries = deliveries
         self.id = ServiceOrder.__ID + 1
         ServiceOrder.__ID += 1
+        self.code = ServiceOrder.__CODE + 1
+        ServiceOrder.__CODE += 1
         self.shipping_date = shipping_date
         self.finalization_date = finalization_date
 

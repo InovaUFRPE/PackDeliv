@@ -32,6 +32,7 @@ class CombinationController:
         shipping_date = str(dateNow.day) + "/" + str(dateNow.month) + "/" + str(dateNow.year)
         finalization_date = str(dateNow.day + 2) + "/" + str(dateNow.month) + "/" + str(dateNow.year)
         service_order = ServiceOrder(pack_list, shipping_date, finalization_date)
+
         # service_order.list_package = pack_list
         # service_order.shipping_date = datetime.datetime.today()
         return service_order.get()
