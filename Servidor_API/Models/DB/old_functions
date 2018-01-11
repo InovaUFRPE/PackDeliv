@@ -1,65 +1,65 @@
-def saveAdress(json_adress):
+def saveAddress(json_address):
 
     Session = getSession()
     session=Session()
-    adress = Adress()
-    adress.street=json_adress[ADRESS_STREET]
-    adress.number=json_adress[ADRESS_NUMBER]
-    adress.complement=json_adress[ADRESS_COMPLEMENT]
-    adress.district=json_adress[ADRESS_DISTRICT]
-    adress.postal_code=json_adress[ADRESS_POSTAL_CODE]
-    adress.city=json_adress[ADRESS_CITY]
-    adress.state=json_adress[ADRESS_STATE]
-    adress.country=json_adress[ADRESS_COUNTRY]
-    session.add(adress)
+    address = Address()
+    address.street=json_address[ADDRESS_STREET]
+    address.number=json_address[ADDRESS_NUMBER]
+    address.complement=json_address[ADDRESS_COMPLEMENT]
+    address.district=json_address[ADDRESS_DISTRICT]
+    address.postal_code=json_address[ADDRESS_POSTAL_CODE]
+    address.city=json_address[ADDRESS_CITY]
+    address.state=json_address[ADDRESS_STATE]
+    address.country=json_address[ADDRESS_COUNTRY]
+    session.add(address)
     session.commit()
-    session.refresh(adress)
-    id=adress.id
+    session.refresh(address)
+    id=address.id
     session.close()
     return id
 
-def deleteAdress(id):
+def deleteAddress(id):
     Session = getSession()
     session=Session()
-    session.query(Adress).filter(Adress.id == id).\
+    session.query(Address).filter(Address.id == id).\
     delete()
     session.commit()
     session.close()
 
-def getAdress(id):
+def getAddress(id):
     Session = getSession()
     session=Session()
-    response=session.query(Adress).filter(Adress.id == id).all()
+    response=session.query(Address).filter(Address.id == id).all()
     if len(response)==1:
         r=response[0]
-        adress={ADRESS_ID : r.id, ADRESS_STREET : r.street,ADRESS_NUMBER : r.number, ADRESS_COMPLEMENT : r.complement, ADRESS_DISTRICT : r.district, ADRESS_POSTAL_CODE :r.postal_code,ADRESS_CITY :  r.city, ADRESS_STATE : r.state, ADRESS_COUNTRY : r.country}
-        return {"response" : adress }
+        address={ADDRESS_ID : r.id, ADDRESS_STREET : r.street,ADDRESS_NUMBER : r.number, ADDRESS_COMPLEMENT : r.complement, ADDRESS_DISTRICT : r.district, ADDRESS_POSTAL_CODE :r.postal_code,ADDRESS_CITY :  r.city, ADDRESS_STATE : r.state, ADDRESS_COUNTRY : r.country}
+        return {"response" : address }
     else:
-        return {"response" : "invalid adress"}
+        return {"response" : "invalid address"}
 
-def editAdress(json_adress):
+def editAddress(json_address):
     Session = getSession()
     session=Session()
-    id=json_adress[ADRESS_ID]
-    response=session.query(Adress).filter(Adress.id == id).all()
-    
+    id=json_address[ADDRESS_ID]
+    response=session.query(Address).filter(Address.id == id).all()
+
     if len(response)==1:
-        adress=response[0]
-        adress.street=json_adress[ADRESS_STREET]
-        adress.number=json_adress[ADRESS_NUMBER]
-        adress.complement=json_adress[ADRESS_COMPLEMENT]
-        adress.district=json_adress[ADRESS_DISTRICT]
-        adress.postal_code=json_adress[ADRESS_POSTAL_CODE]
-        adress.city=json_adress[ADRESS_CITY]
-        adress.state=json_adress[ADRESS_STATE]
-        adress.country=json_adress[ADRESS_COUNTRY]
-        session.add(adress)
+        address=response[0]
+        address.street=json_address[ADDRESS_STREET]
+        address.number=json_address[ADDRESS_NUMBER]
+        address.complement=json_address[ADDRESS_COMPLEMENT]
+        address.district=json_address[ADDRESS_DISTRICT]
+        address.postal_code=json_address[ADDRESS_POSTAL_CODE]
+        address.city=json_address[ADDRESS_CITY]
+        address.state=json_address[ADDRESS_STATE]
+        address.country=json_address[ADDRESS_COUNTRY]
+        session.add(address)
         session.commit()
-        session.refresh(adress)
+        session.refresh(address)
         session.close()
-        return {"response" : adress }
+        return {"response" : address }
     else:
-        return {"response" : "invalid adress"}
+        return {"response" : "invalid address"}
 
 def saveVehicle(json_vehicle):
     Session= getSession()
@@ -80,7 +80,7 @@ def saveVehicle(json_vehicle):
 
 
 def saveDeliveryman(json_deliveryman):
-    id_adress=saveAdress(json_deliveryman[ADRESS])
+    id_address=saveAddress(json_deliveryman[ADDRESS])
     id_vehicle=saveVehicle(json_deliveryman[VEHICLE])
     Session=getSession()
     session=Session()
@@ -88,7 +88,7 @@ def saveDeliveryman(json_deliveryman):
 
     deliveryman.dui=json_deliveryman[DELIVERYMAN_DUI]
     deliveryman.Id_veiculo=id_vehicle
-    deliveryman.id_adress=id_adress
+    deliveryman.id_address=id_address
     deliveryman.name_company=json_deliveryman[COMPANY_NAME]
     deliveryman.name_deliveryman=json_deliveryman[DELIVERYMAN_NAME]
     deliveryman.password=json_deliveryman[COMPANY_PASSWORD]
@@ -101,7 +101,7 @@ def saveDeliveryman(json_deliveryman):
     session.commit()
     session.refresh(deliveryman)
     response = deliveryman.id
-    #deleteAdress(id_adress)
+    #deleteAddress(id_address)
 
     session.close()
     return response
@@ -118,36 +118,36 @@ def savePackage(json_package):
     package.weight=json_package[PACKAGE_WEIGHT]
     package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]
     package.local_start=json_package[PACKAGE_LOCAL_START]
-    package.id_adress_start=json_package[PACKAGE_ID_START_ADRESS]
-    
-    #package.id_adress_destiny=json_package[PACKAGE_ID_ADRESS]
+    package.id_address_start=json_package[PACKAGE_ID_START_ADDRESS]
+
+    #package.id_address_destiny=json_package[PACKAGE_ID_ADDRESS]
     #package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
 
     session.add(package)
     response=False
-    
+
     session.commit()
     session.refresh(package)
-    response = package.id    
+    response = package.id
     session.close()
     return response
 
 def getPackages(id):
     Session=getSession()
     session=Session()
-    response= session.query(Package).filter(Package.id_adress_start==id).all()
-    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.weight,PACKAGE_RECEIVED:p.received,PACKAGE_LOCAL_DESTINY: getAdress(p.id_adress_destiny) ,PACKAGE_LOCAL_START:getAdress(p.id_adress_destiny)} for p in response]
+    response= session.query(Package).filter(Package.id_address_start==id).all()
+    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.weight,PACKAGE_RECEIVED:p.received,PACKAGE_LOCAL_DESTINY: getAddress(p.id_address_destiny) ,PACKAGE_LOCAL_START:getAddress(p.id_address_destiny)} for p in response]
     return listPackage
 
 
 
-  
+
 def saveCompany(json_company):
-    id_adress=saveAdress(json_company[ADRESS])
+    id_address=saveAddress(json_company[ADDRESS])
     Session=getSession()
     session=Session()
     company=Company()
-    company.id_adress=id_adress
+    company.id_address=id_address
     company.name_company=json_company[COMPANY_NAME]
     company.password=json_company[COMPANY_PASSWORD]
     company.login=json_company[COMPANY_LOGIN]
@@ -160,7 +160,7 @@ def saveCompany(json_company):
         session.refresh(company)
         response = company.id
     except:
-        deleteAdress(id_adress)
+        deleteAddress(id_address)
 
     session.close()
     return response
@@ -173,10 +173,10 @@ def getCompany(json_company):
     response= session.query(Company).filter(Company.login == login , Company.password==senha).all()
     if len(response)==1:
         c=response[0]
-        adress=getAdress(c.id_adress)["response"]
+        address=getAddress(c.id_address)["response"]
         #dic= company.__dict__
         #dicCompany={key : value for key, value in dic.items() if key != '_sa_instance_state' }
-        dicCompany={COMPANY_ID :c.id , ADRESS : adress, COMPANY_TYPE : c.type, COMPANY_NAME: c.name_company,COMPANY_LOGIN: c.login,COMPANY_EMAIL:c.email,COMPANY_UCI:c.uci , COMPANY_TYPE:c.type}
+        dicCompany={COMPANY_ID :c.id , ADDRESS : address, COMPANY_TYPE : c.type, COMPANY_NAME: c.name_company,COMPANY_LOGIN: c.login,COMPANY_EMAIL:c.email,COMPANY_UCI:c.uci , COMPANY_TYPE:c.type}
         response= dicCompany
     else:
         response=False
@@ -188,8 +188,8 @@ def editCompany(json_company):
     id=json_company[COMPANY_ID]
     response= session.query(Company).filter(Company.id == id).all()
     company=response[0]
-    json_adress=json_company[ADRESS]
-    editAdress(json_adress)
+    json_address=json_company[ADDRESS]
+    editAddress(json_address)
     company.email=json_company[COMPANY_EMAIL]
 
     session.add(company)

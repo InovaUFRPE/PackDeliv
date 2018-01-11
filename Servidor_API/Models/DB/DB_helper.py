@@ -1,51 +1,34 @@
 # coding=utf-8
-import enum
 import datetime
-from sqlalchemy import create_engine, Column, Integer, String, Boolean
+import enum
+from sqlalchemy import create_engine, inspect, Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey, Date, Float, Enum, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker, relationship
-from Rest_utils.entities_atributes_Names import *  #(dont work in RestApi.py -->fix it)
+from Rest_utils.entities_atributes_Names import *
 
 Base = declarative_base()
 
-class Adress(Base):
-    __tablename__= ADRESS
+class Address(Base):
+    __tablename__= ADDRESS
+    AddressType = enum.Enum('AddressType', ['endereco_empresa_matriz', 'endereco_empresa', 'endereco_cliente'])
 
-    id= Column(ADRESS_ID,Integer,primary_key=True)
-    street = Column(ADRESS_STREET, String(255), nullable=False)
-    number = Column(ADRESS_NUMBER,String(255), nullable=False)
-    complement = Column(ADRESS_COMPLEMENT,String(255))
-    district = Column(ADRESS_DISTRICT,String(255), nullable=False)
-    postal_code= Column(ADRESS_POSTAL_CODE, String(255), nullable= False)
-    city = Column(ADRESS_CITY, String(255), nullable=False)
-    state = Column(ADRESS_STATE, String(255),nullable=False)
-    country = Column(ADRESS_COUNTRY,String(255),nullable=False)
+    id= Column(ADDRESS_ID,Integer,primary_key=True)
+    street = Column(ADDRESS_STREET, String(255), nullable=False)
+    number = Column(ADDRESS_NUMBER,String(255), nullable=False)
+    complement = Column(ADDRESS_COMPLEMENT,String(255))
+    district = Column(ADDRESS_DISTRICT,String(255), nullable=False)
+    postal_code= Column(ADDRESS_POSTAL_CODE, String(255), nullable= False)
+    city = Column(ADDRESS_CITY, String(255), nullable=False)
+    state = Column(ADDRESS_STATE, String(255),nullable=False)
+    country = Column(ADDRESS_COUNTRY,String(255),nullable=False)
     lat=Column(LOCALIZATION_LAT,Float(), nullable=False)
     long=Column(LOCALIZATION_LONG,Float(), nullable=False)
-
+    type=Column(ADDRESS_TYPE, Enum(AddressType))
     id_company=Column(COMPANY+'_'+COMPANY_ID,Integer, ForeignKey(COMPANY+'.'+COMPANY_ID))
     id_client=Column(CLIENT+'_'+CLIENT_ID,Integer, ForeignKey(CLIENT+'.'+CLIENT_ID))
 
-    type=Column(ADRESS_TYPE, Enum('endereco_empresa_matriz','endereco_empresa','endereco_cliente'))
-
-    def as_dict(self):
-     return { ADRESS_ID: self.id,
-              ADRESS_STREET: self.street,
-              ADRESS_NUMBER: self.number,
-              ADRESS_COMPLEMENT: self.complement,
-              ADRESS_DISTRICT: self.district,
-              ADRESS_CITY: self.city,
-              ADRESS_STATE: self.state,
-              ADRESS_COUNTRY: self.country,
-              LOCALIZATION_LAT: self.lat,
-              LOCALIZATION_LONG: self.long,
-              COMPANY+'_'+COMPANY_ID: self.id_company,
-              CLIENT+'_'+CLIENT_ID: self.id_client,
-              ADRESS_TYPE: self.type
-
-              }
     def __str__(self):
         dic = self.as_dict()
         string='{ '
@@ -55,20 +38,19 @@ class Adress(Base):
         string+=' }'
         return string
 
-
 class Client(Base):
     __tablename__=CLIENT
 
     id= Column(CLIENT_ID,Integer,primary_key=True)
     upi=Column(CLIENT_UPI,String(11),unique=True)#unique company identifier
     name=Column(CLIENT_NAME,String(255),nullable=False)
-    adresses=relationship(Adress.__name__)
+    addresses=relationship(Address.__name__)
 
     def as_dict(self):
      return { CLIENT_ID: self.id,
               CLIENT_UPI: self.upi,
               CLIENT_NAME: self.name,
-              ADRESSES: self.adresses,
+              ADDRESSES: self.addresses,
               }
 
     def __str__(self):
@@ -129,7 +111,6 @@ class Vehicle(Base):
         string+=' }'
         return string
 
-
 class Company(Base):
     __tablename__=COMPANY
 
@@ -140,7 +121,7 @@ class Company(Base):
     email=Column(COMPANY_EMAIL,String(255),unique=True,nullable=False)
     uci=Column(COMPANY_UCI,String(14),unique=True)#unique company identifier
     type=Column(COMPANY_TYPE, String(255))
-    adresses=relationship(Adress.__name__)
+    addresses=relationship(Address.__name__)
     __mapper_args__ = {
         'polymorphic_identity': COMPANY,
         'polymorphic_on':type
@@ -156,7 +137,7 @@ class Company(Base):
               COMPANY_EMAIL: self.email,
               COMPANY_UCI: self.uci,
               COMPANY_TYPE: self.type,
-              ADRESSES: self.adresses}
+              ADDRESSES: self.addresses}
 
     def __str__(self):
         dic = self.as_dict()
@@ -210,7 +191,6 @@ class Deliveryman(Company):
 
     #adicionar o relacionamento com entregas para que possa se realizar a lista de pacotes
 
-
 class Package(Base):
     __tablename__=PACKAGE
     id=Column(PACKAGE_ID, Integer, primary_key=True)
@@ -223,13 +203,13 @@ class Package(Base):
     volume=Column(PACKAGE_VOLUME,Integer,nullable=False)
     static_location=Column(PACKAGE_CURRENT_STATIC_LOCATION,String(255))
     status=Column(PACKAGE_STATUS, Enum('em fila para coleta','em fila para entrega','em analise','entregue','em coleta','em entrega'))
-    id_adress_start=Column(PACKAGE_ID_ADRESS_START,Integer)#adress company id
-    id_adress_destiny=Column(PACKAGE_ID_ADRESS_DESTINY,Integer)#adress client id
+    id_address_start=Column(PACKAGE_ID_ADDRESS_START,Integer)#address company id
+    id_address_destiny=Column(PACKAGE_ID_ADDRESS_DESTINY,Integer)#address client id
 
 
-    #adresses=relationship(Adress.__name__)
+    #addresses=relationship(Address.__name__)
     #deliveries=relationship(Delivery.__name__, back_populates="package")
-    #adress posuira dois endereços a diferença estará no tipo, tentar especificar como o
+    #address posuira dois endereços a diferença estará no tipo, tentar especificar como o
     #join do relacionamento irá funcionar para que ele mantenha as duas keys estrangeiras
     #tentar manter o __name__ em Delivery no outro relacionamento, caso não consiga
     # por o nome direto
@@ -243,8 +223,8 @@ class Package(Base):
               PACKAGE_SHIPPED: self.shiped,
               PACKAGE_RECEIVED: self.received,
               PACKAGE_VOLUME: self.volume,
-              PACKAGE_ID_ADRESS_START: self.id_adress_start,
-              PACKAGE_ID_ADRESS_DESTINY: self.id_adress_destiny
+              PACKAGE_ID_ADDRESS_START: self.id_address_start,
+              PACKAGE_ID_ADDRESS_DESTINY: self.id_address_destiny
               }
 
     def __str__(self):
@@ -317,15 +297,12 @@ class Service_order(Base):
         string+=' }'
         return string
 
-
 def getEngine():
-
     user ="root"
     password=""
-    adress="localhost"
+    address="localhost"
     database_name="packDeliv"
-    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, adress, database_name), echo=True)
-
+    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)
 
     return engine
 
@@ -340,3 +317,30 @@ def getSession():
     engine = getEngine()
     Session=sessionmaker(bind=engine)
     return Session()
+
+def attribute_to_column_dict(model_class):
+    return inspect(model_class).columns
+
+def column_name_to_attribute_dict(model_class):
+    return {column.key: attribute_name for attribute_name, column in attribute_to_column_dict(model_class).items()}
+
+def model_as_dict(model):
+    dict = {}
+    for attribute_name, column in attribute_to_column_dict(model.__class__).items():
+        attribute_value = getattr(model, attribute_name)
+        if isinstance(attribute_value, enum.Enum):
+            attribute_value = attribute_value.value
+        dict[column.key] = attribute_value
+
+    return dict
+
+def model_from_dict(model_class, dict):
+    model = model_class()
+    column_map = column_name_to_attribute_dict(model_class)
+
+    for dict_key, dict_value in dict.items():
+        attribute_name = column_map.get(dict_key, None)
+        if attribute_name != None:
+            setattr(model, attribute_name, dict_value)
+
+    return model

@@ -4,7 +4,7 @@ DATABASE_NAME="packDeliv_DB"
 
 COMPANY= 'Empresa'
 DELIVERYMAN= 'Entregador'
-ADRESS= 'Endereco'
+ADDRESS= 'Endereco'
 VEHICLE='Veiculo'
 SERVICE_ORDER='Ordem_de_servico'
 DELIVERY='Entrega'
@@ -15,11 +15,11 @@ CLIENT="Cliente"
 CLIENT_ID='Id'
 CLIENT_UPI='CPF'#unique client identifier
 CLIENT_NAME='Nome'
-ADRESSES='Enderecos'
+ADDRESSES='Enderecos'
 
 
 COMPANY_ID = 'Id'        
-COMPANY_ID_ADRESS ='Id_endereco'
+COMPANY_ID_ADDRESS ='Id_endereco'
 COMPANY_NAME='Nome_fantasia'
 COMPANY_PASSWORD ='Senha'
 COMPANY_LOGIN ='Login'
@@ -37,20 +37,20 @@ DELIVERYMAN_AVAILABILITY= 'Disponibilidade'
 DELIVERYMAN_READY= 'Apto'
 DELIVERYMAN_LOCALIZATION= 'Localizacao'
 
-ADRESS_ID= 'Id'
-ADRESS_STREET= 'Logradouro'
-ADRESS_NUMBER= 'Numero'
-ADRESS_COMPLEMENT= 'Complemento'
-ADRESS_DISTRICT= 'Bairro'
-ADRESS_POSTAL_CODE = 'CEP'
-ADRESS_CITY= 'Cidade'
-ADRESS_STATE= 'Estado'
-ADRESS_COUNTRY= 'Pais'
-ADRESS_TYPE= 'Tipo'
+ADDRESS_ID= 'Id'
+ADDRESS_STREET= 'Logradouro'
+ADDRESS_NUMBER= 'Numero'
+ADDRESS_COMPLEMENT= 'Complemento'
+ADDRESS_DISTRICT= 'Bairro'
+ADDRESS_POSTAL_CODE = 'CEP'
+ADDRESS_CITY= 'Cidade'
+ADDRESS_STATE= 'Estado'
+ADDRESS_COUNTRY= 'Pais'
+ADDRESS_TYPE= 'Tipo'
 
-ADRESS_COMPANY_MATRIX='endereco_empresa_matriz'
-ADRESS_COMPANY='endereco_empresa'
-ADRESS_CLIENT='endereco_cliente'
+ADDRESS_COMPANY_MATRIX='endereco_empresa_matriz'
+ADDRESS_COMPANY='endereco_empresa'
+ADDRESS_CLIENT='endereco_cliente'
 
 VEHICLE_ID= 'id'
 VEHICLE_LICENSE_PLATE= 'placa'
@@ -85,8 +85,8 @@ PACKAGE_LENGTH='Comprimento'
 PACKAGE_WEIGHT='Peso'
 PACKAGE_SHIPPED='Expedido'
 PACKAGE_RECEIVED='Recebido'
-PACKAGE_ID_ADRESS_START ='Id_endereco_inicio'
-PACKAGE_ID_ADRESS_DESTINY ='Id_endereco_destino'
+PACKAGE_ID_ADDRESS_START ='Id_endereco_inicio'
+PACKAGE_ID_ADDRESS_DESTINY ='Id_endereco_destino'
 PACKAGE_CURRENT_STATIC_LOCATION='Local_atual_estatico'
 PACKAGE_STATUS='Status'
 PACKAGE_VOLUME="volume"
@@ -96,7 +96,7 @@ LOCALIZATION_LAT="Lat"
 LOCALIZATION_LONG="Long"
 LOCALIZATION_TYPE="Tipo"
 
-LOCALIZATION_ADRESS="localizacao_endereco"
+LOCALIZATION_ADDRESS="localizacao_endereco"
 LOCALIZATION_DELIVERYMAN="localizacao_entregador"
 
 
