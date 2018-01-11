@@ -1,0 +1,198 @@
+def saveAddress(json_address):
+
+    Session = getSession()
+    session=Session()
+    address = Address()
+    address.street=json_address[ADDRESS_STREET]
+    address.number=json_address[ADDRESS_NUMBER]
+    address.complement=json_address[ADDRESS_COMPLEMENT]
+    address.district=json_address[ADDRESS_DISTRICT]
+    address.postal_code=json_address[ADDRESS_POSTAL_CODE]
+    address.city=json_address[ADDRESS_CITY]
+    address.state=json_address[ADDRESS_STATE]
+    address.country=json_address[ADDRESS_COUNTRY]
+    session.add(address)
+    session.commit()
+    session.refresh(address)
+    id=address.id
+    session.close()
+    return id
+
+def deleteAddress(id):
+    Session = getSession()
+    session=Session()
+    session.query(Address).filter(Address.id == id).\
+    delete()
+    session.commit()
+    session.close()
+
+def getAddress(id):
+    Session = getSession()
+    session=Session()
+    response=session.query(Address).filter(Address.id == id).all()
+    if len(response)==1:
+        r=response[0]
+        address={ADDRESS_ID : r.id, ADDRESS_STREET : r.street,ADDRESS_NUMBER : r.number, ADDRESS_COMPLEMENT : r.complement, ADDRESS_DISTRICT : r.district, ADDRESS_POSTAL_CODE :r.postal_code,ADDRESS_CITY :  r.city, ADDRESS_STATE : r.state, ADDRESS_COUNTRY : r.country}
+        return {"response" : address }
+    else:
+        return {"response" : "invalid address"}
+
+def editAddress(json_address):
+    Session = getSession()
+    session=Session()
+    id=json_address[ADDRESS_ID]
+    response=session.query(Address).filter(Address.id == id).all()
+
+    if len(response)==1:
+        address=response[0]
+        address.street=json_address[ADDRESS_STREET]
+        address.number=json_address[ADDRESS_NUMBER]
+        address.complement=json_address[ADDRESS_COMPLEMENT]
+        address.district=json_address[ADDRESS_DISTRICT]
+        address.postal_code=json_address[ADDRESS_POSTAL_CODE]
+        address.city=json_address[ADDRESS_CITY]
+        address.state=json_address[ADDRESS_STATE]
+        address.country=json_address[ADDRESS_COUNTRY]
+        session.add(address)
+        session.commit()
+        session.refresh(address)
+        session.close()
+        return {"response" : address }
+    else:
+        return {"response" : "invalid address"}
+
+def saveVehicle(json_vehicle):
+    Session= getSession()
+    session=Session()
+    vehicle=Vehicle()
+    vehicle.licence_plate=json_vehicle[VEHICLE_LICENSE_PLATE]
+    vehicle.model=json_vehicle[VEHICLE_MODEL]
+    vehicle.year=json_vehicle[VEHICLE_YEAR]
+    #vehicle.ready=json_vehicle['']
+    #vehicle.color=json_vehicle['']
+    session.add(vehicle)
+    session.commit()
+    session.refresh(vehicle)
+    id=vehicle.id
+    session.close()
+    return id
+
+
+
+def saveDeliveryman(json_deliveryman):
+    id_address=saveAddress(json_deliveryman[ADDRESS])
+    id_vehicle=saveVehicle(json_deliveryman[VEHICLE])
+    Session=getSession()
+    session=Session()
+    deliveryman=Deliveryman()
+
+    deliveryman.dui=json_deliveryman[DELIVERYMAN_DUI]
+    deliveryman.Id_veiculo=id_vehicle
+    deliveryman.id_address=id_address
+    deliveryman.name_company=json_deliveryman[COMPANY_NAME]
+    deliveryman.name_deliveryman=json_deliveryman[DELIVERYMAN_NAME]
+    deliveryman.password=json_deliveryman[COMPANY_PASSWORD]
+    deliveryman.login=json_deliveryman[COMPANY_LOGIN]
+    deliveryman.email=json_deliveryman[COMPANY_EMAIL]
+    deliveryman.uci=json_deliveryman[COMPANY_UCI]
+
+    session.add(deliveryman)
+    response = False
+    session.commit()
+    session.refresh(deliveryman)
+    response = deliveryman.id
+    #deleteAddress(id_address)
+
+    session.close()
+    return response
+
+def savePackage(json_package):
+    print(json_package)
+    Session=getSession()
+    session=Session()
+    package=Package()
+
+    package.width=json_package[PACKAGE_WIDTH]
+    package.height=json_package[PACKAGE_HEIGHT]
+    package.length=json_package[PACKAGE_LENGTH]
+    package.weight=json_package[PACKAGE_WEIGHT]
+    package.local_destiny=json_package[PACKAGE_LOCAL_DESTINY]
+    package.local_start=json_package[PACKAGE_LOCAL_START]
+    package.id_address_start=json_package[PACKAGE_ID_START_ADDRESS]
+
+    #package.id_address_destiny=json_package[PACKAGE_ID_ADDRESS]
+    #package.static_location=json_package[PACKAGE_CURRENT_STATIC_LOCATION]
+
+    session.add(package)
+    response=False
+
+    session.commit()
+    session.refresh(package)
+    response = package.id
+    session.close()
+    return response
+
+def getPackages(id):
+    Session=getSession()
+    session=Session()
+    response= session.query(Package).filter(Package.id_address_start==id).all()
+    listPackage=[{PACKAGE_ID : p.id,PACKAGE_WIDTH:p.width,PACKAGE_HEIGHT:p.height,PACKAGE_LENGTH:p.length,PACKAGE_WEIGHT:p.weight,PACKAGE_RECEIVED:p.received,PACKAGE_LOCAL_DESTINY: getAddress(p.id_address_destiny) ,PACKAGE_LOCAL_START:getAddress(p.id_address_destiny)} for p in response]
+    return listPackage
+
+
+
+
+def saveCompany(json_company):
+    id_address=saveAddress(json_company[ADDRESS])
+    Session=getSession()
+    session=Session()
+    company=Company()
+    company.id_address=id_address
+    company.name_company=json_company[COMPANY_NAME]
+    company.password=json_company[COMPANY_PASSWORD]
+    company.login=json_company[COMPANY_LOGIN]
+    company.email=json_company[COMPANY_EMAIL]
+    company.uci=json_company[COMPANY_UCI]
+    session.add(company)
+    response = False
+    try:
+        session.commit()
+        session.refresh(company)
+        response = company.id
+    except:
+        deleteAddress(id_address)
+
+    session.close()
+    return response
+
+def getCompany(json_company):
+    login=json_company['login']
+    senha=json_company['senha']
+    Session=getSession()
+    session=Session()
+    response= session.query(Company).filter(Company.login == login , Company.password==senha).all()
+    if len(response)==1:
+        c=response[0]
+        address=getAddress(c.id_address)["response"]
+        #dic= company.__dict__
+        #dicCompany={key : value for key, value in dic.items() if key != '_sa_instance_state' }
+        dicCompany={COMPANY_ID :c.id , ADDRESS : address, COMPANY_TYPE : c.type, COMPANY_NAME: c.name_company,COMPANY_LOGIN: c.login,COMPANY_EMAIL:c.email,COMPANY_UCI:c.uci , COMPANY_TYPE:c.type}
+        response= dicCompany
+    else:
+        response=False
+    return response
+
+def editCompany(json_company):
+    Session=getSession()
+    session=Session()
+    id=json_company[COMPANY_ID]
+    response= session.query(Company).filter(Company.id == id).all()
+    company=response[0]
+    json_address=json_company[ADDRESS]
+    editAddress(json_address)
+    company.email=json_company[COMPANY_EMAIL]
+
+    session.add(company)
+    session.commit()
+    session.close()
+    return True
