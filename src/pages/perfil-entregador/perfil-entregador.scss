@@ -1,6 +1,19 @@
 page-perfil-entregador {
+    .tela{
+        height: 100%;
+    }
     h1{
         text-align: center;
         color: #144f45;
     }
+    .infoPrincipais{
+        position: relative;
+        top: 20px;
+    }
+    .infoAdicionais{
+        position: relative;
+        top: 35px;
+    }
+    
+
 }

@@ -28,6 +28,7 @@ import { PacoteProvider } from '../providers/pacote/pacote';
 import { HomeEntregadorPage } from '../pages/home-entregador/home-entregador'
 import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
 import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregador'
+import { OrdemServicoPage } from '../pages/ordem-servico/ordem-servico'
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregad
     EditarPerfilPage,
     HomeEntregadorPage,
     ConfiguracaoPage,
-    PerfilEntregadorPage
+    PerfilEntregadorPage,
+    OrdemServicoPage
+    
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,9 @@ import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregad
     EditarPerfilPage,
     HomeEntregadorPage,
     ConfiguracaoPage,
-    PerfilEntregadorPage
+    PerfilEntregadorPage,
+    OrdemServicoPage
+    
   ],
   providers: [
     StatusBar,
