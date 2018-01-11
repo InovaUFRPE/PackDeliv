@@ -85,7 +85,7 @@ class VehicleView(MethodView):
 
         return vehicle
 
-def initializeView(app):
+def initialize_view(app):
     endpoint='vehicle_view'
     methods=['GET','POST','PUT','DELETE']
     url='/vehicle/'

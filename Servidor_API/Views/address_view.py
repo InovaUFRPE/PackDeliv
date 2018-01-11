@@ -97,7 +97,7 @@ class AddressView(MethodView):
 
         return missing_fields
 
-def initializeView(app):
+def initialize_view(app):
     endpoint='address_view'
     methods=['GET','PUT','POST','DELETE']
     url='/address/'
