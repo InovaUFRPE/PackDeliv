@@ -22,7 +22,7 @@ export class OrdemServicoPage {
   lista: any[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: ServiceProvider) {
-    listagem();
+    this.listagem({ "vol": 80, "weight": 100, "position": ""})
   }
 
   public listagem(informacoes: any){
