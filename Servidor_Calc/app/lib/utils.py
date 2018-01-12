@@ -37,8 +37,6 @@ class Package:
         self.start_date = datetime.now()
         self.final_date = final_date
         self.address = address
-        self.start_date = datetime.now()
-        self.final_date = datetime.now() + timedelta(days=randint(1, 14))
         self.id = Package.__ID + 1
         Package.__ID += 1
 
@@ -315,42 +313,4 @@ def popular():
     for i in range(10):
         list_package[bairros[i]] = list_bairros[i]
 
-<<<<<<< HEAD
-    for i in range(100):
-        p = Package(width=randint(1, 10), height=randint(1, 10), lenght=randint(1, 10), weight=randint(10, 25), address=list_address[i % 30].get())
-        if p.address['district'] == bairro1:
-            list_bairro1.append(p)
-        elif p.address['district'] == bairro2:
-            list_bairro2.append(p)
-        elif p.address['district'] == bairro3:
-            list_bairro3.append(p)
-        elif p.address['district'] == bairro4:
-            list_bairro4.append(p)
-        elif p.address['district'] == bairro5:
-            list_bairro5.append(p)
-        elif p.address['district'] == bairro6:
-            list_bairro6.append(p)
-        elif p.address['district'] == bairro7:
-            list_bairro7.append(p)
-        elif p.address['district'] == bairro8:
-            list_bairro8.append(p)
-        elif p.address['district'] == bairro9:
-            list_bairro9.append(p)
-        else:
-            list_bairro10.append(p)
-
-    list_package['bairro1'] = list_bairro1
-    list_package['bairro2'] = list_bairro2
-    list_package['bairro3'] = list_bairro3
-    list_package['bairro4'] = list_bairro4
-    list_package['bairro5'] = list_bairro5
-    list_package['bairro6'] = list_bairro6
-    list_package['bairro7'] = list_bairro7
-    list_package['bairro8'] = list_bairro8
-    list_package['bairro9'] = list_bairro9
-    list_package['bairro10'] = list_bairro10
-
     return list_package
-=======
-    return list_package
->>>>>>> d80447f7131c0293b1deb9ea20d960ea234129f0
