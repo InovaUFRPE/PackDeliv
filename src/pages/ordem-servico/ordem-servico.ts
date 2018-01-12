@@ -18,7 +18,7 @@ import { SessionProvider} from '../../providers/session/session';
   templateUrl: 'ordem-servico.html',
 })
 export class OrdemServicoPage {
-  lista : any[];
+  ordemServico = {lista: [], cod: 0, data: ''};
   constructor(public navCtrl: NavController, public navParams: NavParams, public serviceProvider: ServiceProvider) {
 
   }
@@ -26,7 +26,10 @@ export class OrdemServicoPage {
   ngAfterViewInit() {
     let teste = {vol:2000, position: "", weight:1000}
     this.serviceProvider.listagem(teste, (resposta) => {
-      this.lista = resposta.pacotes;
+      this.ordemServico.lista = resposta.pacotes;
+      this.ordemServico.cod = resposta.codigo;
+      this.ordemServico.data = resposta.dataFinal;
+
     });
   }
 
