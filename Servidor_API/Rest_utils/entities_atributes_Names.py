@@ -26,7 +26,7 @@ COMPANY_EMAIL ='Email'
 COMPANY_UCI= 'CNPJ' # unique identifier of company
 COMPANY_TYPE= 'Tipo'
 
-DELIVERYMAN_ID= 'id'
+DELIVERYMAN_ID= 'Id'
 DELIVERYMAN_NAME='Nome_completo'
 DELIVERYMAN_ID_VEHICLE= 'Id_veiculo'
 DELIVERYMAN_ID_COMPANY = 'id_empresa'
@@ -52,7 +52,7 @@ ADDRESS_COMPANY_MATRIX='endereco_empresa_matriz'
 ADDRESS_COMPANY='endereco_empresa'
 ADDRESS_CLIENT='endereco_cliente'
 
-VEHICLE_ID= 'id'
+VEHICLE_ID= 'Id'
 VEHICLE_LICENSE_PLATE= 'placa'
 VEHICLE_YEAR = 'ano'
 VEHICLE_MODEL = 'modelo'
