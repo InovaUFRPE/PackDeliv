@@ -18,7 +18,7 @@ import { SessionProvider} from '../../providers/session/session';
   templateUrl: 'ordem-servico.html',
 })
 export class OrdemServicoPage {
-
+  lista = any[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public serviceProvider: ServiceProvider) {
 
   }
@@ -26,15 +26,11 @@ export class OrdemServicoPage {
   ionDidViewLoad() {
     let teste = {"vol":2000, "position": "", "weight":1000}
     this.serviceProvider.listagem(teste, (resposta) => {
+      this.lista = resposta.pacotes;
 
 
 
-<<<<<<< HEAD
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: ServiceProvider) {
-    this.listagem({ "vol": 80, "weight": 100, "position": ""})
-=======
     });
->>>>>>> 92af9e9d0eafd314062550221e05cfd3f7be3623
   }
 
   public listagem(informacoes: any){

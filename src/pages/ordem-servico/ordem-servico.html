@@ -13,9 +13,9 @@
   <h2>Codigo:  </h2>
   <h2>Data final:  </h2>
 
-  <ion-list *ngFor="let pacote of lista">
-    <ion-item>
-      <!--<p>Rua: {{pacote.address.street}}, {{pacote.address.number}}</p>-->
+  <ion-list>
+    <ion-item *ngFor="let pacote of lista">
+      <p>Rua: {{pacote.address.street}}, {{pacote.address.number}}</p>
       <p>Altura: {{pacote.height}}</p>
       <p>Comprimento: {{pacote.lenght}} </p>
       <p>Largura: {{pacote.width}} </p>
