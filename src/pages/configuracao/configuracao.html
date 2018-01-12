@@ -1,0 +1,37 @@
+<!--
+  Generated template for the ConfiguracaoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <h1>Configurações</h1>
+</ion-header>
+
+<ion-content padding class="tela">
+  <ion-card color="verd">
+    <ion-card-header color="light">
+      Status atual
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label color="verd">Escolha uma opção</ion-label>
+          <ion-select [(ngModel)]="statusAtual">
+            <ion-option color="light">Ativo</ion-option>
+            <ion-option color="light">Em serviço</ion-option>
+            <ion-option color="light">Inativo</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button full color="verd">Editar Perfil</button>
+  <div class="buttons">
+    <button ion-button block outline color="verd">Sair</button>
+    <button ion-button block outline color="verd">Apagar Conta</button>
+  </div>
+  
+  
+
+</ion-content>
