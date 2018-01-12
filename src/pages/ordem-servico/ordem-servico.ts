@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
+import { session } from '../../providers/session/SessionProvider'
 
 /**
  * Generated class for the OrdemServicoPage page.
@@ -18,16 +19,23 @@ export class OrdemServicoPage {
 
   private url: string = 'http://localhost:8080/';
 
-  items: any;
-  lista: any;
+  lista: any[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: ServiceProvider) {
+    listagem();
   }
 
+  public listagem(informacoes: any){
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');
+    this.http.post(this.url + 'join-packages', informações, { headers: headers })
+    .subscribe((response) => {
+      var pacotes = response.json().response;
+      var code = pacotes['code'];
+      var data = pacotes['finalization_date'];
+      this.lista = pacotes['deliveries']; //uma lista com cada elemento sendo um dicionario
+    })
 
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrdemServicoPage');
-  }
-
+}
 }

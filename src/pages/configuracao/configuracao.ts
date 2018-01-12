@@ -18,6 +18,10 @@ export class ConfiguracaoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  onChange(selectedValue){
+    console.info("Selected:",selectedValue);
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfiguracaoPage');
   }

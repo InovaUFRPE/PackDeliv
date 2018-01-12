@@ -14,6 +14,15 @@ dao = CompanyDao()
 
 class CompanyControl:
     @staticmethod
+    def login(login, password):
+        try:
+            
+            response = dao.login(login,password)
+            return response
+        except Exception as error:
+            raise ValueError('Unable to find company: ' + str(error))
+
+    @staticmethod
     def find(id_company):
         try:
             response = dao.select(id_company)

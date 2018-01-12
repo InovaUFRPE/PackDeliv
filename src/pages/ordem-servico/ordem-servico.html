@@ -13,14 +13,14 @@
   <h2>Codigo:  </h2>
   <h2>Data final:  </h2>
 
-  <ion-list *ngFor="let pacote of lista ">
+  <ion-list *ngFor="let pacote of lista">
     <ion-item>
-      <p>Rua: rua, numero</p>
-      <p>Altura: </p>
-      <p>Comprimento: </p>
-      <p>Largura: </p>
-      <p>Peso: </p>
-      <p>Volume: </p>
+      <p>Rua: {{pacote.address.street}}, {{pacote.address.number}}</p>
+      <p>Altura: {{pacote.height}}</p>
+      <p>Comprimento: {{pacote.lenght}} </p>
+      <p>Largura: {{pacote.width}} </p>
+      <p>Peso: {{pacote.weight}} </p>
+      <p>Volume: {{pacote.vol}} </p>
     </ion-item>
   </ion-list>
 </ion-content>

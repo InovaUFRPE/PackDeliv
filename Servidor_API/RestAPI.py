@@ -1,14 +1,23 @@
 # coding=utf-8
-from flask import Flask
+import requests#modiaficar amnh
+from flask import Flask,jsonify, request#request retirar amnh
 from flask_cors import CORS
 from Models.DB.DB_helper import INIT_API
 from Views import(vehicle_view, company_view, deliveryman_view,
-address_view, client_view, package_view, delivery_view, service_order_view)
+address_view, client_view, package_view, delivery_view, service_order_view, login_view)
 
 app = Flask(__name__)
 
 INIT_API()
 CORS(app)
+
+@app.route('/cnpj/<cnpj>',methods=['GET'])
+def cnpj(cnpj):
+    if request.method == 'GET':
+        
+        r = requests.get('https://www.receitaws.com.br/v1/cnpj/'+ str(cnpj) )
+
+        return jsonify(r.json())
 
 if __name__ == '__main__' :
     vehicle_view.initialize_view(app)
@@ -19,5 +28,5 @@ if __name__ == '__main__' :
     package_view.initialize_view(app)
     delivery_view.initialize_view(app)
     service_order_view.initialize_view(app)
-
+    login_view.initialize_view(app)
     app.run()
