@@ -61,7 +61,7 @@ class Address:
 
     def get(self):
         """Representation method for Package."""
-        return vars(self)['district']
+        return vars(self)
 
 
 class ServiceOrder:
