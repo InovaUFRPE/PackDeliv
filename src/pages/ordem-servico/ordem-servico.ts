@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
-import { session } from '../../providers/session/SessionProvider'
+import { SessionProvider} from '../../providers/session/session';
+
+
 
 /**
  * Generated class for the OrdemServicoPage page.
@@ -17,25 +19,20 @@ import { session } from '../../providers/session/SessionProvider'
 })
 export class OrdemServicoPage {
 
-  private url: string = 'http://localhost:8080/';
+  constructor(public navCtrl: NavController, public navParams: NavParams, public serviceProvider: ServiceProvider) {
 
-  lista: any[];
+  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: ServiceProvider) {
-    listagem();
+  ionDidViewLoad() {
+    let teste = {"vol":2000, "position": "", "weight":1000}
+    this.serviceProvider.listagem(teste, (resposta) => {
+
+
+
+    });
   }
 
   public listagem(informacoes: any){
-    let headers = new Headers();
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');
-    this.http.post(this.url + 'join-packages', informações, { headers: headers })
-    .subscribe((response) => {
-      var pacotes = response.json().response;
-      var code = pacotes['code'];
-      var data = pacotes['finalization_date'];
-      this.lista = pacotes['deliveries']; //uma lista com cada elemento sendo um dicionario
-    })
 
 }
 }
