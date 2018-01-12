@@ -18,7 +18,7 @@ import { SessionProvider} from '../../providers/session/session';
   templateUrl: 'ordem-servico.html',
 })
 export class OrdemServicoPage {
-  lista = any[];
+  lista : any[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public serviceProvider: ServiceProvider) {
 
   }
