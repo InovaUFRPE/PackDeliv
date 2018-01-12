@@ -23,13 +23,10 @@ export class OrdemServicoPage {
 
   }
 
-  ionDidViewLoad() {
-    let teste = {"vol":2000, "position": "", "weight":1000}
+  ngAfterViewInit() {
+    let teste = {vol:2000, position: "", weight:1000}
     this.serviceProvider.listagem(teste, (resposta) => {
       this.lista = resposta.pacotes;
-
-
-
     });
   }
 

@@ -26,7 +26,8 @@ export class ServiceProvider {
 
     this.http.post(this.url + 'join-packages', informacoes, { headers: headers })
     .subscribe((response) => {
-      let json = response.json().response;
+      console.log(response.json());
+      let json = response.json();
       let code = json['code'];
       let pacotes = json['deliveries'];
       let dataFinal = json['finalization_date'];
