@@ -14,6 +14,7 @@ export class SessionProvider {
   
   private static user: any
   public static status: boolean = false
+  public static deliveryManStatus: string = "Inativo"
   constructor(public http: Http) {
     console.log('Hello Session Provider Provider');  
   }
@@ -42,6 +43,22 @@ export class SessionProvider {
   static closeSession():void{
     this.setStatus()
     this.user = null
+  }
+
+  static getDeliveryManStatus(status: string){
+    return this.deliveryManStatus
+  }
+
+  static setDeliveryAtivo():void{
+    this.deliveryManStatus = "Ativo"
+  }
+
+  static setDeliveryManEmServico():void{
+    this.deliveryManStatus = "Em serviço"
+  }
+
+  static setDeliveryManInativo():void{
+    this.deliveryManStatus = "Inativo"
   }
 
 }
