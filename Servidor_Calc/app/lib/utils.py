@@ -2,7 +2,7 @@
 """Library for utilities functions for the calc server."""
 
 from random import randint
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class LatLng:
     """Class for use with coordinates."""
@@ -35,6 +35,8 @@ class Package:
         self.weight = weight
         self.vol = self.width * self.height * self.lenght
         self.address = address
+        self.start_date = datetime.now()
+        self.final_date = datetime.now() + timedelta(days=randint(1, 14))
         self.id = Package.__ID + 1
         Package.__ID += 1
 
@@ -231,8 +233,8 @@ def popular():
     list_bairro10 = []
     list_package = {}
 
-    for i in range(12):
-        p = Package(width=randint(1, 10), height=randint(1, 10), lenght=randint(1, 10), weight=randint(10, 25), address=list_address[i % 6].get())
+    for i in range(100):
+        p = Package(width=randint(1, 10), height=randint(1, 10), lenght=randint(1, 10), weight=randint(10, 25), address=list_address[i % 30].get())
         if p.address['district'] == bairro1:
             list_bairro1.append(p)
         elif p.address['district'] == bairro2:
