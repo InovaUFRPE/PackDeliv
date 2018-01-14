@@ -1,6 +1,6 @@
 import { Endereco } from "./endereco";
 
-class Veiculo {
+export class Veiculo {
     Placa: string
     Ano: number
     Modelo: string
@@ -19,6 +19,7 @@ export class Entregador {
     Email: string
     id?: number
     Id_veiculo?: number
+    status: boolean
     constructor(){
 
     }
