@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { LoginPage } from "../login/login";
+import { Empresa } from '../../interfaces/usuario';
 
 
 /**
@@ -30,24 +31,17 @@ export class CadastroPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
   }
 
-  /**
-   * Realiza o cadastro do usuário inserindo as informações
-   * no banco de dados.
-   * 
-   * Feito por: Matheus Campos da Silva, 30/10/2017
-   * Editado por:Felipe de Araújo Morais,09/11/2017
-   */
   presentToast(message:string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,
       position: 'bottom'
     });
-  
+
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
     });
-  
+
     toast.present();
   }
   public fazerCadastro(): void {
@@ -58,7 +52,7 @@ export class CadastroPage {
     var SenhaConf = this.dados.senhaConf;
 
     // Compara se as senhas digitadas são correspondentes
-    
+
     if (nomeUsuario==undefined ) {
       // Faz algo caso não sejam
       this.presentToast('O login é um campo obrigatório.');
@@ -94,7 +88,7 @@ export class CadastroPage {
       return;
     }
 
-    
+
     //compara as senhas
     if (senha !== SenhaConf) {
       // Faz algo caso não sejam
@@ -117,7 +111,7 @@ export class CadastroPage {
       this.presentToast('Confirmar E-mail é obrigatório.');
       return;
     }
-    
+
     // Compara se os e-mails digitados são correspondentes
     if (email !== emailConf) {
       // Faz algo caso não sejam
@@ -126,17 +120,34 @@ export class CadastroPage {
     }
 
     // Cria o objeto usuario e o cadastro no BD
-    var usuario: object = {
+    var usuario = {
       Login: nomeUsuario,
       CNPJ: cnpj,
       Senha: senha,
       Email: email
     };
 
-    this.usuarioProvider.validarCNPJ(usuario, UsuarioProvider.EMPRESA, () => {
-      this.navCtrl.push(LoginPage);
-    });
-    
+    /** ------------- AJUDA A PARTIR DE AQUI --------------- */
+    var informacoes = this.usuarioProvider.validarCNPJ(usuario.CNPJ);
+    console.log(informacoes);
+    if (informacoes) {
+      let empresa: Empresa = {
+        CNPJ: usuario.CNPJ,
+        Email: usuario.Email,
+        Login: usuario.Login,
+        Senha: usuario.Senha,
+        Endereco: informacoes.endereco,
+        Nome_fantasia: informacoes.nome
+      };
+
+      this.usuarioProvider.cadastrarEmpresa(empresa)
+      .subscribe( response => {
+        console.log(response);
+        this.navCtrl.push(LoginPage, response);
+      });
+    } else {
+      this.presentToast('Cadastro não realizado.');
+    }
   }
 
 }

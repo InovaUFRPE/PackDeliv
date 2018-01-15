@@ -1,4 +1,4 @@
-import { Endereco } from "./endereco";
+import { Endereco } from "./usuario";
 
 export class Pacote {
     id?:number

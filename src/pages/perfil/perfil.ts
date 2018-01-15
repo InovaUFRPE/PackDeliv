@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
 import { SessionProvider } from '../../providers/session/session';
-import { Empresa } from '../../interfaces/empresa';
+import { Empresa } from '../../interfaces/usuario';
 
 
 /**

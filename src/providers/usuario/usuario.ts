@@ -1,149 +1,117 @@
-import { EmailComposer } from '@ionic-native/email-composer';
-import { Empresa } from './../../interfaces/empresa';
-import { Endereco } from './../../interfaces/endereco';
+import { Empresa, Entregador, Veiculo, Endereco, Credenciais } from './../../interfaces/usuario';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Entregador } from '../../interfaces/entregador';
+import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
 import { Pacote } from '../../interfaces/pacote'
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import { Jsonp } from '@angular/http/src/http';
-import { requestIonicCallback } from 'ionic-angular/util/util';
-import { SessionProvider } from '../session/session';
-import { LoginPage } from '../../pages/login/login';
 import { ListaDeEntregasPage } from '../../pages/lista-de-entregas/lista-de-entregas';
+import { Observable } from 'rxjs/Observable';
 
-/*
-  Generated class for the UsuarioProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class UsuarioProvider {
 
   private url: string = 'http://localhost:5000/';
 
-  public static EMPRESA = true;
-  public static ENTREGADOR = false;
+  constructor (public http: Http) {  }
 
-  constructor (public http: Http) {
+  /**
+   * getRequestOptions configura as opções das requisições.
+   */
+  private getRequestOptionsArgs(): RequestOptionsArgs {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
 
+    let options = {headers: headers};
+
+    return options;
   }
 
   /**
-   * Return an object finalUser according to his credentials.
-   *
-   * Made by: Matheus Campos da Silva, 13/11/2017
-   * @param credentials
-   * An object that contains the user login and password.
+   * fazerLogin é o método responsável por fazer o login de empresa e de entregador.
+   * 
+   * @param credenciais
+   *  As credenciais do usuário (Login e Senha).
    */
+  public fazerLogin(credenciais: Credenciais): any {
+    let request = this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs());
 
-  public logar(credentials: any, callback) {
-    let headers = new Headers();
-    let empresa= new Empresa();
-    let endereco = new Endereco();
+    request.subscribe( response => {
+      var usuario = response.json();
+      
+      if (usuario.CNH) {
+        let veiculo: Veiculo = {Placa: usuario.placa, Ano: usuario.ano, Modelo: usuario.modelo};
+        let entregador: Entregador = {
+          Veiculo: veiculo,
+          Nome_fantasia: usuario.Nome_fantasia,
+          CNH: usuario.CNH,
+          CNPJ: usuario.CNPJ,
+          Email: usuario.Email,
+          Login: credenciais.Login,
+          Senha: credenciais.Password,
+          status: 'inativo'
+        };
 
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');
-    // Implements request to API
-    this.http.post(this.url + 'login', credentials, { headers: headers })
-    .subscribe((response) => {
-      // Treat response
-      var user = response.json().response;
-      if (user !== undefined){
-
-        //passando as informações de endereço para um objeto endereço
-        var userEndereco = user.Endereco
-        endereco.Id = userEndereco.Id
-        endereco.Bairro = userEndereco.Bairro
-        endereco.CEP = userEndereco.CEP
-        endereco.Cidade = userEndereco.Cidade
-        endereco.Complemento = userEndereco.Complemento
-        endereco.Estado = userEndereco.Estado
-        endereco.Logradouro = userEndereco.Logradouro
-        endereco.Numero = userEndereco.Numero
-        endereco.Pais = userEndereco.Pais
-        console.log(userEndereco)
-
-        if (user.CNH) {
-          //não sei como funciona o
-          
-          //callback(this.objetos.entregador);
-        } else {
-          //passando as informações do usuário para um Objeto empresa
-          empresa.Id_Endereco = userEndereco.Id
-          empresa.CNPJ = user.CNPJ
-          empresa.Email = user.Email
-          empresa.Endereco = endereco
-          empresa.Login = user.Login
-          empresa.Nome = user.Nome
-          empresa.Senha = user.Senha
-          console.log(empresa)
-          callback(empresa);
-        }
+        return entregador;
       } else {
-        callback(false);
+        let empresa: Empresa = {
+          CNPJ: usuario.CNPJ,
+          Nome_fantasia: usuario.Nome_fantasia,
+          Email: usuario.Email,
+          Endereco: usuario.Endereco,
+          Login: credenciais.Login,
+          Senha: credenciais.Password
+        };
+
+        return empresa;
       }
-    }, (error) => {
-      throw error;
+    }, error => {
+      console.log('Erro na requisição de login: ' + error);
+      return null;
     });
   }
 
-  public validarCNPJ(usuario: any, tipo: boolean, success: any) {
-    console.log(usuario)
-    usuario.CNPJ= usuario.CNPJ
-      .split('.')
-      .join('')
-      .replace('/','')
-      .replace('-','');
+  public login(credenciais: Credenciais): Observable<any> {
+    return this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json());
+  }
 
-    this.http.get(this.url+'cnpj/'+usuario.CNPJ)
-    .subscribe((response) => {
-        var resp = response.json();
-        usuario['Endereco'] = {};
+  /** ------------ AJUDA A PARTIR DE AQUI -------------- */
+  public validarCNPJ(cnpj: string): {endereco: Endereco, nome: string} {
+    cnpj = cnpj.split('.')
+    .join('')
+    .replace('/','')
+    .replace('-','');
 
-        if (resp.status !== "ERROR"){
-          usuario['id'] = "";
-          usuario['Id_endereco'] = "";
-          usuario['Nome'] = resp.nome;
-          usuario['Endereco']['Logradouro'] = resp.logradouro;
-          usuario['Endereco']['Numero'] = resp.numero;
-          usuario['Endereco']['Complemento'] = resp.complemento;
-          usuario['Endereco']['Bairro'] = resp.bairro;
-          usuario['Endereco']['CEP'] = resp.cep;
-          usuario['Endereco']['Cidade'] = resp.municipio;
-          usuario['Endereco']['Estado'] = resp.uf;
-          usuario['Endereco']['Pais'] = "";
+    var resposta = {endereco: undefined, nome: undefined};
 
-          if (tipo) {
-            this.inserirEmpresa(usuario, success);
-          } else {
-            this.cadastrarEntregador(usuario, success);
-          }
-        }
-        else{
-          alert(response.json().message);
-        }
-      }, (error) => {
-      throw error;
-      });
-    }
+    this.http.get(this.url + 'cnpj/' + cnpj)
+    .map((response: Response) => response.json())
+    .subscribe( response => {
+      if (!response.error) {
+        let ender: Endereco = {
+          Logradouro: response.logradouro,
+          Numero: response.numero,
+          Complemento: response.complemento,
+          Bairro: response.bairro,
+          CEP: response.cep,
+          Cidade: response.municipio,
+          Estado: response.uf,
+          Pais: 'BRASIL'
+        };
+
+        resposta.endereco = ender;
+        resposta.nome = response.nome;
+      }
+    }, error => {
+      console.log('Erro na validação de CNPJ: ' + error);
+    });
+
+    return resposta;
+  }
 
   //Cadastra a empresa
-  public inserirEmpresa(empresa: Empresa, success: any) {
-    let headers = new Headers();
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');
-
-    this.http.post(this.url + 'company/', empresa, { headers: headers })
-      .subscribe((res) => {
-        alert('Usuário cadastrado!');
-        success();
-      }, (error) => {
-        throw error;
-      });
+  public cadastrarEmpresa(empresa: Empresa): Observable<any> {
+    return this.http.post(this.url + 'company/', empresa, this.getRequestOptionsArgs())
+      .map((response: Response) => response.json());
   }
 
 

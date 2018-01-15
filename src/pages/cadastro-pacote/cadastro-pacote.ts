@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
-import { Endereco } from "../../interfaces/endereco"
+import { Endereco } from "../../interfaces/usuario"
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -92,15 +92,16 @@ export class CadastroPacotePage {
       return;
     }
 
-    let endereco = new Endereco();
-    endereco.Logradouro = rua;
-    endereco.Numero = numero;
-    endereco.Complemento = complemento;
-    endereco.Bairro = bairro;
-    endereco.CEP = cep;
-    endereco.Cidade = cidade;
-    endereco.Estado = estado;
-
+    let endereco: Endereco = {
+      Logradouro: rua,
+      Numero: numero,
+      Complemento: complemento,
+      Bairro: bairro,
+      CEP: cep,
+      Cidade: cidade,
+      Estado: estado,
+      Pais: 'brasil'
+    };
     console.log(endereco);
     
 

@@ -7,8 +7,9 @@ import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { PerfilPage } from '../perfil/perfil';
-import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 import { HomeEntregadorPage } from '../home-entregador/home-entregador'
+import { Credenciais } from '../../interfaces/usuario';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -24,10 +25,7 @@ import { HomeEntregadorPage } from '../home-entregador/home-entregador'
 export class LoginPage {
 
   public cadastroPage = CadastroPage;
-  public credentials = {
-    login: "",
-    senha: ""
-  };
+  public credenciais: Credenciais = { Login: '', Password: ''};
 
   constructor(
     public navCtrl: NavController, 
@@ -35,37 +33,23 @@ export class LoginPage {
     public toastCtrl: ToastController, 
     public usuarioProvider: UsuarioProvider,
     
-  ) {
-  }
+  ) { }
+
   
-  /**
-   * Compara as credenciais fornecidas com as credenciais
-   * do banco de dados através da API RESTful, redireciona
-   * o usuário para a página Home.
-   *
-   * Made by: Matheus Campos da Silva, 30/10/2017
-   */
+  
   public fazerLogin(): void {
-    // Make request to API and pass user data to HomePage
-    this.usuarioProvider.logar(this.credentials, (resposta) => {
-      if (resposta) {
-        
-        // Vai para a tela Home e manda os dados do usuário para ela
+    this.usuarioProvider.login(this.credenciais)
+    .subscribe( usuario => {
+      SessionProvider.openSession(usuario);
+      this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Endereco.Id);
 
-        SessionProvider.openSession(resposta);
-        this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Endereco.Id)
-        
-        let TIME_IN_MS = 2000;
-        let hideFooterTimeout = setTimeout( () => {
-             this.navCtrl.push(HomePage);
-        }, TIME_IN_MS);
-
-        
-
-
+      if (usuario.CNH) {
+        this.navCtrl.push(HomeEntregadorPage, usuario);
       } else {
-        this.presentToast('Login ou Senha incorretos, tente novamente.');
+        this.navCtrl.push(HomePage, usuario);
       }
+    }, error => {
+      console.log('Erro ao fazer login: ' + error);
     });
   }
 

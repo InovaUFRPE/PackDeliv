@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
-import { Endereco } from "../../interfaces/endereco"
+import { Endereco } from "../../interfaces/usuario"
 import { Pacote } from "../../interfaces/pacote"
 import { HomePage } from "../home/home"
 import { SessionProvider } from '../../providers/session/session';
