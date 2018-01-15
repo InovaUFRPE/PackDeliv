@@ -19,7 +19,7 @@ export class Entregador {
     Email: string
     id?: number
     Id_veiculo?: number
-    status: boolean
+    status: string
     constructor(){
 
     }

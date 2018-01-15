@@ -39,10 +39,12 @@ export class UsuarioProvider {
    * @param credentials
    * An object that contains the user login and password.
    */
+
   public logar(credentials: any, callback) {
     let headers = new Headers();
     let empresa= new Empresa();
     let endereco = new Endereco();
+
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
     // Implements request to API
@@ -51,6 +53,7 @@ export class UsuarioProvider {
       // Treat response
       var user = response.json().response;
       if (user !== undefined){
+
         //passando as informações de endereço para um objeto endereço
         var userEndereco = user.Endereco
         endereco.Id = userEndereco.Id
@@ -66,6 +69,7 @@ export class UsuarioProvider {
 
         if (user.CNH) {
           //não sei como funciona o
+          
           //callback(this.objetos.entregador);
         } else {
           //passando as informações do usuário para um Objeto empresa
@@ -133,7 +137,7 @@ export class UsuarioProvider {
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
 
-    this.http.post(this.url + 'company', empresa, { headers: headers })
+    this.http.post(this.url + 'company/', empresa, { headers: headers })
       .subscribe((res) => {
         alert('Usuário cadastrado!');
         success();
@@ -150,7 +154,7 @@ export class UsuarioProvider {
     headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
 
-    this.http.post(this.url+'deliveryman', entregador,{headers: headers})
+    this.http.post(this.url+'deliveryman/', entregador,{headers: headers})
     .subscribe( (res) => {
       alert('Entregador cadastrado!');
       success();
