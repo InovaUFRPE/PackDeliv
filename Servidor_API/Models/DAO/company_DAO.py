@@ -65,11 +65,10 @@ class CompanyDao():
         session = getSession()
         try:
             response=session.query(Company).filter(Company.login == login).all()
-            
-            #if bcrypt.hashpw(password.encode('utf-8'), response[0].password) == response[0].password:
-            response=response[0].id
-                
-            return response
+            if bcrypt.hashpw(password.encode('utf-8'), response[0].password.encode('utf-8')):
+                return response[0]
+            else:
+                return None
         except:
             printError()
             return None

@@ -11,8 +11,11 @@ class LoginView(MethodView):
             return jsonify({"error": "Please provide a JSON"}), 400
 
         try:
-            id_login = CompanyControl.login( json['Login'] , json['Password'] )
-            return jsonify({ "id": id_login }), 200
+            company = CompanyControl.login(json['Login'] , json['Password'])
+            if company != None:
+                return jsonify(company.as_dict()), 200
+            else:
+                return jsonify({"error": "Senha ou usuário inválido"}), 401
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
