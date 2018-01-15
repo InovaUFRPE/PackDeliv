@@ -30,6 +30,7 @@ import { ConfiguracaoPage } from '../pages/configuracao/configuracao'
 import { PerfilEntregadorPage } from '../pages/perfil-entregador/perfil-entregador'
 import { OrdemServicoPage } from '../pages/ordem-servico/ordem-servico'
 import { ServiceProvider } from '../providers/service/service';
+import { EditarPerfilEntregadorPage } from '../pages/editar-perfil-entregador/editar-perfil-entregador'
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ServiceProvider } from '../providers/service/service';
     HomeEntregadorPage,
     ConfiguracaoPage,
     PerfilEntregadorPage,
-    OrdemServicoPage
+    OrdemServicoPage,
+    EditarPerfilEntregadorPage
     
   ],
   imports: [
@@ -77,7 +79,8 @@ import { ServiceProvider } from '../providers/service/service';
     HomeEntregadorPage,
     ConfiguracaoPage,
     PerfilEntregadorPage,
-    OrdemServicoPage
+    OrdemServicoPage,
+    EditarPerfilEntregadorPage
     
   ],
   providers: [

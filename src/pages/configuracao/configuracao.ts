@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EditarPerfilEntregadorPage } from '../editar-perfil-entregador/editar-perfil-entregador'
 
 /**
  * Generated class for the ConfiguracaoPage page.
@@ -20,6 +21,10 @@ export class ConfiguracaoPage {
 
   onChange(selectedValue){
     console.info("Selected:",selectedValue);
+  }
+
+  public editarPerfil(){
+    this.navCtrl.push(EditarPerfilEntregadorPage)
   }
 
   ionViewDidLoad() {
