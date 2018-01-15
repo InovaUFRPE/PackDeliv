@@ -19,7 +19,7 @@ ADDRESSES='Enderecos'
 
 COMPANY_ID = 'Id'
 COMPANY_ID_ADDRESS ='Id_endereco'
-COMPANY_NAME='Nome_fantasia'
+COMPANY_NAME='Nome'
 COMPANY_PASSWORD ='Senha'
 COMPANY_LOGIN ='Login'
 COMPANY_EMAIL ='Email'
