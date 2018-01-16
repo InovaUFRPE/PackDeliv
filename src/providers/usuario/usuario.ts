@@ -40,14 +40,14 @@ export class UsuarioProvider {
     .subscribe( response => {
       if (!response.error) {
         let ender: Endereco = {
-          Logradouro: response.logradouro,
-          Numero: response.numero,
-          Complemento: response.complemento,
-          Bairro: response.bairro,
-          CEP: response.cep,
-          Cidade: response.municipio,
-          Estado: response.uf,
-          Pais: 'BRASIL'
+          street: response.logradouro,
+          number: response.numero,
+          complement: response.complemento,
+          district: response.bairro,
+          postal_code: response.cep,
+          city: response.municipio,
+          state: response.uf,
+          country: 'BRASIL'
         };
 
         resposta.endereco = ender;
@@ -63,6 +63,7 @@ export class UsuarioProvider {
   }
 
   public cadastrarEmpresa(empresa: Empresa): Observable<any> {
+    console.log(empresa);
     return this.http.post(this.url + 'company/', empresa, this.getRequestOptionsArgs())
       .map((response: Response) => response.json());
   }

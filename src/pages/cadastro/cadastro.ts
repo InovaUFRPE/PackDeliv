@@ -127,20 +127,24 @@ export class CadastroPage {
     // Cria o objeto usuario e o cadastro no BD
     var usuario = {
       Login: nomeUsuario,
-      CNPJ: cnpj,
+      CNPJ: cnpj.split('.')
+      .join('')
+      .replace('/','')
+      .replace('-',''),
       Senha: senha,
       Email: email
     };
 
     var informacoes = this.usuarioProvider.validarCNPJ(usuario.CNPJ, (resposta) => {
       if (resposta) {
+        console.log(resposta);
         let empresa: Empresa = {
-          CNPJ: usuario.CNPJ,
-          Email: usuario.Email,
-          Login: usuario.Login,
-          Senha: usuario.Senha,
-          Endereco: resposta.endereco,
-          Nome: resposta.nome
+          uci: usuario.CNPJ,
+          email: usuario.Email,
+          login: usuario.Login,
+          password: usuario.Senha,
+          addresses: [resposta.endereco],
+          name: resposta.nome
         };
 
         this.usuarioProvider.cadastrarEmpresa(empresa)

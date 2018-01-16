@@ -1,6 +1,6 @@
 export interface Credenciais {
-    Login: string,
-    Password: string
+    login: string,
+    password: string
 }
 
 export interface Veiculo {
@@ -24,23 +24,23 @@ export interface Entregador {
 
 export interface Empresa {
     id?: number,
-    Id_Endereco?: number,
-    Nome: string,
-    Senha: string,
-    Login: string,
-    Email: string,
-    CNPJ: string,
-    Endereco: Endereco
+    id_adress?: number,
+    name: string,
+    password: string,
+    login: string,
+    email: string,
+    uci: string,
+    addresses: [Endereco]
 }
 
 export interface Endereco {
-    Id?: string,
-    Logradouro: string,
-    Numero: string,
-    Complemento: string,
-    Bairro: string,
-    CEP: string,
-    Cidade: string,
-    Estado: string,
-    Pais: string
+    id?: string,
+    street: string,
+    number: string,
+    complement: string,
+    district: string,
+    postal_code: string,
+    city: string,
+    state: string,
+    country: string
 }
