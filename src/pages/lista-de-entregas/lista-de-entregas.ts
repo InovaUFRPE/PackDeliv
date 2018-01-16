@@ -19,8 +19,6 @@ export class ListaDeEntregasPage {
   static listaentregas:any;
   lista=ListaDeEntregasPage.listaentregas;
   constructor(public navCtrl: NavController, public navParams: NavParams,sessionProvider:SessionProvider) {
-    console.log(ListaDeEntregasPage.listaentregas);
-    console.log(this.lista);
   } 
 
 
