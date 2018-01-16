@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { CadastroVeiculoPage } from "../cadastro-veiculo/cadastro-veiculo";
 import { UsuarioProvider } from "../../providers/usuario/usuario";
+import { Entregador } from '../../interfaces/usuario';
 
 /**
  * Generated class for the CadastroEntregadorPage page.
@@ -16,7 +17,6 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
   templateUrl: 'cadastro-entregador.html',
 })
 export class CadastroEntregadorPage {
-  public
   public dados = {
     nomeCompleto:null,
     cnh:null,
@@ -30,7 +30,8 @@ export class CadastroEntregadorPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
   }
-  presentToast(message:string) {
+
+  private presentToast(message:string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -44,13 +45,6 @@ export class CadastroEntregadorPage {
     toast.present();
   }
 
-  /**
-   * Vai para a tela de cadastro de veículo,
-   * passando as informações do usuário para a próxima tela.
-   * 
-   * Feito por: Matheus Campos da Silva, 07/11/2017
-   * Editado po: Felipe Morais,11/11/2017
-   */
   public irParaCadastroVeiculo(){
     // Pega as informações do formulário
     var login = this.dados.nomeUsuario;
@@ -142,21 +136,33 @@ export class CadastroEntregadorPage {
       this.presentToast('Os E-mails não são correspondentes.');
       return;
     }
+
+    cnpj = cnpj.split('.')
+      .join('')
+      .replace('/', '')
+      .replace('-', '');
+
     // Cria o objeto usuario
-    var entregador: object = {
-    
+    var entregador: Entregador = {
       Login: login,
       CNPJ: cnpj,
       Senha: senha,
-      Nome_completo:nomeCompleto,
+      Nome: nomeCompleto,
       Email: email,
-      CNH: cnh
+      CNH: cnh,
+      Veiculo: undefined,
+      status: 'inativo'
     };
-    
 
-    // Passa o objeto usuario para a tela de cadastro de veículo
-    //Caminho para cadastrar o entregador
-    this.navCtrl.push(CadastroVeiculoPage, {user: entregador});
+    this.usuarioProvider.validarCNPJ(entregador.CNPJ, (resposta) => {
+      if (resposta) {
+        // Passa o objeto usuario para a tela de cadastro de veículo
+        //Caminho para cadastrar o entregador
+        this.navCtrl.push(CadastroVeiculoPage, { user: entregador }); 
+      } else {
+        this.presentToast('CNPJ inválido!');
+      }
+    });
     
   }
 }

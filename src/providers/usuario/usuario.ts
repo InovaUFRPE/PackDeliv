@@ -25,63 +25,15 @@ export class UsuarioProvider {
     return options;
   }
 
-  /**
-   * fazerLogin é o método responsável por fazer o login de empresa e de entregador.
-   *
-   * @param credenciais
-   *  As credenciais do usuário (Login e Senha).
-   */
-  public fazerLogin(credenciais: Credenciais): any {
-    let request = this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs());
 
-    request.subscribe( response => {
-      var usuario = response.json();
-
-      if (usuario.CNH) {
-        let veiculo: Veiculo = {Placa: usuario.placa, Ano: usuario.ano, Modelo: usuario.modelo};
-        let entregador: Entregador = {
-          Veiculo: veiculo,
-          Nome: usuario.Nome,
-          CNH: usuario.CNH,
-          CNPJ: usuario.CNPJ,
-          Email: usuario.Email,
-          Login: credenciais.Login,
-          Senha: credenciais.Password,
-          status: 'inativo'
-        };
-
-        return entregador;
-      } else {
-        let empresa: Empresa = {
-          CNPJ: usuario.CNPJ,
-          Nome: usuario.Nome_fantasia,
-          Email: usuario.Email,
-          Endereco: usuario.Endereco,
-          Login: credenciais.Login,
-          Senha: credenciais.Password
-        };
-
-        return empresa;
-      }
-    }, error => {
-      console.log('Erro na requisição de login: ' + error);
-      return null;
-    });
-  }
-
-  public login(credenciais: Credenciais): Observable<any> {
+  public fazerLogin(credenciais: Credenciais): Observable<any> {
     return this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs())
     .map((response: Response) => response.json());
   }
 
-  /** ------------ AJUDA A PARTIR DE AQUI -------------- */
+  
   public validarCNPJ(cnpj: string, callback: any): void {
-    cnpj = cnpj.split('.')
-    .join('')
-    .replace('/','')
-    .replace('-','');
-
-    var resposta = {endereco: undefined, nome: undefined};
+    var resposta = {endereco: undefined, nome: undefined, cnpj: undefined};
 
     this.http.get(this.url + 'cnpj/' + cnpj)
     .map((response: Response) => response.json())
@@ -100,72 +52,56 @@ export class UsuarioProvider {
 
         resposta.endereco = ender;
         resposta.nome = response.nome;
+        resposta.cnpj = cnpj;
+
         callback(resposta);
       }
     }, error => {
       console.log('Erro na validação de CNPJ: ' + error);
+      callback(false);
     });
   }
 
-  //Cadastra a empresa
   public cadastrarEmpresa(empresa: Empresa): Observable<any> {
     return this.http.post(this.url + 'company/', empresa, this.getRequestOptionsArgs())
       .map((response: Response) => response.json());
   }
 
 
-
-  //Cadastra o entregador
-  public cadastrarEntregador(entregador: Entregador, success: any){
-    let headers = new Headers();
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');
-
-    this.http.post(this.url+'deliveryman/', entregador,{headers: headers})
-    .subscribe( (res) => {
-      alert('Entregador cadastrado!');
-      success();
-    }, (error) => {
-      throw error;
-    });
+  public cadastrarEntregador(entregador: Entregador): Observable<any> {
+    return this.http.post(this.url+'deliveryman/', entregador, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json());
   }
-  //cadastrar pacote
-  public cadastrarPacote(pacote: Pacote, success: any){
-    let headers = new Headers();
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');
 
-    this.http.post(this.url+"package", pacote,{headers: headers})
+
+  public cadastrarPacote(pacote: Pacote, callback: any){
+    this.http.post(this.url+"package", pacote, this.getRequestOptionsArgs())
     .subscribe( (res) => {
       alert('Pacote cadastrado!');
-      success();
+      callback();
     }, (error) => {
       throw error;
     });
   }
 
-public atualizarPerfilEmpresa(usuario:Empresa,success:any){
-  let headers = new Headers();
-  headers.append('X-Auth-Token', localStorage.getItem('token'));
-  headers.append('Content-Type', 'application/json');
+  public atualizarPerfilEmpresa(usuario:Empresa, callback: any){
+    this.http.put(this.url+'company/', usuario, this.getRequestOptionsArgs())
+    .subscribe( (res) => {
+      alert('Perfil atualizado!');
+      callback();
+    }, (error) => {
+      throw error;
+    });
+  }
 
-  this.http.post(this.url+'edit_company', usuario,{headers: headers})
-  .subscribe( (res) => {
-    alert('Perfil atualizado!');
-    success();
-  }, (error) => {
-    throw error;
-  });
-}
+  public pegarTodosPacotes(id:any){
+    this.http.get(this.url+'getPackage/'+id)
+    .subscribe((response) => {
+        var resp = response.json();
+        console.log(resp['response']);
+        ListaDeEntregasPage.listaentregas = resp['response'];
+    });
 
-public pegarTodosPacotes(id:any){
-  this.http.get(this.url+'getPackage/'+id)
-  .subscribe((response) => {
-      var resp = response.json();
-      console.log(resp['response']);
-      ListaDeEntregasPage.listaentregas = resp['response'];
-  });
-
-}
+  }
 
 }

@@ -31,16 +31,16 @@ export class LoginPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public toastCtrl: ToastController, 
-    public usuarioProvider: UsuarioProvider,
-    
+    public usuarioProvider: UsuarioProvider
   ) { }
 
   
   
   public fazerLogin(): void {
-    this.usuarioProvider.login(this.credenciais)
+    this.usuarioProvider.fazerLogin(this.credenciais)
     .subscribe( usuario => {
       SessionProvider.openSession(usuario);
+      console.log(usuario);
       this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Endereco.Id);
 
       if (usuario.CNH) {

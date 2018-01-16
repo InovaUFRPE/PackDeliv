@@ -119,6 +119,11 @@ export class CadastroPage {
       return;
     }
 
+    cnpj = cnpj.split('.')
+      .join('')
+      .replace('/', '')
+      .replace('-', '');
+    
     // Cria o objeto usuario e o cadastro no BD
     var usuario = {
       Login: nomeUsuario,
@@ -127,7 +132,6 @@ export class CadastroPage {
       Email: email
     };
 
-    /** ------------- AJUDA A PARTIR DE AQUI --------------- */
     var informacoes = this.usuarioProvider.validarCNPJ(usuario.CNPJ, (resposta) => {
       if (resposta) {
         let empresa: Empresa = {
@@ -142,8 +146,8 @@ export class CadastroPage {
         this.usuarioProvider.cadastrarEmpresa(empresa)
         .subscribe( response => {
           console.log(response);
-          this.navCtrl.push(LoginPage, response);
-        });
+          this.navCtrl.popToRoot();
+        }, error => console.log('Erro ao cadastrar empresa: ' + error));
       } else {
         this.presentToast('Cadastro não realizado.');
       }

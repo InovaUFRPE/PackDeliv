@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
-import { Entregador } from '../../interfaces/usuario';
+import { Entregador, Veiculo } from '../../interfaces/usuario';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the CadastroVeiculoPage page.
@@ -81,26 +82,21 @@ export class CadastroVeiculoPage {
       return;
     }
 
-    var Veiculo: object = {
-      placa: placa,
-      ano: ano,
-      modelo: modelo,
-      volume: volume,
+    var Veiculo: Veiculo = {
+      Placa: placa,
+      Ano: ano,
+      Modelo: modelo
     };
     
 
-    var entregador = this.navParams.get('user');
+    var entregador: Entregador = this.navParams.get('user');
 
     entregador.Veiculo = Veiculo;
 
-  
-    // this.usuarioProvider.validarCNPJ(entregador, UsuarioProvider.ENTREGADOR, () => {
-    //   this.irParaLogin();
-    // });
-  }
-
-  public irParaLogin(): void {
-    this.navCtrl.popToRoot();
+    this.usuarioProvider.cadastrarEntregador(entregador).subscribe( resolve => {
+      console.log(resolve);
+      this.navCtrl.popToRoot();
+    }, reject => console.log('Erro ao cadastrar entregador: ' + reject));
   }
 
 }
