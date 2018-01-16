@@ -2,7 +2,7 @@ import json
 from flask import request, jsonify
 from flask.views import MethodView
 from Views.viewHelper import register_view
-from Models.DB.DB_helper import Vehicle
+from Models.DB.DB_helper import Vehicle, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.vehicle_control import VehicleControl
 
@@ -25,7 +25,7 @@ class VehicleView(MethodView):
         if json == None:
             return jsonify({"error": "Please provide a JSON"}), 400
 
-        vehicle = VehicleView.build_object_from_json(json)
+        vehicle = model_from_dict(Vehicle, json)
 
         if vehicle.licence_plate == None:
             return jsonify({"error": "Missing " + VEHICLE_LICENSE_PLATE}), 400
@@ -49,7 +49,7 @@ class VehicleView(MethodView):
         if id_vehicle == None:
             return jsonify({"error": "Please provide a id_vehicle"}), 400
 
-        vehicle = VehicleView.build_object_from_json(json)
+        vehicle = model_from_dict(Vehicle, json)
         vehicle.id = id_vehicle
 
         try:
@@ -73,17 +73,6 @@ class VehicleView(MethodView):
         except ValueError as error:
             return jsonify({"error": str(error)}), 400
 
-    @staticmethod
-    def build_object_from_json(json):
-        vehicle = Vehicle()
-        vehicle.licence_plate = json.get(VEHICLE_LICENSE_PLATE, None)
-        vehicle.year = json.get(VEHICLE_YEAR, None)
-        vehicle.model = json.get(VEHICLE_MODEL, None)
-        vehicle.color = json.get(VEHICLE_COLOR, None)
-        vehicle.ready = json.get(VEHICLE_READY, None)
-        vehicle.volume = json.get(VEHICLE_VOLUME, None)
-
-        return vehicle
 
 def initialize_view(app):
     endpoint='vehicle_view'

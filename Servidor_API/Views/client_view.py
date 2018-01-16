@@ -2,12 +2,12 @@ import json
 from flask import request, jsonify
 from flask.views import MethodView
 from Views.viewHelper import register_view
-from Models.DB.DB_helper import Client, model_as_dict, model_from_dict
+from Models.DB.DB_helper import Client, Address, model_as_dict, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.client_control import ClientControl
 
 class ClientView(MethodView):
-    def get(self,id_client=None):
+    def get(self, id_client = None):
         if id_client == None:
             return jsonify({"error": "Please provide a id_client"}), 400
 
@@ -16,7 +16,7 @@ class ClientView(MethodView):
             if client == None:
                 return jsonify({"error": "No client found with id " + str(id_client)}), 404
             else:
-                return jsonify(model_as_dict(client)), 200
+                return jsonify({client.__class__.__name__ : client.as_dict()}), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
@@ -26,6 +26,7 @@ class ClientView(MethodView):
             return jsonify({"error": "Please provide a JSON"}), 400
 
         client = model_from_dict(Client, json)
+        client.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
         missing_fields = ClientView.validate_required_fields_presence(client)
 
         if len(missing_fields) != 0:
@@ -45,6 +46,7 @@ class ClientView(MethodView):
             return jsonify({"error": "Please provide a id_client"}), 400
 
         client = model_from_dict(Client, json)
+        client.addresses = [model_from_dict(Address, addressDic) for addressDic in json['addresses']]
         client.id = id_client
 
         try:
@@ -73,9 +75,9 @@ class ClientView(MethodView):
         missing_fields = []
 
         if client.name == None:
-            missing_fields.append(CLIENT_NAME)
+            missing_fields.append('name')
         if client.upi == None:
-            missing_fields.append(CLIENT_UPI)
+            missing_fields.append('upi')
 
         return missing_fields
 

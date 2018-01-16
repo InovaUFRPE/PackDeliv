@@ -2,11 +2,12 @@ import json
 from flask import request, jsonify
 from flask.views import MethodView
 from Views.viewHelper import register_view
-from Models.DB.DB_helper import Company
+from Models.DB.DB_helper import Company, Address, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.company_control import CompanyControl
 
 class CompanyView(MethodView):
+    
     def get(self,id_company=None):
         if id_company == None:
             return jsonify({"error": "Please provide a id_company"}), 400
@@ -25,7 +26,8 @@ class CompanyView(MethodView):
         if json == None:
             return jsonify({"error": "Please provide a JSON"}), 400
 
-        company = CompanyView.build_object_from_json(json)
+        company = model_from_dict(Company, json)
+        company.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
         missing_fields = CompanyView.validate_required_fields_presence(company)
 
         if len(missing_fields) != 0:
@@ -44,7 +46,8 @@ class CompanyView(MethodView):
         if id_company == None:
             return jsonify({"error": "Please provide a id_company"}), 400
 
-        company = CompanyView.build_object_from_json(json)
+        company = model_from_dict(Company, json)
+        company.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
         company.id = id_company
 
         try:
@@ -71,32 +74,19 @@ class CompanyView(MethodView):
     @staticmethod
     def validate_required_fields_presence(company):
         missing_fields = []
-        if company.name_company == None:
-            missing_fields.append(COMPANY_NAME)
+        if company.name == None:
+            missing_fields.append('name')
         if company.password == None:
-            missing_fields.append(COMPANY_PASSWORD)
+            missing_fields.append('password')
         if company.login == None:
-            missing_fields.append(COMPANY_LOGIN)
+            missing_fields.append('login')
         if company.email == None:
-            missing_fields.append(COMPANY_EMAIL)
+            missing_fields.append('email')
         if company.uci == None:
-            missing_fields.append(COMPANY_UCI)
+            missing_fields.append('uci')
 
         return missing_fields
 
-    @staticmethod
-    def build_object_from_json(json, company=None):
-        if company == None:
-            company = Company()
-
-        company.name_company = json.get(COMPANY_NAME, None)
-        company.password = json.get(COMPANY_PASSWORD, None)
-        company.login = json.get(COMPANY_LOGIN, None)
-        company.email = json.get(COMPANY_EMAIL, None)
-        company.uci = json.get(COMPANY_UCI, None)
-        company.type = json.get(COMPANY_TYPE, None)
-
-        return company
 
 def initialize_view(app):
     endpoint='company_view'

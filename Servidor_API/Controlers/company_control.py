@@ -74,7 +74,7 @@ class CompanyControl:
 
     @staticmethod
     def validate_name(company):
-        if company.name_company != None and len(company.name_company) < NAME_MINIMUM_LENGTH:
+        if company.name != None and len(company.name) < NAME_MINIMUM_LENGTH:
             raise ValueError('Invalid name, please use one with at least ' + str(NAME_MINIMUM_LENGTH) + ' characters')
 
     @staticmethod

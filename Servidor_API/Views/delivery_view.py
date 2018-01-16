@@ -3,7 +3,7 @@ from flask import request, jsonify
 from flask.views import MethodView
 from Views.viewHelper import register_view
 from sqlalchemy import inspect
-from Models.DB.DB_helper import Delivery, model_from_dict, model_as_dict
+from Models.DB.DB_helper import Delivery, Package, model_from_dict, model_as_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.delivery_control import DeliveryControl
 
@@ -17,7 +17,7 @@ class DeliveryView(MethodView):
             if delivery == None:
                 return jsonify({"error": "No delivery found with id " + str(id_delivery)}), 404
             else:
-                return jsonify(model_as_dict(delivery)), 200
+                return jsonify(delivery.as_dict()), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
@@ -27,6 +27,8 @@ class DeliveryView(MethodView):
             return jsonify({"error": "Please provide a JSON"}), 400
 
         delivery = model_from_dict(Delivery, json)
+        if 'package' in json.keys() and json['package'] != None:
+            delivery.package = [model_from_dict(Package, dic) for dic in json['package']]
         missing_fields = DeliveryView.validate_required_fields_presence(delivery)
 
         if len(missing_fields) != 0:
@@ -46,6 +48,7 @@ class DeliveryView(MethodView):
             return jsonify({"error": "Please provide a id_delivery"}), 400
 
         delivery = model_from_dict(Delivery, json)
+        delivery.package = [model_from_dict(Package, dic) for dic in json['package']]
         delivery.id = id_delivery
 
         try:
@@ -74,9 +77,9 @@ class DeliveryView(MethodView):
         missing_fields = []
 
         if delivery.status == None:
-            missing_fields.append(DELIVERY_STATUS)
+            missing_fields.append('status')
         if delivery.type == None:
-            missing_fields.append(DELIVERY_TYPE)
+            missing_fields.append('type')
 
         return missing_fields
 

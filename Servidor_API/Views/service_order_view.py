@@ -3,7 +3,7 @@ from flask import request, jsonify
 from flask.views import MethodView
 from Views.viewHelper import register_view
 from sqlalchemy import inspect
-from Models.DB.DB_helper import ServiceOrder, model_from_dict, model_as_dict
+from Models.DB.DB_helper import ServiceOrder, Delivery, model_from_dict, model_as_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.service_order_control import ServiceOrderControl
 
@@ -17,7 +17,7 @@ class ServiceOrderView(MethodView):
             if service_order == None:
                 return jsonify({"error": "No service_order found with id " + str(id_service_order)}), 404
             else:
-                return jsonify(model_as_dict(service_order)), 200
+                return jsonify(service_order.as_dict()), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
@@ -27,6 +27,8 @@ class ServiceOrderView(MethodView):
             return jsonify({"error": "Please provide a JSON"}), 400
 
         service_order = model_from_dict(ServiceOrder, json)
+        if "deliveries" in json.keys() and json['deliveries'] != None:
+            service_order.deliveries = [ model_from_dict(Delivery, dic) for dic in json['deliveries']]
         missing_fields = ServiceOrderView.validate_required_fields_presence(service_order)
 
         if len(missing_fields) != 0:
@@ -46,6 +48,8 @@ class ServiceOrderView(MethodView):
             return jsonify({"error": "Please provide a id_service_order"}), 400
 
         service_order = model_from_dict(ServiceOrder, json)
+        if json['deliveries'] != None:
+            service_order.deliveries = [ model_from_dict(Delivery, dic) for dic in json['deliveries']]
         service_order.id = id_service_order
 
         try:
@@ -74,9 +78,9 @@ class ServiceOrderView(MethodView):
         missing_fields = []
 
         if service_order.code == None:
-            missing_fields.append(SERVICE_ORDER_IDENTIFIER_CODE)
+            missing_fields.append('code')
         if service_order.status == None:
-            missing_fields.append(SERVICE_ORDER_STATUS)
+            missing_fields.append('status')
 
         return missing_fields
 
