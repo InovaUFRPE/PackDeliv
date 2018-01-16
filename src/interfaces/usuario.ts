@@ -11,7 +11,7 @@ export interface Veiculo {
 
 export interface Entregador {
     Veiculo: Veiculo,
-    Nome_fantasia: string,
+    Nome: string,
     CNH: string,
     Login: string,
     CNPJ: string,
@@ -25,7 +25,7 @@ export interface Entregador {
 export interface Empresa {
     id?: number,
     Id_Endereco?: number,
-    Nome_fantasia: string,
+    Nome: string,
     Senha: string,
     Login: string,
     Email: string,

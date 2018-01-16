@@ -128,26 +128,26 @@ export class CadastroPage {
     };
 
     /** ------------- AJUDA A PARTIR DE AQUI --------------- */
-    var informacoes = this.usuarioProvider.validarCNPJ(usuario.CNPJ);
-    console.log(informacoes);
-    if (informacoes) {
-      let empresa: Empresa = {
-        CNPJ: usuario.CNPJ,
-        Email: usuario.Email,
-        Login: usuario.Login,
-        Senha: usuario.Senha,
-        Endereco: informacoes.endereco,
-        Nome_fantasia: informacoes.nome
-      };
+    var informacoes = this.usuarioProvider.validarCNPJ(usuario.CNPJ, (resposta) => {
+      if (resposta) {
+        let empresa: Empresa = {
+          CNPJ: usuario.CNPJ,
+          Email: usuario.Email,
+          Login: usuario.Login,
+          Senha: usuario.Senha,
+          Endereco: resposta.endereco,
+          Nome: resposta.nome
+        };
 
-      this.usuarioProvider.cadastrarEmpresa(empresa)
-      .subscribe( response => {
-        console.log(response);
-        this.navCtrl.push(LoginPage, response);
-      });
-    } else {
-      this.presentToast('Cadastro não realizado.');
-    }
+        this.usuarioProvider.cadastrarEmpresa(empresa)
+        .subscribe( response => {
+          console.log(response);
+          this.navCtrl.push(LoginPage, response);
+        });
+      } else {
+        this.presentToast('Cadastro não realizado.');
+      }
+    });
   }
 
 }

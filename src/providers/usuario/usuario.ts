@@ -27,7 +27,7 @@ export class UsuarioProvider {
 
   /**
    * fazerLogin é o método responsável por fazer o login de empresa e de entregador.
-   * 
+   *
    * @param credenciais
    *  As credenciais do usuário (Login e Senha).
    */
@@ -36,12 +36,12 @@ export class UsuarioProvider {
 
     request.subscribe( response => {
       var usuario = response.json();
-      
+
       if (usuario.CNH) {
         let veiculo: Veiculo = {Placa: usuario.placa, Ano: usuario.ano, Modelo: usuario.modelo};
         let entregador: Entregador = {
           Veiculo: veiculo,
-          Nome_fantasia: usuario.Nome_fantasia,
+          Nome: usuario.Nome,
           CNH: usuario.CNH,
           CNPJ: usuario.CNPJ,
           Email: usuario.Email,
@@ -54,7 +54,7 @@ export class UsuarioProvider {
       } else {
         let empresa: Empresa = {
           CNPJ: usuario.CNPJ,
-          Nome_fantasia: usuario.Nome_fantasia,
+          Nome: usuario.Nome_fantasia,
           Email: usuario.Email,
           Endereco: usuario.Endereco,
           Login: credenciais.Login,
@@ -75,7 +75,7 @@ export class UsuarioProvider {
   }
 
   /** ------------ AJUDA A PARTIR DE AQUI -------------- */
-  public validarCNPJ(cnpj: string): {endereco: Endereco, nome: string} {
+  public validarCNPJ(cnpj: string, callback: any): void {
     cnpj = cnpj.split('.')
     .join('')
     .replace('/','')
@@ -100,12 +100,11 @@ export class UsuarioProvider {
 
         resposta.endereco = ender;
         resposta.nome = response.nome;
+        callback(resposta);
       }
     }, error => {
       console.log('Erro na validação de CNPJ: ' + error);
     });
-
-    return resposta;
   }
 
   //Cadastra a empresa
