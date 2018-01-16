@@ -72,6 +72,7 @@ class Vehicle(Base):
         return self.as_dict
 
 class Company(Base):
+
     __tablename__=COMPANY
 
     id = Column(Integer, primary_key=True)
@@ -82,6 +83,7 @@ class Company(Base):
     uci = Column(String(14), unique = True)#unique company identifier
     type = Column(String(255))
     addresses=relationship(Address.__name__)
+    packages = relationship ('Package')
     __mapper_args__ = {
         'polymorphic_identity': COMPANY,
         'polymorphic_on':type
@@ -95,7 +97,9 @@ class Company(Base):
     def as_dict(self):
         selfDic = model_as_dict(self)
         selfDic.pop('password')
-        selfDic['addresses'] = [i.as_dict() for i in self.addresses if self.addresses != None]
+        selfDic['addresses'] = [i.as_dict() for i in self.addresses]
+        if self.packages != None :
+            selfDic['packages'] = [i.as_dict() for i in self.packages]
         return selfDic
      #return {i for i in self.addresses}
     def __str__(self):      
