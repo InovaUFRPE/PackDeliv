@@ -76,11 +76,11 @@ export class CadastroEntregadorPage {
       this.presentToast('O CNPJ é um campo obrigatório.');
       return;
     }
-    if (cnpj.length !=  14 ) {
-      // Faz algo caso não sejam
-      this.presentToast('CNPJ inválido.');
-      return;
-    }
+    // if (cnpj.length !=  14 ) {
+    //   // Faz algo caso não sejam
+    //   this.presentToast('CNPJ inválido.');
+    //   return;
+    // }
   
     //verifica se o campo não está vazio
     if (cnh==undefined ) {
@@ -157,7 +157,7 @@ export class CadastroEntregadorPage {
     this.usuarioProvider.validarCNPJ(entregador.CNPJ, (resposta) => {
       if (resposta) {
         // Passa o objeto usuario para a tela de cadastro de veículo
-        //Caminho para cadastrar o entregador
+        // Caminho para cadastrar o entregador
         this.navCtrl.push(CadastroVeiculoPage, { user: entregador }); 
       } else {
         this.presentToast('CNPJ inválido!');

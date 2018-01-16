@@ -93,6 +93,8 @@ export class CadastroVeiculoPage {
 
     entregador.Veiculo = Veiculo;
 
+    console.log(entregador);
+
     this.usuarioProvider.cadastrarEntregador(entregador).subscribe( resolve => {
       console.log(resolve);
       this.navCtrl.popToRoot();
