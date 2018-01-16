@@ -25,7 +25,7 @@ import { Credenciais } from '../../interfaces/usuario';
 export class LoginPage {
 
   public cadastroPage = CadastroPage;
-  public credenciais: Credenciais = { Login: '', Password: ''};
+  public credenciais: Credenciais = { login: '', password: ''};
 
   constructor(
     public navCtrl: NavController, 
@@ -41,7 +41,8 @@ export class LoginPage {
     this.usuarioProvider.login(this.credenciais)
     .subscribe( usuario => {
       SessionProvider.openSession(usuario);
-      this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Endereco.Id);
+      console.log(usuario);
+      this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Addresses[0].id);
 
       if (usuario.CNH) {
         this.navCtrl.push(HomeEntregadorPage, usuario);

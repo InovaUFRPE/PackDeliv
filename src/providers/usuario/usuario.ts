@@ -31,43 +31,6 @@ export class UsuarioProvider {
    * @param credenciais
    *  As credenciais do usuário (Login e Senha).
    */
-  public fazerLogin(credenciais: Credenciais): any {
-    let request = this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs());
-
-    request.subscribe( response => {
-      var usuario = response.json();
-
-      if (usuario.CNH) {
-        let veiculo: Veiculo = {Placa: usuario.placa, Ano: usuario.ano, Modelo: usuario.modelo};
-        let entregador: Entregador = {
-          Veiculo: veiculo,
-          Nome: usuario.Nome,
-          CNH: usuario.CNH,
-          CNPJ: usuario.CNPJ,
-          Email: usuario.Email,
-          Login: credenciais.Login,
-          Senha: credenciais.Password,
-          status: 'inativo'
-        };
-
-        return entregador;
-      } else {
-        let empresa: Empresa = {
-          CNPJ: usuario.CNPJ,
-          Nome: usuario.Nome_fantasia,
-          Email: usuario.Email,
-          Endereco: usuario.Endereco,
-          Login: credenciais.Login,
-          Senha: credenciais.Password
-        };
-
-        return empresa;
-      }
-    }, error => {
-      console.log('Erro na requisição de login: ' + error);
-      return null;
-    });
-  }
 
   public login(credenciais: Credenciais): Observable<any> {
     return this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs())
@@ -76,10 +39,7 @@ export class UsuarioProvider {
 
   /** ------------ AJUDA A PARTIR DE AQUI -------------- */
   public validarCNPJ(cnpj: string, callback: any): void {
-    cnpj = cnpj.split('.')
-    .join('')
-    .replace('/','')
-    .replace('-','');
+    cnpj = cnpj
 
     var resposta = {endereco: undefined, nome: undefined};
 
@@ -88,14 +48,14 @@ export class UsuarioProvider {
     .subscribe( response => {
       if (!response.error) {
         let ender: Endereco = {
-          Logradouro: response.logradouro,
-          Numero: response.numero,
-          Complemento: response.complemento,
-          Bairro: response.bairro,
-          CEP: response.cep,
-          Cidade: response.municipio,
-          Estado: response.uf,
-          Pais: 'BRASIL'
+          street: response.logradouro,
+          number: response.numero,
+          complement: response.complemento,
+          district: response.bairro,
+          postal_code: response.cep,
+          city: response.municipio,
+          state: response.uf,
+          country: 'BRASIL'
         };
 
         resposta.endereco = ender;
@@ -109,6 +69,7 @@ export class UsuarioProvider {
 
   //Cadastra a empresa
   public cadastrarEmpresa(empresa: Empresa): Observable<any> {
+    console.log(empresa);
     return this.http.post(this.url + 'company/', empresa, this.getRequestOptionsArgs())
       .map((response: Response) => response.json());
   }
