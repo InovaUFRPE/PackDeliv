@@ -91,7 +91,7 @@ export class CadastroVeiculoPage {
 
     var entregador: Entregador = this.navParams.get('user');
 
-    entregador.Veiculo = Veiculo;
+    entregador.vehicle = Veiculo;
 
     console.log(entregador);
 

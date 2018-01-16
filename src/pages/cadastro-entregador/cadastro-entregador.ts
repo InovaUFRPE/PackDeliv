@@ -144,21 +144,32 @@ export class CadastroEntregadorPage {
 
     // Cria o objeto usuario
     var entregador: Entregador = {
-      Login: login,
-      CNPJ: cnpj,
-      Senha: senha,
-      Nome: nomeCompleto,
-      Email: email,
-      CNH: cnh,
-      Veiculo: undefined,
-      status: 'inativo'
+      login: login,
+      uci: cnpj,
+      password: senha,
+      name_deliveryman: nomeCompleto,
+      email: email,
+      dui: cnh,
+      status: false,
+      addresses: null,
+      name: null,
+      ready: false
     };
 
-    this.usuarioProvider.validarCNPJ(entregador.CNPJ, (resposta) => {
+    this.usuarioProvider.validarCNPJ(cnpj, (resposta) => {
       if (resposta) {
         // Passa o objeto usuario para a tela de cadastro de veículo
         // Caminho para cadastrar o entregador
-        this.navCtrl.push(CadastroVeiculoPage, { user: entregador }); 
+
+        entregador.addresses = [resposta.endereco];
+        entregador.name = resposta.nome;
+
+        console.log(entregador);
+        this.usuarioProvider.cadastrarEntregador(entregador).subscribe( res => {
+          console.log(res);
+          this.navCtrl.push(CadastroVeiculoPage, {user: res});
+        }, error => console.log('Erro ao cadastrar entregador: ' + error));
+
       } else {
         this.presentToast('CNPJ inválido!');
       }

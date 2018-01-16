@@ -47,7 +47,8 @@ export class UsuarioProvider {
           postal_code: response.cep,
           city: response.municipio,
           state: response.uf,
-          country: 'BRASIL'
+          country: 'BRASIL',
+          type: response.tipo
         };
 
         resposta.endereco = ender;
