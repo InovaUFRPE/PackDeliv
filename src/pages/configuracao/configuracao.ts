@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EditarPerfilEntregadorPage } from '../editar-perfil-entregador/editar-perfil-entregador'
-
+import { SessionProvider } from '../../providers/session/session';
+import { LoginPage } from '../login/login'
 /**
  * Generated class for the ConfiguracaoPage page.
  *
@@ -16,7 +17,12 @@ import { EditarPerfilEntregadorPage } from '../editar-perfil-entregador/editar-p
 })
 export class ConfiguracaoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public user = SessionProvider.getUser();
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public sessionProvider: SessionProvider) {
   }
 
   onChange(selectedValue){
@@ -27,6 +33,12 @@ export class ConfiguracaoPage {
     this.navCtrl.push(EditarPerfilEntregadorPage)
   }
 
+ 
+
+  //public sair(){
+  //  this.user.closeSession();
+  //  this.navCtrl.push(LoginPage)
+  //}
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfiguracaoPage');
   }

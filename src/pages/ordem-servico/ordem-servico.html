@@ -10,9 +10,11 @@
 
 
 <ion-content padding>
+  <div class="topo">
   <h2>Codigo:  {{ordemServico.cod}}</h2>
   <h2>Data final: {{ordemServico.data}} </h2>
-
+  </div>
+  
   <ion-list>
     <ion-item *ngFor="let pacote of ordemServico.lista">
       <p>Rua: {{pacote.address.street}}, {{pacote.address.number}}</p>
