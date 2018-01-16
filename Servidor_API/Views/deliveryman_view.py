@@ -28,7 +28,7 @@ class DeliverymanView(MethodView):
 
         deliveryman =  model_from_dict(Deliveryman, json)
         #deliveryman.vehicle = [ model_from_dict(Vehicle, dic) for dic in json['vehicle'] ]
-        #deliveryman.addresses = [ model_from_dict(Address, dic) for dic in json['addresses'] ]
+        deliveryman.addresses = [ model_from_dict(Address, dic) for dic in json['addresses'] ]
         
         missing_fields = DeliverymanView.validate_required_fields_presence(deliveryman)
 
@@ -49,7 +49,7 @@ class DeliverymanView(MethodView):
             return jsonify({"error": "Please provide a id_deliveryman"}), 400
 
         deliveryman =  model_from_dict(Deliveryman, json)
-        deliveryman.vehicle = [model_from_dict(Vehicle, dic) for dic in json['vehicle']]
+        #deliveryman.vehicle = [model_from_dict(Vehicle, dic) for dic in json['vehicle']]
         deliveryman.id = id_deliveryman
 
         try:
