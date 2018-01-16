@@ -93,14 +93,14 @@ export class CadastroPacotePage {
     }
 
     let endereco: Endereco = {
-      Logradouro: rua,
-      Numero: numero,
-      Complemento: complemento,
-      Bairro: bairro,
-      CEP: cep,
-      Cidade: cidade,
-      Estado: estado,
-      Pais: 'brasil'
+      street: rua,
+      number: numero,
+      complement: complemento,
+      district: bairro,
+      postal_code: cep,
+      city: cidade,
+      state: estado,
+      country: 'brasil'
     };
     console.log(endereco);
     
