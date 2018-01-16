@@ -21,6 +21,7 @@ export class CadastroVeiculoPage {
     placa:null,
     ano:null,
     modelo:null,
+    volume:null,
   };
   
   constructor( public navCtrl: NavController, public navParams: NavParams,public toastCtrl:ToastController, private usuarioProvider: UsuarioProvider) {
@@ -47,6 +48,7 @@ export class CadastroVeiculoPage {
     var placa = this.dados.placa;
     var ano = this.dados.ano;
     var modelo = this.dados.modelo;
+    var volume = this.dados.volume;
 
     if (placa==undefined ) {
       // Faz algo caso não sejam
@@ -61,6 +63,11 @@ export class CadastroVeiculoPage {
     if (ano==undefined ) {
       // Faz algo caso não sejam
       this.presentToast('O ano do carro é um campo obrigatório.');
+      return;
+    }
+    if (volume==undefined ) {
+      // Faz algo caso não sejam
+      this.presentToast('O volume é um campo obrigatório.');
       return;
     }
     if (ano.length !=  4 ) {
@@ -78,6 +85,7 @@ export class CadastroVeiculoPage {
       placa: placa,
       ano: ano,
       modelo: modelo,
+      volume: volume,
     };
     
 
