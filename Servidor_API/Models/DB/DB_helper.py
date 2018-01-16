@@ -124,7 +124,7 @@ class Deliveryman(Company):
     def as_dict(self):
         selfDic = model_as_dict(self)
         if self.vehicle != None:
-            selfDic['vehicle'] = [i.as_dict() for i in self.vehicle]
+            selfDic['vehicle'] = self.vehicle.as_dict()
         if self.addresses != None:
             selfDic['addresses'] = [i.as_dict() for i in self.addresses]
         return selfDic
@@ -214,7 +214,7 @@ class ServiceOrder(Base):
 
 def getEngine():
     user ="root"
-    password=""
+    password="Arretterr@"
     address="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)
