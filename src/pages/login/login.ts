@@ -9,6 +9,7 @@ import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { PerfilPage } from '../perfil/perfil';
 import { HomeEntregadorPage } from '../home-entregador/home-entregador'
 import { Credenciais } from '../../interfaces/usuario';
+import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 
 /**
  * Generated class for the LoginPage page.
@@ -41,7 +42,7 @@ export class LoginPage {
     .subscribe( usuario => {
       SessionProvider.openSession(usuario); 
       console.log(SessionProvider.getUser());
-      this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().addresses[0].id);
+      ListaDeEntregasPage.listaentregas=SessionProvider.getUser().packages;
 
       if (usuario.CNH) {
         this.navCtrl.push(HomeEntregadorPage, usuario);

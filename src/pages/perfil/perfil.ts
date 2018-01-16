@@ -21,9 +21,11 @@ import { Empresa } from '../../interfaces/usuario';
 export class PerfilPage {
   user =SessionProvider.getUser();
   
+  
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public sessionProvider: SessionProvider) {
+    console.log(this.user);
     
   }
 

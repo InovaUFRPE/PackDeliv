@@ -40,6 +40,10 @@ export class HomePage {
     this.navCtrl.push(MonitorarEntregasPage);
   }
 
+  public listarEntregas() {
+    this.navCtrl.push(ListaDeEntregasPage);
+  }
+
   public emitirOrdemDeServico() {
     var volume: number = SessionProvider.getUser().car.volume;
 
