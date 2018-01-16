@@ -40,9 +40,9 @@ export class LoginPage {
   public fazerLogin(): void {
     this.usuarioProvider.login(this.credenciais)
     .subscribe( usuario => {
-      SessionProvider.openSession(usuario);
-      console.log(usuario);
-      this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().Addresses[0].id);
+      SessionProvider.openSession(usuario); 
+      console.log(SessionProvider.getUser());
+      this.usuarioProvider.pegarTodosPacotes(SessionProvider.getUser().addresses[0].id);
 
       if (usuario.CNH) {
         this.navCtrl.push(HomeEntregadorPage, usuario);
