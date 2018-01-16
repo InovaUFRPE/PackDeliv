@@ -17,7 +17,7 @@ class AddressView(MethodView):
             if address == None:
                 return jsonify({"error": "No address found with id " + str(id_address)}), 404
             else:
-                return jsonify(model_as_dict(address)), 200
+                return jsonify({address.__class__.__name__ : address.as_dict()}), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
@@ -74,26 +74,26 @@ class AddressView(MethodView):
         missing_fields = []
 
         if address.street == None:
-            missing_fields.append(ADDRESS_STREET)
+            missing_fields.append('street')
         if address.number == None:
-            missing_fields.append(ADDRESS_NUMBER)
+            missing_fields.append('number')
         if address.district == None:
-            missing_fields.append(ADDRESS_DISTRICT)
+            missing_fields.append('district')
         if address.postal_code == None:
-            missing_fields.append(ADDRESS_POSTAL_CODE)
+            missing_fields.append('postal_code')
         if address.city == None:
-            missing_fields.append(ADDRESS_CITY)
+            missing_fields.append('city')
         if address.state == None:
-            missing_fields.append(ADDRESS_STATE)
+            missing_fields.append('state')
         if address.country == None:
-            missing_fields.append(ADDRESS_COUNTRY)
+            missing_fields.append('country')
         if address.lat == None:
-            missing_fields.append(LOCALIZATION_LAT)
+            missing_fields.append('lat')
         if address.long == None:
-            missing_fields.append(LOCALIZATION_LONG)
+            missing_fields.append('long')
         if address.id_company == None and address.id_client == None:
-            missing_fields.append(COMPANY+'_'+COMPANY_ID)
-            missing_fields.append(CLIENT+'_'+CLIENT_ID)
+            missing_fields.append('id_company')
+            missing_fields.append('id_client')
 
         return missing_fields
 

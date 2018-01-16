@@ -8,6 +8,7 @@ class DeliverymanDao():
     def save(self,deliveryman):
         session = getSession()
         checkType('Deliveryman',deliveryman)
+        
         session.add(deliveryman)
         session.commit()
         session.refresh(deliveryman)

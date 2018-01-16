@@ -83,3 +83,6 @@ class DeliverymanControl:
     def validate_long(deliveryman):
         if deliveryman.long != None and (deliveryman.long < LONG_MINIMUM_VALUE or deliveryman.long > LONG_MAXIMUM_VALUE):
             raise ValueError('Invalid long, please use one within the range of ' + str(LONG_MINIMUM_VALUE) + ' to ' + str(LONG_MAXIMUM_VALUE))
+    @staticmethod
+    def encrypt_password(password):
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())

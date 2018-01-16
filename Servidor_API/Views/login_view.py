@@ -11,7 +11,7 @@ class LoginView(MethodView):
             return jsonify({"error": "Please provide a JSON"}), 400
 
         try:
-            company = CompanyControl.login(json['Login'] , json['Password'])
+            company = CompanyControl.login(json['login'] , json['password'])
             if company != None:
                 return jsonify(company.as_dict()), 200
             else:

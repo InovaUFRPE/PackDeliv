@@ -2,15 +2,15 @@
 
 DATABASE_NAME="packDeliv_DB"
 
-COMPANY= 'Empresa'
-DELIVERYMAN= 'Entregador'
-ADDRESS= 'Endereco'
-VEHICLE='Veiculo'
-SERVICE_ORDER='Ordem_de_servico'
-DELIVERY='Entrega'
-PACKAGE='Pacote'
-LOCALIZATION="Localizacao"
-CLIENT="Cliente"
+COMPANY= 'Company'
+DELIVERYMAN= 'Deliveryman'
+ADDRESS= 'Adress'
+VEHICLE='Vehicle'
+SERVICE_ORDER='Service_order'
+DELIVERY='Delivery'
+PACKAGE='Package'
+LOCALIZATION="Localization"
+CLIENT="Client"
 
 CLIENT_ID='Id'
 CLIENT_UPI='CPF'#unique client identifier
@@ -19,7 +19,7 @@ ADDRESSES='Enderecos'
 
 COMPANY_ID = 'Id'
 COMPANY_ID_ADDRESS ='Id_endereco'
-COMPANY_NAME='Nome'
+COMPANY_NAME='Nome_fantasia'
 COMPANY_PASSWORD ='Senha'
 COMPANY_LOGIN ='Login'
 COMPANY_EMAIL ='Email'

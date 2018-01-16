@@ -2,7 +2,7 @@ import json
 from flask import request, jsonify
 from flask.views import MethodView
 from Views.viewHelper import register_view
-from Models.DB.DB_helper import Deliveryman
+from Models.DB.DB_helper import Deliveryman, Vehicle, Address, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.deliveryman_control import DeliverymanControl
 from Views.company_view import CompanyView
@@ -26,7 +26,10 @@ class DeliverymanView(MethodView):
         if json == None:
             return jsonify({"error": "Please provide a JSON"}), 400
 
-        deliveryman = DeliverymanView.build_object_from_json(json)
+        deliveryman =  model_from_dict(Deliveryman, json)
+        #deliveryman.vehicle = [ model_from_dict(Vehicle, dic) for dic in json['vehicle'] ]
+        #deliveryman.addresses = [ model_from_dict(Address, dic) for dic in json['addresses'] ]
+        
         missing_fields = DeliverymanView.validate_required_fields_presence(deliveryman)
 
         if len(missing_fields) != 0:
@@ -45,7 +48,8 @@ class DeliverymanView(MethodView):
         if id_deliveryman == None:
             return jsonify({"error": "Please provide a id_deliveryman"}), 400
 
-        deliveryman = DeliverymanView.build_object_from_json(json)
+        deliveryman =  model_from_dict(Deliveryman, json)
+        deliveryman.vehicle = [model_from_dict(Vehicle, dic) for dic in json['vehicle']]
         deliveryman.id = id_deliveryman
 
         try:
@@ -74,37 +78,22 @@ class DeliverymanView(MethodView):
         missing_fields = CompanyView.validate_required_fields_presence(deliveryman)
 
         if deliveryman.name_deliveryman == None:
-            missing_fields.append(DELIVERYMAN_NAME)
+            missing_fields.append('name')
         if deliveryman.dui == None:
-            missing_fields.append(DELIVERYMAN_DUI)
+            missing_fields.append('dui')
         if deliveryman.status == None:
-            missing_fields.append(DELIVERYMAN_STATUS)
+            missing_fields.append('status')
         if deliveryman.ready == None:
-            missing_fields.append(DELIVERYMAN_READY)
+            missing_fields.append('ready')
         if deliveryman.lat == None:
-            missing_fields.append(LOCALIZATION_LAT)
+            missing_fields.append('lat')
         if deliveryman.long == None:
-            missing_fields.append(LOCALIZATION_LONG)
-        if deliveryman.Id_veiculo == None:
-            missing_fields.append(DELIVERYMAN_ID_VEHICLE)
+            missing_fields.append('long')
+        
 
         return missing_fields
 
-    @staticmethod
-    def build_object_from_json(json):
-        deliveryman = Deliveryman()
 
-        CompanyView.build_object_from_json(json, deliveryman)
-
-        deliveryman.name_deliveryman = json.get(DELIVERYMAN_NAME, None)
-        deliveryman.dui = json.get(DELIVERYMAN_DUI, None)
-        deliveryman.status = json.get(DELIVERYMAN_STATUS, None)
-        deliveryman.ready = json.get(DELIVERYMAN_READY, None)
-        deliveryman.lat = json.get(LOCALIZATION_LAT, None)
-        deliveryman.long = json.get(LOCALIZATION_LONG, None)
-        deliveryman.Id_veiculo = json.get(DELIVERYMAN_ID_VEHICLE, None)
-
-        return deliveryman
 
 def initialize_view(app):
     endpoint='deliveryman_view'

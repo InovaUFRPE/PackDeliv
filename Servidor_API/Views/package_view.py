@@ -17,7 +17,7 @@ class PackageView(MethodView):
             if package == None:
                 return jsonify({"error": "No package found with id " + str(id_package)}), 404
             else:
-                return jsonify(model_as_dict(package)), 200
+                return jsonify(package.as_dict()), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
@@ -74,19 +74,19 @@ class PackageView(MethodView):
         missing_fields = []
 
         if package.width == None:
-            missing_fields.append(PACKAGE_WIDTH)
+            missing_fields.append('width')
         if package.height == None:
-            missing_fields.append(PACKAGE_HEIGHT)
+            missing_fields.append('height')
         if package.length == None:
-            missing_fields.append(PACKAGE_LENGTH)
+            missing_fields.append('length')
         if package.weight == None:
-            missing_fields.append(PACKAGE_WEIGHT)
+            missing_fields.append('weight')
         if package.volume == None:
-            missing_fields.append(PACKAGE_VOLUME)
+            missing_fields.append('volume')
         if package.id_address_start == None:
-            missing_fields.append(PACKAGE_ID_ADDRESS_START)
+            missing_fields.append('id_address_start')
         if package.id_address_destiny == None:
-            missing_fields.append(PACKAGE_ID_ADDRESS_DESTINY)
+            missing_fields.append('id_address_destiny')
 
         return missing_fields
 
