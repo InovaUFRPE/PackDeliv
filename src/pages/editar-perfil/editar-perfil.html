@@ -24,13 +24,13 @@
           <ion-label fixed style="color: #144F45">
             Usuário:
           </ion-label>
-          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username" id="nome"   value={{user.login}}  ></ion-input>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username" id="nome"   value={{user.name}}  ></ion-input>
         </ion-item>
         <ion-item>
           <ion-label fixed style="color: #144F45">
             CEP:
           </ion-label>
-          <ion-input  style="color:black"  type="text"  data-ng-model="user.cep" [(ngModel)]="dados.cep"  placeholder={{user.addresses[0].uci}} ></ion-input>
+          <ion-input  style="color:black"  type="text"  data-ng-model="user.cep" [(ngModel)]="dados.cep"  placeholder={{user.addresses[0].postal_code}} ></ion-input>
       </ion-item>
 
       <ion-item>
@@ -68,7 +68,7 @@
     
         <ion-item>
           <ion-label style="color: #144F45">Confirmar e-mail:</ion-label>
-          <ion-input type="email"  [(ngModel)]="dados.emailConf" class="inputEmail"  ></ion-input>
+          <ion-input type="email"  [(ngModel)]="dados.emailConf" class="inputEmail" placeholder={{user.email}} ></ion-input>
         </ion-item>
 
       

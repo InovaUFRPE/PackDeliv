@@ -27,7 +27,7 @@
           <ion-label fixed style="color: #144F45">
             Nome: 
           </ion-label>
-          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.name}} ></ion-input>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.nome" value={{user.name}} ></ion-input>
         </ion-item>
       
         <ion-item>
@@ -48,35 +48,35 @@
           <ion-label fixed style="color: #144F45">
             CNPJ:
           </ion-label>
-          <ion-input style="color:black" type="text" [disabled]="true" data-ng-model="user.email" value={{user.uci}} ></ion-input>
+          <ion-input style="color:black" type="text" [disabled]="true" data-ng-model="user.cnpj" value={{user.uci}} ></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label fixed style="color: #144F45">
               CEP:
             </ion-label>
-            <ion-input  style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.addresses[0].postal_code}} ></ion-input>
+            <ion-input  style="color:black"  type="text" [disabled]="true" data-ng-model="user.cep" value={{user.addresses[0].postal_code}} ></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label fixed style="color: #144F45">
               Bairro:
             </ion-label>
-            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.addresses[0].district}} ></ion-input>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.bairro" value={{user.addresses[0].district}} ></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label style="color: #144F45" >
               Complemento:
             </ion-label>
-            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.addresses[0].complement}} ></ion-input>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.complemento" value={{user.addresses[0].complement}} ></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label fixed style="color: #144F45">
               Número:
             </ion-label>
-            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.email" value={{user.addresses[0].number}} ></ion-input>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.numero" value={{user.addresses[0].number}} ></ion-input>
         </ion-item>
 
         <ion-item>
