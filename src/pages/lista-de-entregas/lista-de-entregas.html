@@ -16,14 +16,14 @@
 
     <ion-card *ngFor="let pacote of lista">
         <H1>Pacote</H1><P></P>
-        Altura: {{pacote.Altura}}<p></p>
-        Comprimento: {{pacote.Comprimento}}<p></p>
-        Largura: {{pacote.Largura}}<p></p>
-        Peso: {{pacote.Peso}}<p></p>
+        Altura: {{pacote.height}}<p></p>
+        Comprimento: {{pacote.length}}<p></p>
+        Largura: {{pacote.width}}<p></p>
+        Peso: {{pacote.weight}}<p></p>
         <H1>Destino</H1><p></p>
-        Bairro:{{pacote.Destino['response'].Bairro}}<p></p>
-        Rua:{{pacote.Destino['response'].Logradouro}}<p></p>
-        Numero:{{pacote.Destino['response'].Numero}}<p></p>
-        Cidade:{{pacote.Destino['response'].Cidade}}<p></p>
+        Bairro:{{pacote.address_destiny.district}}<p></p>
+        Rua:{{pacote.address_destiny.street}}<p></p>
+        Numero:{{pacote.address_destiny.number}}<p></p>
+        Cidade:{{pacote.address_destiny.city}}<p></p>
     </ion-card>
 </ion-content>

@@ -16,9 +16,10 @@ import { SessionProvider } from '../../providers/session/session';
   templateUrl: 'lista-de-entregas.html',
 })
 export class ListaDeEntregasPage {
-  static listaentregas:any;
-  lista=ListaDeEntregasPage.listaentregas;
+  lista=SessionProvider.getUser().packages;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,sessionProvider:SessionProvider) {
+    console.log(this.lista);
   } 
 
 

@@ -100,6 +100,7 @@ export class CadastroPacotePage {
       postal_code: cep,
       city: cidade,
       state: estado,
+      type:'',
       country: 'brasil'
     };
     console.log(endereco);
