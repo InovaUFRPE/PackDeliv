@@ -96,14 +96,5 @@ export class UsuarioProvider {
     });
   }
 
-  public pegarTodosPacotes(id:any){
-    this.http.get(this.url+'getPackage/'+id)
-    .subscribe((response) => {
-        var resp = response.json();
-        console.log(resp['response']);
-        ListaDeEntregasPage.listaentregas = resp['response'];
-    });
-
-  }
 
 }

@@ -42,7 +42,6 @@ export class LoginPage {
     .subscribe( usuario => {
       SessionProvider.openSession(usuario); 
       console.log(SessionProvider.getUser());
-      ListaDeEntregasPage.listaentregas=SessionProvider.getUser().packages;
 
       if (usuario.CNH) {
         this.navCtrl.push(HomeEntregadorPage, usuario);
