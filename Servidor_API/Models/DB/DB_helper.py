@@ -149,13 +149,20 @@ class Package(Base):
     volume = Column(Integer, nullable = False)
     static_location = Column(String(255))
     status = Column(Enum(PackageStatus))
+    send_date = Column(DateTime, default = datetime.datetime.utcnow)
+    delivery_date = Column(DateTime, default = False)
     id_address_start = Column(Integer, ForeignKey(ADDRESS + '.id'))#address company id
     id_address_destiny = Column(Integer, ForeignKey(ADDRESS + '.id'))#address client id
     id_company = Column(Integer, ForeignKey(COMPANY + '.id'))
     id_client = Column(Integer, ForeignKey(CLIENT + '.id'))
+    address_destiny = relationship("Address", foreign_keys=[id_address_destiny])
+    address_start = relationship("Address", foreign_keys=[id_address_start])
 
     def as_dict(self):
         selfDic = model_as_dict(self)
+        selfDic['address_destiny'] = self.address_destiny.as_dict()
+        selfDic['address_start'] = self.address_start.as_dict()
+        
         return selfDic
      #return {i for i in self.addresses}
     def __str__(self):      
