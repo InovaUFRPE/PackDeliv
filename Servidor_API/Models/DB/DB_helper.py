@@ -12,7 +12,7 @@ Base = declarative_base()
 
 class Address(Base):
     __tablename__ = ADDRESS
-    AddressType = enum.Enum('AddressType', ['endereco_empresa_matriz', 'endereco_empresa', 'endereco_cliente'])
+    AddressType = enum.Enum('AddressType', ['MATRIZ', 'endereco_empresa', 'endereco_cliente'])
 
     id = Column(Integer, primary_key = True)
     street = Column(String(255), nullable = False)
