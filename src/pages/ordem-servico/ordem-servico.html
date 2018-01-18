@@ -14,15 +14,17 @@
   <h2>Codigo:  {{ordemServico.cod}}</h2>
   <h2>Data final: {{ordemServico.data}} </h2>
   </div>
-  
+
   <ion-list>
     <ion-item *ngFor="let pacote of ordemServico.lista">
-      <p>Rua: {{pacote.address.street}}, {{pacote.address.number}}</p>
-      <p>Altura: {{pacote.height}}</p>
-      <p>Comprimento: {{pacote.lenght}} </p>
-      <p>Largura: {{pacote.width}} </p>
-      <p>Peso: {{pacote.weight}} </p>
-      <p>Volume: {{pacote.vol}} </p>
+      <ion-label>Rua: {{pacote.address.street}}</ion-label>
+      <ion-label>Número: {{pacote.address.number}}</ion-label>
+      <ion-label>Altura: {{pacote.height}}</ion-label>
+      <ion-label>Comprimento: {{pacote.lenght}}</ion-label>
+      <ion-label>Largura: {{pacote.width}} </ion-label>
+      <ion-label>Peso: {{pacote.weight}} </ion-label>
+      <ion-label>Volume: {{pacote.vol}} </ion-label>
+      <ion-checkbox></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>
