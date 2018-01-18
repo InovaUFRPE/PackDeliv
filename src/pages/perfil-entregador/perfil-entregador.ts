@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SessionProvider } from "../../providers/session/session";
 
 /**
  * Generated class for the PerfilEntregadorPage page.
@@ -14,8 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'perfil-entregador.html',
 })
 export class PerfilEntregadorPage {
+  user = SessionProvider.getUser();
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    console.log(this.user);
   }
 
   ionViewDidLoad() {
