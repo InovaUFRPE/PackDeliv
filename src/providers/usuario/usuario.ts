@@ -48,7 +48,9 @@ export class UsuarioProvider {
           city: response.municipio,
           state: response.uf,
           country: 'BRASIL',
-          type: response.tipo
+          type: response.tipo,
+          lat: 0,
+          long: 0
         };
 
         resposta.endereco = ender;

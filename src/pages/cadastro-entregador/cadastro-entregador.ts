@@ -153,7 +153,9 @@ export class CadastroEntregadorPage {
       status: false,
       addresses: null,
       name: null,
-      ready: false
+      ready: false,
+      lat: 0,
+      long: 0
     };
 
     this.usuarioProvider.validarCNPJ(cnpj, (resposta) => {
