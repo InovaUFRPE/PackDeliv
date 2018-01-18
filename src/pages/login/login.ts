@@ -64,7 +64,7 @@ export class LoginPage {
     this.navCtrl.push(RecuperarSenhaPage);
   }
 
-  presentToast(message: string) {
+  private presentToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,

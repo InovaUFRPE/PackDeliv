@@ -4,9 +4,13 @@ export interface Credenciais {
 }
 
 export interface Veiculo {
-    Placa: string,
-    Ano: number,
-    Modelo: string
+    license_plate: string,
+    year: number,
+    model: string,
+    color: string,
+    ready: boolean,
+    volume: number,
+    id?: number
 }
 
 export interface Entregador extends Empresa {

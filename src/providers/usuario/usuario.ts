@@ -65,6 +65,11 @@ export class UsuarioProvider {
     });
   }
 
+  public cadastrarVeiculo(veiculo: Veiculo, id_entregador: number): Observable<any> {
+    return this.http.post(this.url + 'vehicle/', {id: id_entregador, vehicle: veiculo}, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json());
+  }
+
   public cadastrarEmpresa(empresa: Empresa): Observable<any> {
     console.log(empresa);
     return this.http.post(this.url + 'company/', empresa, this.getRequestOptionsArgs())

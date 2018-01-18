@@ -19,18 +19,23 @@ import { LoginPage } from '../login/login';
 export class CadastroVeiculoPage {
   
   public dados = {
-    placa:null,
-    ano:null,
-    modelo:null,
-    volume:null,
+    placa: '',
+    ano: '',
+    modelo: '',
+    volume: '',
+    cor: '',
+
   };
   
-  constructor( public navCtrl: NavController, public navParams: NavParams,public toastCtrl:ToastController, private usuarioProvider: UsuarioProvider) {
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public toastCtrl:ToastController,
+    private usuarioProvider: UsuarioProvider) { }
   
 
 
-  presentToast(message:string) {
+  private presentToast(message:string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -51,7 +56,7 @@ export class CadastroVeiculoPage {
     var modelo = this.dados.modelo;
     var volume = this.dados.volume;
 
-    if (placa==undefined ) {
+    if (!!placa) {
       // Faz algo caso não sejam
       this.presentToast('A placa é um campo obrigatório.');
       return;
@@ -61,12 +66,12 @@ export class CadastroVeiculoPage {
       this.presentToast('Placa inválida.');
       return;
     }
-    if (ano==undefined ) {
+    if (!!ano) {
       // Faz algo caso não sejam
       this.presentToast('O ano do carro é um campo obrigatório.');
       return;
     }
-    if (volume==undefined ) {
+    if (!!volume) {
       // Faz algo caso não sejam
       this.presentToast('O volume é um campo obrigatório.');
       return;
@@ -76,29 +81,29 @@ export class CadastroVeiculoPage {
       this.presentToast('Ano inválido digite um ano com 4 digitos.');
       return;
     }
-    if (modelo==undefined ) {
+    if (!!modelo) {
       // Faz algo caso não sejam
       this.presentToast('Modelo do carro é um campo obrigatório.');
       return;
     }
 
-    var Veiculo: Veiculo = {
-      Placa: placa,
-      Ano: ano,
-      Modelo: modelo
+    var veiculo: Veiculo = {
+      license_plate: placa,
+      year: +ano,
+      model: modelo,
+      color: '',
+      ready: false,
+      volume: 0
     };
     
 
     var entregador: Entregador = this.navParams.get('user');
 
-    entregador.vehicle = Veiculo;
+    entregador.vehicle = veiculo;
 
-    console.log(entregador);
-
-    this.usuarioProvider.cadastrarEntregador(entregador).subscribe( resolve => {
+    this.usuarioProvider.cadastrarVeiculo(veiculo, entregador.id).subscribe( resolve => {
       console.log(resolve);
-      this.navCtrl.popToRoot();
-    }, reject => console.log('Erro ao cadastrar entregador: ' + reject));
+    }, reject => console.log('Erro ao cadastrar veículo: ' + reject));
   }
 
 }

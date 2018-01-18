@@ -18,14 +18,14 @@ import { Entregador } from '../../interfaces/usuario';
 })
 export class CadastroEntregadorPage {
   public dados = {
-    nomeCompleto:null,
-    cnh:null,
-    nomeUsuario: null,
-    cnpj: null,
-    senha: null,
-    senhaConf: null,
-    email: null,
-    emailConf: null
+    nomeCompleto:'',
+    cnh:'',
+    nomeUsuario: '',
+    cnpj: '',
+    senha: '',
+    senhaConf: '',
+    email: '',
+    emailConf: ''
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
@@ -57,33 +57,33 @@ export class CadastroEntregadorPage {
     var emailConf=this.dados.emailConf;
 
 
-    if (login==undefined ) {
+    if (!!login ) {
       // Faz algo caso não sejam
       this.presentToast('O login é um campo obrigatório.');
       return;
     }
     
     //verifica se o campo não está vazio
-    if (nomeCompleto==undefined ) {
+    if (!!nomeCompleto ) {
       // Faz algo caso não sejam
       this.presentToast('O Nome é um campo obrigatório.');
       return;
     }
 
+    if (nomeCompleto.length <= 6) {
+      this.presentToast('Nome precisa ter ao menos 6 caractéres');
+      return;
+    }
+
     //verifica se o campo não está vazio
-    if (cnpj==undefined ) {
+    if (!!cnpj ) {
       // Faz algo caso não sejam
       this.presentToast('O CNPJ é um campo obrigatório.');
       return;
     }
-    // if (cnpj.length !=  14 ) {
-    //   // Faz algo caso não sejam
-    //   this.presentToast('CNPJ inválido.');
-    //   return;
-    // }
   
     //verifica se o campo não está vazio
-    if (cnh==undefined ) {
+    if (!!cnh ) {
       // Faz algo caso não sejam
       this.presentToast('O CNH é um campo obrigatório.');
       return;
@@ -95,7 +95,7 @@ export class CadastroEntregadorPage {
     }
 
     //verifica se o campo não está vazio
-    if (senha==undefined ) {
+    if (!!senha ) {
       // Faz algo caso não sejam
       this.presentToast('A senha é um campo obrigatório.');
       return;
@@ -106,27 +106,16 @@ export class CadastroEntregadorPage {
       this.presentToast('A senha deve conter no minimo 6 digitos.');
       return;
     }
-     //verifica se o campo não está vazio
-    if (SenhaConf==undefined ) {
-      // Faz algo caso não sejam
-      this.presentToast('Confirmar senha é  obrigatório.');
-      return;
-    }
+
     if (senha !== SenhaConf) {
       // Faz algo caso não sejam
       this.presentToast('As senhas não são correspondentes.');
       return;
     }
 
-    if (email ==undefined ) {
+    if (!!email) {
       // Faz algo caso não sejam
       this.presentToast('O E-mail é um campo obrigatório.');
-      return;
-    }
-    //verifica se o campo não está vazio
-    if (emailConf==undefined) {
-      // Faz algo caso não sejam
-      this.presentToast('Confirmar E-mail é obrigatório.');
       return;
     }
     
@@ -169,7 +158,8 @@ export class CadastroEntregadorPage {
         console.log(entregador);
         this.usuarioProvider.cadastrarEntregador(entregador).subscribe( res => {
           console.log(res);
-          this.navCtrl.push(CadastroVeiculoPage, {user: res});
+          entregador.id = res.id;
+          this.navCtrl.push(CadastroVeiculoPage, {user: entregador});
         }, error => console.log('Erro ao cadastrar entregador: ' + error));
 
       } else {
