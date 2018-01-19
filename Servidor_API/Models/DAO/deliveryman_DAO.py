@@ -52,7 +52,7 @@ class DeliverymanDao():
         session = getSession()
         try:
             if id == None:
-                response=session.query(Deliveryman).all()
+                response=session.query(Deliveryman).filter(Deliveryman.status == True).all()
                 response=[deliveryman for deliveryman in response]
 
             else:

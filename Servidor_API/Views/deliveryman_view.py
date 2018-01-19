@@ -9,14 +9,16 @@ from Views.company_view import CompanyView
 
 class DeliverymanView(MethodView):
     def get(self,id_deliveryman=None):
-        if id_deliveryman == None:
-            return jsonify({"error": "Please provide a id_deliveryman"}), 400
+        #if id_deliveryman == None:
+            #return jsonify({"error": "Please provide a id_deliveryman"}), 400
 
         try:
             deliveryman = DeliverymanControl.find(id_deliveryman)
             if deliveryman == None:
                 return jsonify({"error": "No deliveryman found with id " + str(id_deliveryman)}), 404
             else:
+                if id_deliveryman == None:
+                    return jsonify( [ item.as_dict() for item in deliveryman] ), 200
                 return jsonify(deliveryman.as_dict()), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
