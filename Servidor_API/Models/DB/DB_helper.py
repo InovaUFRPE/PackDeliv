@@ -224,7 +224,7 @@ class ServiceOrder(Base):
 
 def getEngine():
     user ="root"
-    password="Arretterr@"
+    password=""
     address="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)

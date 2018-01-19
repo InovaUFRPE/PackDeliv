@@ -98,7 +98,7 @@ export class UsuarioProvider {
   }
 
   public atualizarPerfilEmpresa(usuario:Empresa, callback: any){
-    this.http.put(this.url+'company/', usuario, this.getRequestOptionsArgs())
+    this.http.put(this.url+'company/'+usuario.id, usuario, this.getRequestOptionsArgs())
     .subscribe( (res) => {
       alert('Perfil atualizado!');
       callback();
