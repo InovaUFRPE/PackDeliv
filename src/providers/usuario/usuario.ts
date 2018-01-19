@@ -38,7 +38,8 @@ export class UsuarioProvider {
     this.http.get(this.url + 'cnpj/' + cnpj)
     .map((response: Response) => response.json())
     .subscribe( response => {
-      if (!response.error) {
+      console.log(response);
+      if (response.status != 'ERROR') {
         let ender: Endereco = {
           street: response.logradouro,
           number: response.numero,
@@ -58,6 +59,9 @@ export class UsuarioProvider {
         resposta.cnpj = cnpj;
 
         callback(resposta);
+      } else {
+        console.log('Erro ao procurar pelo cnpj na base de dados da receitaws.');
+        callback(false);
       }
     }, error => {
       console.log('Erro na validação de CNPJ: ' + error);

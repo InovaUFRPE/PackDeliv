@@ -17,14 +17,16 @@
 
   <ion-list>
     <ion-item *ngFor="let pacote of ordemServico.lista">
-      <ion-label>Rua: {{pacote.address.street}}</ion-label>
-      <ion-label>Número: {{pacote.address.number}}</ion-label>
-      <ion-label>Altura: {{pacote.height}}</ion-label>
-      <ion-label>Comprimento: {{pacote.lenght}}</ion-label>
-      <ion-label>Largura: {{pacote.width}} </ion-label>
-      <ion-label>Peso: {{pacote.weight}} </ion-label>
-      <ion-label>Volume: {{pacote.vol}} </ion-label>
-      <ion-checkbox></ion-checkbox>
+      <ion-label>
+        <p>Rua: {{pacote.address.street}}</p>
+        <p>Número: {{pacote.address.number}}</p>
+        <p>Altura: {{pacote.height}}</p>
+        <p>Comprimento: {{pacote.lenght}}</p>
+        <p>Largura: {{pacote.width}}</p>
+        <p>Peso: {{pacote.weight}}</p>
+        <p>Volume: {{pacote.vol}}</p>
+      </ion-label>
+      <ion-checkbox color="verd" checked="false"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

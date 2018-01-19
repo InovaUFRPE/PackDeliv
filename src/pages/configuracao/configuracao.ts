@@ -33,7 +33,7 @@ export class ConfiguracaoPage {
     this.navCtrl.push(EditarPerfilEntregadorPage)
   }
 
- 
+
 
   //public sair(){
   //  this.user.closeSession();
@@ -41,6 +41,12 @@ export class ConfiguracaoPage {
   //}
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfiguracaoPage');
+  }
+  sair(){
+    console.log(SessionProvider.getUser());
+    SessionProvider.closeSession();
+    this.navCtrl.parent.parent.setRoot(LoginPage);
+    console.log(SessionProvider.getUser());
   }
 
 }

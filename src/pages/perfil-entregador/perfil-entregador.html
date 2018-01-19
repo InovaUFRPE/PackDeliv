@@ -18,12 +18,20 @@
     <ion-card color="verd">
       <ion-card-header>Informações Principais</ion-card-header>
       <ion-card-content>
-        <p>Nome completo:<br></p>
-        <p>José Augusto de Paiva Neto<br></p>
-        <p>Nome de ususario:<br></p>
-        <p>jpnetopaiva<br></p>
-        <p>Email:<br></p>
-        <p>augustopaiva4@gmail.com</p>
+        <ion-item>
+          <ion-label fixed style="color: #144F45">Nome:</ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.name_deliveryman" value={{user.name_deliveryman}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed style="color: #144F45">Empresa:</ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.nome" value={{user.name}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed style="color: #144F45">Usuário:</ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username" id="nome"   value={{user.login}}  ></ion-input>
+        </ion-item>
       </ion-card-content>
     </ion-card>
   </div>
@@ -31,15 +39,28 @@
     <ion-card color="verd">
       <ion-card-header>Informações Adicionais</ion-card-header>
       <ion-card-content>
-        <p>CNH:<br></p>
-        <p>6969691169</p>
-        <p>CNPJ:<br></p>
-        <p>11111111111<br></p>
-        <p>Numero de entregas:<br></p>
-        <p>000</p>
+        <ion-item>
+          <ion-label fixed style="color: #144F45">E-mail:</ion-label>
+          <ion-input style="color:black"  [disabled]="true" type="text"  data-ng-model="user.email" value={{user.email}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed style="color: #144F45">CNPJ:</ion-label>
+          <ion-input style="color:black" type="text" [disabled]="true" data-ng-model="user.cnpj" value={{user.uci}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45">CEP:</ion-label>
+            <ion-input  style="color:black"  type="text" [disabled]="true" data-ng-model="user.cep" value={{user.addresses[0].postal_code}} ></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label fixed style="color: #144F45">Bairro:</ion-label>
+            <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.bairro" value={{user.addresses[0].district}} ></ion-input>
+        </ion-item>
       </ion-card-content>
     </ion-card>
   </div>
-  
-  
+
+
 </ion-content>

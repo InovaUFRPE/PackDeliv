@@ -20,18 +20,24 @@ import { Empresa } from '../../interfaces/usuario';
 export class CadastroPage {
 
   public dados = {
-    nomeUsuario: null,
-    cnpj: null,
-    senha: null,
-    senhaConf: null,
-    email: null,
-    emailConf: null
+    nomeUsuario: '',
+    cnpj: '',
+    senha: '',
+    senhaConf: '',
+    email: '',
+    emailConf: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
-  }
+  private regexSemMascara = new RegExp('[0-9]{14}');
+  private regexComMascara = new RegExp('[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[\-][0-9]{2}');
 
-  presentToast(message:string) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public usuarioProvider: UsuarioProvider,
+    private toastCtrl: ToastController) { }
+
+  private presentToast(message:string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -53,24 +59,24 @@ export class CadastroPage {
 
     // Compara se as senhas digitadas são correspondentes
 
-    if (nomeUsuario==undefined ) {
+    if (!nomeUsuario ) {
       // Faz algo caso não sejam
       this.presentToast('O login é um campo obrigatório.');
       return;
     }
     //verifica se o campo não está vazio
-    if (cnpj==undefined ) {
+    if (!cnpj ) {
       // Faz algo caso não sejam
       this.presentToast('O CNPJ é um campo obrigatório.');
       return;
     }
-    if (cnpj.length <  14 ) {
-      // Faz algo caso não sejam
-      this.presentToast('CNPJ inválido.');
+    // Analisa se o cnpj está de acordo com o padrão
+    if (!this.regexComMascara.test(cnpj) && !this.regexSemMascara.test(cnpj)) {
+      this.presentToast('CNPJ não está no padrão.');
       return;
     }
     //verifica se o campo não está vazio
-    if (senha==undefined ) {
+    if (!senha ) {
       // Faz algo caso não sejam
       this.presentToast('A senha é um campo obrigatório.');
       return;
@@ -82,7 +88,7 @@ export class CadastroPage {
       return;
     }
      //verifica se o campo não está vazio
-    if (SenhaConf==undefined ) {
+    if (!SenhaConf ) {
       // Faz algo caso não sejam
       this.presentToast('Confirmar senha é  obrigatório.');
       return;
@@ -100,15 +106,9 @@ export class CadastroPage {
     var email = this.dados.email;
     var emailConf = this.dados.emailConf;
     //verifica se o campo não está vazio
-    if (email ==undefined ) {
+    if (!email  ) {
       // Faz algo caso não sejam
       this.presentToast('O E-mail é um campo obrigatório.');
-      return;
-    }
-    //verifica se o campo não está vazio
-    if (emailConf==undefined) {
-      // Faz algo caso não sejam
-      this.presentToast('Confirmar E-mail é obrigatório.');
       return;
     }
 
