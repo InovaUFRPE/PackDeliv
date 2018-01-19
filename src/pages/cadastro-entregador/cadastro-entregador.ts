@@ -57,33 +57,33 @@ export class CadastroEntregadorPage {
     var emailConf=this.dados.emailConf;
 
 
-    if (!!login ) {
+    if (!login ) {
       // Faz algo caso não sejam
       this.presentToast('O login é um campo obrigatório.');
       return;
     }
     
     //verifica se o campo não está vazio
-    if (!!nomeCompleto ) {
+    if (!nomeCompleto ) {
       // Faz algo caso não sejam
       this.presentToast('O Nome é um campo obrigatório.');
       return;
     }
 
-    if (nomeCompleto.length <= 6) {
+    if (nomeCompleto.length < 6) {
       this.presentToast('Nome precisa ter ao menos 6 caractéres');
       return;
     }
 
     //verifica se o campo não está vazio
-    if (!!cnpj ) {
+    if (!cnpj ) {
       // Faz algo caso não sejam
       this.presentToast('O CNPJ é um campo obrigatório.');
       return;
     }
   
     //verifica se o campo não está vazio
-    if (!!cnh ) {
+    if (!cnh ) {
       // Faz algo caso não sejam
       this.presentToast('O CNH é um campo obrigatório.');
       return;
@@ -95,7 +95,7 @@ export class CadastroEntregadorPage {
     }
 
     //verifica se o campo não está vazio
-    if (!!senha ) {
+    if (!senha ) {
       // Faz algo caso não sejam
       this.presentToast('A senha é um campo obrigatório.');
       return;
@@ -113,7 +113,7 @@ export class CadastroEntregadorPage {
       return;
     }
 
-    if (!!email) {
+    if (!email) {
       // Faz algo caso não sejam
       this.presentToast('O E-mail é um campo obrigatório.');
       return;
