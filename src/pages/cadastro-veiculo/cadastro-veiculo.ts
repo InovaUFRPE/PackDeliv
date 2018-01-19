@@ -56,7 +56,7 @@ export class CadastroVeiculoPage {
     var modelo = this.dados.modelo;
     var volume = this.dados.volume;
 
-    if (!!placa) {
+    if (!placa) {
       // Faz algo caso não sejam
       this.presentToast('A placa é um campo obrigatório.');
       return;
@@ -66,12 +66,12 @@ export class CadastroVeiculoPage {
       this.presentToast('Placa inválida.');
       return;
     }
-    if (!!ano) {
+    if (!ano) {
       // Faz algo caso não sejam
       this.presentToast('O ano do carro é um campo obrigatório.');
       return;
     }
-    if (!!volume) {
+    if (!volume) {
       // Faz algo caso não sejam
       this.presentToast('O volume é um campo obrigatório.');
       return;
@@ -81,7 +81,7 @@ export class CadastroVeiculoPage {
       this.presentToast('Ano inválido digite um ano com 4 digitos.');
       return;
     }
-    if (!!modelo) {
+    if (!modelo) {
       // Faz algo caso não sejam
       this.presentToast('Modelo do carro é um campo obrigatório.');
       return;
