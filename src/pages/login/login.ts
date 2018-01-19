@@ -29,21 +29,21 @@ export class LoginPage {
   public credenciais: Credenciais = { login: '', password: ''};
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public toastCtrl: ToastController, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
     public usuarioProvider: UsuarioProvider
   ) { }
 
-  
-  
+
+
   public fazerLogin(): void {
     this.usuarioProvider.fazerLogin(this.credenciais)
     .subscribe( usuario => {
-      SessionProvider.openSession(usuario); 
+      SessionProvider.openSession(usuario);
       console.log(SessionProvider.getUser());
-
-      if (usuario.CNH) {
+      var user = SessionProvider.getUser();
+      if (user.type == "Deliveryman") {
         this.navCtrl.push(HomeEntregadorPage, usuario);
       } else {
         this.navCtrl.push(HomePage, usuario);
