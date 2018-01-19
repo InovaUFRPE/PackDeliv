@@ -28,6 +28,7 @@ export class ConfiguracaoPage {
     //console.info(status,selectedValue);
 
     SessionProvider.setDeliveryManStatus(SelectedValue)
+    console.log("chegou aq")
   }
 
   public editarPerfil(){
@@ -44,7 +45,7 @@ export class ConfiguracaoPage {
 
 
   sair(){
-    SessionProvider.setDeliveryManStatus(status)
+    console.log(status)
     console.log(SessionProvider.getDeliveryManStatus());
     SessionProvider.closeSession();
     this.navCtrl.parent.parent.setRoot(LoginPage);

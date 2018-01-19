@@ -17,7 +17,7 @@
       <ion-list>
         <ion-item>
           <ion-label color="verd">Escolha uma opção</ion-label>
-          <ion-select [(ngModel)]="status" (change)="onChange(status)">
+          <ion-select [(ngModel)]="status" (ionChange)="onChange(status)">
             <ion-option value ="ativo">Ativo</ion-option>
             <ion-option value ="servico">Em serviço</ion-option>
             <ion-option value ="inativo">Inativo</ion-option>

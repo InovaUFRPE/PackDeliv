@@ -53,7 +53,7 @@ export class OrdemServicoPage {
       data: this.ordemServico.data,
       cod: this.ordemServico.cod
     };
-    
+
     this.criarModal(ordemServico);
     // for (let pacote of pacotesEscolhidos) {
     //   pacote.selecionado = undefined;
