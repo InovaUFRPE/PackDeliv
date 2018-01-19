@@ -87,10 +87,10 @@ class AddressView(MethodView):
             missing_fields.append('state')
         if address.country == None:
             missing_fields.append('country')
-        if address.lat == None:
-            missing_fields.append('lat')
-        if address.long == None:
-            missing_fields.append('long')
+        #if address.lat == None:
+            #missing_fields.append('lat')
+        #if address.long == None:
+            #missing_fields.append('long')
         if address.id_company == None and address.id_client == None:
             missing_fields.append('id_company')
             missing_fields.append('id_client')

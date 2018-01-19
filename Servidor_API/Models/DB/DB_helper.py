@@ -176,7 +176,10 @@ class Package(Base):
 
 class Delivery(Base):
     __tablename__ = DELIVERY
-    DeliveryStatus = enum.Enum('DeliveryStatus', ['entregador designado para a coleta','entregador a caminho para coleta', 'saiu para entrega','a caminho da casa do cliente','entrega finalizada','coleta finalizada'])
+    DeliveryStatus = enum.Enum('DeliveryStatus', ['entregador designado para a coleta','entregador a caminho para coleta',
+    'saiu para entrega','a caminho da casa do cliente','entrega finalizada','coleta finalizada','cliente não se encontra no destino','cliente recusou entrega',
+    'endereço de destino incorreto','endereço de coleta incorreto', 'cliente mudou-se','empresa sem expediente','objeto ou conteudo avariado','conteudo avariado por acidente com veiculo',
+    'objeto de entrega roubado'])
     DeliveryType = enum.Enum('DeliveryType', ['entrega','coleta'])
 
     id = Column(Integer, primary_key = True)
@@ -221,7 +224,7 @@ class ServiceOrder(Base):
 
 def getEngine():
     user ="root"
-    password=""
+    password="Arretterr@"
     address="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)

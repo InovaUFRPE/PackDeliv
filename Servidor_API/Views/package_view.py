@@ -9,14 +9,19 @@ from Controlers.package_control import PackageControl
 
 class PackageView(MethodView):
     def get(self,id_package=None):
-        if id_package == None:
-            return jsonify({"error": "Please provide a id_package"}), 400
+        #if id_package == None:
+            #return jsonify({"error": "Please provide a id_package"}), 400
 
         try:
             package = PackageControl.find(id_package)
             if package == None:
                 return jsonify({"error": "No package found with id " + str(id_package)}), 404
             else:
+                if id_package == None:
+                    
+                    for i in package:
+                        print(i.as_dict())
+                    return jsonify( [ item.as_dict() for item in package] ), 200
                 return jsonify(package.as_dict()), 200
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
