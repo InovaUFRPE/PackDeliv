@@ -1,18 +1,25 @@
 <!--
-  Generated template for the OrdemServicoPage page.
+  Generated template for the ModalOrdemServicoPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-    <h1>Ordem de serviço</h1>
+
+  <ion-navbar>
+    <ion-title>Modal Ordem de Serviço</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="fecharModal()" >Fechar</button>
+    </ion-buttons>
+  </ion-navbar>
+
 </ion-header>
 
 
 <ion-content padding>
   <div class="topo">
-  <h2>Codigo:  {{ordemServico.cod}}</h2>
-  <h2>Data final: {{ordemServico.data}} </h2>
+    <h2>Codigo: {{ordemServico.cod}}</h2>
+    <h2>Data final: {{ordemServico.data}} </h2>
   </div>
 
   <ion-list>
@@ -26,8 +33,6 @@
         <p>Peso: {{pacote.weight}}</p>
         <p>Volume: {{pacote.vol}}</p>
       </ion-label>
-      <ion-checkbox color="verd" [(ngModel)]="pacote.selecionado"></ion-checkbox>
     </ion-item>
-    <button ion-button color="verd" block (click)="mandarPacotesEscolhidos()">Aceitar</button>
   </ion-list>
 </ion-content>
