@@ -28,6 +28,9 @@ export class CadastroEntregadorPage {
     emailConf: ''
   };
 
+  private regexSemMascara = new RegExp('[0-9]{14}');
+  private regexComMascara = new RegExp('[0-9]{2}[\.][0-9]{3}[\.][0-9]{3}[\/][0-9]{4}[\-][0-9]{2}');
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
   }
 
@@ -79,6 +82,12 @@ export class CadastroEntregadorPage {
     if (!cnpj ) {
       // Faz algo caso não sejam
       this.presentToast('O CNPJ é um campo obrigatório.');
+      return;
+    }
+
+    // Analisa se o cnpj está no padrão
+    if (!this.regexSemMascara.test(cnpj) && !this.regexComMascara.test(cnpj)) {
+      this.presentToast('CNPJ fora do padrão');
       return;
     }
   
@@ -151,7 +160,7 @@ export class CadastroEntregadorPage {
       if (resposta) {
         // Passa o objeto usuario para a tela de cadastro de veículo
         // Caminho para cadastrar o entregador
-
+        
         entregador.addresses = [resposta.endereco];
         entregador.name = resposta.nome;
 
