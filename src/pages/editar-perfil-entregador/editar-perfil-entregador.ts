@@ -19,13 +19,18 @@ import { UsuarioProvider } from '../../providers/usuario/usuario';
 export class EditarPerfilEntregadorPage {
 
   user = SessionProvider.getUser();
+  
 
   public dados = {
-    nome: null,
-    email:null,
-    emailConfig:null
-
-  }
+    nomeCompleto:null,
+    email: null,
+    emailConf: null,
+    cep:null,
+    bairro:null,
+    complemento:null,
+    numero:null,
+    logradouro:null
+  };
 
   constructor(
     public navCtrl: NavController,
@@ -37,30 +42,55 @@ export class EditarPerfilEntregadorPage {
   }
 
   public atualizar():void{
+    // Pega o e-mail do usuário
     var email = this.dados.email;
-    var emailConfig = this.dados.emailConfig;
-    var nome = this.dados.nome;
-
-    if (email != emailConfig) {
+    var emailConf = this.dados.emailConf;
+    //verifica se o campo não está vazio
+    
+    
+    // Compara se os e-mails digitados são correspondentes
+    if (email !== emailConf) {
+      // Faz algo caso não sejam
       this.presentToast('Os E-mails não são correspondentes.');
       return;
     }
-    else{
-      SessionProvider.getUser().Email=email      
+
+    var nomeCompleto=this.dados.nomeCompleto;
+    var cep = this.dados.cep;
+    var bairro = this.dados.bairro;
+    var complemento = this.dados.complemento;
+    var numero = this.dados.numero;
+    var logradouro = this.dados.logradouro;
+    console.log(this.dados);
+    if(cep!=null){
+      SessionProvider.getUser().addresses.postal_code=cep
     }
-
-    if (nome != null){
-      SessionProvider.getUser().nome = nome;
+    if(bairro!=null){
+      SessionProvider.getUser().addresses.district=bairro
     }
-    //mexer com o usuario providers
-
-   // this.usuarioProvider.atualizarPerfilEmpresa(SessionProvider.getUser(),  () => {
-     // this.navCtrl.push(PerfilPage);
-   // });
-
-
+    if(complemento!=null){
+      SessionProvider.getUser().addresses.complement=complemento
+    }
+    if(numero!=null){
+      SessionProvider.getUser().addresses.number=numero
+    }
+    if(logradouro!=null){
+      SessionProvider.getUser().addresses.street=logradouro
+    }
+    
+    var usuario: object = {
+      Email: email
+    };
+    
+    SessionProvider.getUser().email=email
     
 
+    
+    this.usuarioProvider.atualizarPerfilEntregador(SessionProvider.getUser(),  () => {
+      this.navCtrl.push(ConfiguracaoPage);
+    });
+
+    
 
   }
 
@@ -82,6 +112,7 @@ export class EditarPerfilEntregadorPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditarPerfilEntregadorPage');
+    console.log(this.user)
   }
 
 }

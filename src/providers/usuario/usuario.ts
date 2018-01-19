@@ -107,5 +107,15 @@ export class UsuarioProvider {
     });
   }
 
+  public atualizarPerfilEntregador(usuario:Empresa, callback: any){
+    this.http.put(this.url+'deliveryman/'+usuario.id, usuario, this.getRequestOptionsArgs())
+    .subscribe( (res) => {
+      alert('Perfil atualizado!');
+      callback();
+    }, (error) => {
+      throw error;
+    });
+  }
+
 
 }

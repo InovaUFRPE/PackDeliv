@@ -20,23 +20,41 @@
     </div>
   </div>
   <div class ="info">
-  <ion-list>
+    <ion-list>
       
         <ion-item>
-          <ion-input type="text" placeholder="Nome" color = "verd"></ion-input>
+          <ion-label fixed style="color: #144F45">
+            Empresa:
+          </ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.username2" id="nome"   value={{user.name}}  ></ion-input>
         </ion-item>
-      
         <ion-item>
-          <ion-input type="email" placeholder="Email" color = "verd"></ion-input>
+          <ion-label fixed style="color: #144F45">
+            CNPJ:
+          </ion-label>
+          <ion-input style="color:black"  type="text" [disabled]="true" data-ng-model="user.cnpj" id="cnpj"   value={{user.cnpj}}  ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed style="color: #144F45">
+            Nome:
+          </ion-label>
+          <ion-input style="color:black"  type="text" data-ng-model="user.username" [(ngModel)]="dados.nomeCompleto"     placeholder={{user.name_deliveryman}}  ></ion-input>
+        </ion-item>
+          
+        <ion-item>
+          <ion-label style="color: #144F45">Novo e-mail:</ion-label>
+          <ion-input type="email"  [(ngModel)]="dados.email"  class="inputEmail" placeholder={{user.email}} ></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label style="color: #144F45">Confirmar e-mail:</ion-label>
+          <ion-input type="email"  [(ngModel)]="dados.emailConf" class="inputEmail" placeholder={{user.email}} ></ion-input>
         </ion-item>
 
-        <ion-item>
-            <ion-input type="email" placeholder="Confirmar Email" color = "verd"></ion-input>
-          </ion-item>
       
-  </ion-list>
+      </ion-list>
   
-  <button ion-button full color="verd" class="saveButton" (click)="irParaConfiguracao()">Salvar</button>
+  <button ion-button full color="verd" class="saveButton" (click)="atualizar()">Salvar</button>
   
 </div>
   <!--<ion-list>
