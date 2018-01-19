@@ -55,26 +55,26 @@ export class EditarPerfilPage {
     var numero = this.dados.numero;
     var logradouro = this.dados.logradouro;
     if(cep!=null){
-      SessionProvider.getUser().Endereco.CEP=cep
+      SessionProvider.getUser().addresses.postal_code=cep
     }
     if(bairro!=null){
-      SessionProvider.getUser().Endereco.Bairro=bairro
+      SessionProvider.getUser().addresses.district=bairro
     }
     if(complemento!=null){
-      SessionProvider.getUser().Endereco.Complemento=complemento
+      SessionProvider.getUser().addresses.complement=complemento
     }
     if(numero!=null){
-      SessionProvider.getUser().Endereco.Numero=numero
+      SessionProvider.getUser().addresses.number=numero
     }
     if(logradouro!=null){
-      SessionProvider.getUser().Endereco.Logradouro=logradouro
+      SessionProvider.getUser().addresses.street=logradouro
     }
     
     var usuario: object = {
       Email: email
     };
     
-    SessionProvider.getUser().Email=email
+    SessionProvider.getUser().email=email
     
 
     
