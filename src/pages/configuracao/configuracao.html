@@ -17,7 +17,7 @@
       <ion-list>
         <ion-item>
           <ion-label color="verd">Escolha uma opção</ion-label>
-          <ion-select [(ngModel)]="status"(change)="statusAtual">
+          <ion-select [(ngModel)]="status" (change)="onChange(status)">
             <ion-option value ="ativo">Ativo</ion-option>
             <ion-option value ="servico">Em serviço</ion-option>
             <ion-option value ="inativo">Inativo</ion-option>
@@ -31,7 +31,7 @@
     <button ion-button block outline color="verd" (click)="sair()">Sair</button>
     <button ion-button block outline color="verd">Apagar Conta</button>
   </div>
-  
-  
+
+
 
 </ion-content>

@@ -18,15 +18,16 @@ import { LoginPage } from '../login/login'
 export class ConfiguracaoPage {
 
   public user = SessionProvider.getUser();
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public sessionProvider: SessionProvider) {
   }
 
-  onChange(selectedValue){
-    console.info("Selected:",selectedValue);
+  onChange(SelectedValue){
+    //console.info(status,selectedValue);
+
+    SessionProvider.setDeliveryManStatus(SelectedValue)
   }
 
   public editarPerfil(){
@@ -35,15 +36,16 @@ export class ConfiguracaoPage {
 
 
 
-  //public sair(){
-  //  this.user.closeSession();
-  //  this.navCtrl.push(LoginPage)
-  //}
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfiguracaoPage');
+
   }
+
+
   sair(){
-    console.log(SessionProvider.getUser());
+    SessionProvider.setDeliveryManStatus(status)
+    console.log(SessionProvider.getDeliveryManStatus());
     SessionProvider.closeSession();
     this.navCtrl.parent.parent.setRoot(LoginPage);
     console.log(SessionProvider.getUser());

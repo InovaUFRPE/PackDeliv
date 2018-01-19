@@ -5,18 +5,18 @@ import 'rxjs/add/operator/map';
 
 /*
   Generated class for the SessionProvider provider.
-  
+
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
 export class SessionProvider {
-  
+
   private static user: any
   public static status: boolean = false
-  public static deliveryManStatus: string = "Inativo"
+  public static deliveryManStatus:any
   constructor(public http: Http) {
-    console.log('Hello Session Provider Provider');  
+    console.log('Hello Session Provider Provider');
   }
 
   static getStatus():boolean{
@@ -30,35 +30,28 @@ export class SessionProvider {
       this.status = true
     }
   }
- 
+
   static getUser():any{
     return this.user
-  }  
+  }
 
   static openSession(credentials: any):void{
     this.user = credentials
     this.setStatus()
   }
-  
+
   static closeSession():void{
     this.setStatus()
     this.user = null
   }
 
-  static getDeliveryManStatus(status: string){
-    return this.deliveryManStatus
+  static getDeliveryManStatus(){
+    return this.deliveryManStatus;
   }
 
-  static setDeliveryAtivo():void{
-    this.deliveryManStatus = "Ativo"
+  static setDeliveryManStatus(statusEnt: string):void{
+    this.deliveryManStatus = statusEnt;
   }
 
-  static setDeliveryManEmServico():void{
-    this.deliveryManStatus = "Em serviço"
-  }
-
-  static setDeliveryManInativo():void{
-    this.deliveryManStatus = "Inativo"
-  }
 
 }
