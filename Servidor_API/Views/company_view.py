@@ -5,6 +5,7 @@ from Views.viewHelper import register_view
 from Models.DB.DB_helper import Company, Address, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.company_control import CompanyControl
+from Views.address_view import AddressView
 
 class CompanyView(MethodView):
     
@@ -27,7 +28,7 @@ class CompanyView(MethodView):
             return jsonify({"error": "Please provide a JSON"}), 400
 
         company = model_from_dict(Company, json)
-        company.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
+        company.addresses = [AddressView.auto_load_loc_address(model_from_dict(Address, dic)) for dic in json['addresses']]
         missing_fields = CompanyView.validate_required_fields_presence(company)
 
         if len(missing_fields) != 0:
@@ -47,7 +48,6 @@ class CompanyView(MethodView):
             return jsonify({"error": "Please provide a id_company"}), 400
 
         company = model_from_dict(Company, json)
-        company.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
         company.id = id_company
 
         try:

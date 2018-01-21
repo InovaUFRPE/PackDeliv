@@ -6,6 +6,7 @@ from sqlalchemy import inspect
 from Models.DB.DB_helper import Address, model_from_dict, model_as_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.address_control import AddressControl
+from external_API_resquest.geo_coding_google_API import External_api_request_googleGeocode
 
 class AddressView(MethodView):
     def get(self,id_address=None):
@@ -25,13 +26,17 @@ class AddressView(MethodView):
         json = request.get_json()
         if json == None:
             return jsonify({"error": "Please provide a JSON"}), 400
-
+        #fazer a requiseção a pai do google, utilizando o modulo request do python
+        #passar como o parametro o cep e pedir retorno em json
+        # estrair apenas as informações de lat e long do endereço enviado
+        #lembrar que endereços podem ter o mesmo nome
+        #tentar encontrar 
         address = model_from_dict(Address, json)
         missing_fields = AddressView.validate_required_fields_presence(address)
-
+        AddressView.auto_load_loc_address(address)
         if len(missing_fields) != 0:
             return jsonify({"error": "Missing fields:" + str(missing_fields)}), 400
-
+        
         try:
             id_address = AddressControl.register(address)
             return jsonify({ "id": id_address }), 200
@@ -96,7 +101,11 @@ class AddressView(MethodView):
             missing_fields.append('id_client')
 
         return missing_fields
-
+    @staticmethod
+    def auto_load_loc_address(address):
+        missing_fields = AddressView.validate_required_fields_presence(address)
+        address.lat, address.long = External_api_request_googleGeocode().localizationAddress(address.postal_code)
+        return address
 def initialize_view(app):
     endpoint='address_view'
     methods=['GET','PUT','POST','DELETE']

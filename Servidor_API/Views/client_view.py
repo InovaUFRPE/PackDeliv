@@ -5,7 +5,7 @@ from Views.viewHelper import register_view
 from Models.DB.DB_helper import Client, Address, model_as_dict, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.client_control import ClientControl
-
+from Views.address_view import AddressView
 class ClientView(MethodView):
     def get(self, id_client = None):
         if id_client == None:
@@ -24,9 +24,9 @@ class ClientView(MethodView):
         json = request.get_json()
         if json == None:
             return jsonify({"error": "Please provide a JSON"}), 400
-
+        
         client = model_from_dict(Client, json)
-        client.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
+        client.addresses = [AddressView.auto_load_loc_address(model_from_dict(Address, dic)) for dic in json['addresses']]
         missing_fields = ClientView.validate_required_fields_presence(client)
 
         if len(missing_fields) != 0:

@@ -6,6 +6,7 @@ from Models.DB.DB_helper import Deliveryman, Vehicle, Address, model_from_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.deliveryman_control import DeliverymanControl
 from Views.company_view import CompanyView
+from Views.address_view import AddressView
 
 class DeliverymanView(MethodView):
     def get(self,id_deliveryman=None):
@@ -30,7 +31,7 @@ class DeliverymanView(MethodView):
 
         deliveryman =  model_from_dict(Deliveryman, json)
         #deliveryman.vehicle = [ model_from_dict(Vehicle, dic) for dic in json['vehicle'] ]
-        deliveryman.addresses = [ model_from_dict(Address, dic) for dic in json['addresses'] ]
+        deliveryman.addresses = [ AddressView.auto_load_loc_address(model_from_dict(Address, dic)) for dic in json['addresses'] ]
         
         missing_fields = DeliverymanView.validate_required_fields_presence(deliveryman)
 

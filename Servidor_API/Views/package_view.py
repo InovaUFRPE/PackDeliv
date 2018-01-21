@@ -6,7 +6,7 @@ from sqlalchemy import inspect
 from Models.DB.DB_helper import Package, model_from_dict, model_as_dict
 from Rest_utils.entities_atributes_Names import *
 from Controlers.package_control import PackageControl
-
+from external_API_resquest.geo_coding_google_API import External_api_request_googleGeocode
 class PackageView(MethodView):
     def get(self,id_package=None):
         #if id_package == None:
@@ -18,9 +18,6 @@ class PackageView(MethodView):
                 return jsonify({"error": "No package found with id " + str(id_package)}), 404
             else:
                 if id_package == None:
-                    
-                    for i in package:
-                        print(i.as_dict())
                     return jsonify( [ item.as_dict() for item in package] ), 200
                 return jsonify(package.as_dict()), 200
         except ValueError as error:
@@ -33,7 +30,7 @@ class PackageView(MethodView):
 
         package = model_from_dict(Package, json)
         missing_fields = PackageView.validate_required_fields_presence(package)
-
+        
         if len(missing_fields) != 0:
             return jsonify({"error": "Missing fields:" + str(missing_fields)}), 400
 
