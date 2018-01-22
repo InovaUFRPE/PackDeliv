@@ -35,7 +35,7 @@ export class OrdemServicoPage {
     const modal: Modal = this.modalCtrl.create(ModalOrdemServicoPage);
     modal.present();
     modal.onDidDismiss( data => {
-      this.ordemServico = data;
+      this.ordemServico = data.os;
       console.log('ordemServico: ');
       console.log(this.ordemServico);
     });
