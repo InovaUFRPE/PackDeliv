@@ -48,6 +48,7 @@ class CompanyView(MethodView):
             return jsonify({"error": "Please provide a id_company"}), 400
 
         company = model_from_dict(Company, json)
+        company.addresses = [model_from_dict(Address, dic) for dic in json['addresses']]
         company.id = id_company
 
         try:

@@ -11,6 +11,7 @@ DELIVERY='Delivery'
 PACKAGE='Package'
 LOCALIZATION="Localization"
 CLIENT="Client"
+AREA="Area"
 
 CLIENT_ID='Id'
 CLIENT_UPI='CPF'#unique client identifier

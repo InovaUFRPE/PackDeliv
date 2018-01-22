@@ -2,7 +2,7 @@
 import datetime
 import enum
 from sqlalchemy import create_engine, inspect, Column, Integer, String, Boolean
-from sqlalchemy import ForeignKey, Date, Float, Enum, DateTime
+from sqlalchemy import ForeignKey, Date, Float, Enum, DateTime, BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.orm import sessionmaker, relationship
@@ -19,7 +19,7 @@ class Address(Base):
     number = Column(String(255), nullable = False)
     complement = Column(String(255))
     district = Column(String(255), nullable = False)
-    postal_code = Column(String(255), nullable = False)
+    postal_code = Column(BigInteger, nullable = False)
     city = Column(String(255), nullable = False)
     state = Column(String(255),nullable = False)
     country = Column(String(255),nullable = False)
@@ -58,10 +58,11 @@ class Vehicle(Base):
 
     id = Column(Integer, primary_key = True)
     licence_plate = Column(String(255), unique = True, nullable = False)
-    year = Column(Integer, nullable = False)
+    year = Column(String(4), nullable = False)
     model = Column(String(255), nullable = False)
     color = Column(String(255))
     ready = Column(Boolean, default = False)
+    status = Column(Boolean, default = False)
     volume = Column(Integer, nullable = False)
 
     def as_dict(self):
@@ -112,8 +113,8 @@ class Deliveryman(Company):
     dui = Column(String(255), unique = True, nullable = False)
     status = Column(Boolean, default = False)
     ready = Column(Boolean, default = False)
-    lat = Column(Float(), nullable = False)
-    long = Column(Float(), nullable = False)
+    lat = Column(Float(), nullable = True)
+    long = Column(Float(), nullable = True)
     id_vehicle = Column(Integer, ForeignKey(Vehicle.id))
 
     vehicle = relationship(Vehicle.__name__)
@@ -137,7 +138,7 @@ class Deliveryman(Company):
 
 class Package(Base):
     __tablename__ = PACKAGE
-    PackageStatus = enum.Enum('PackageStatus', ['em fila para coleta','em fila para entrega','em analise','entregue','em coleta','em entrega'])
+    PackageStatus = enum.Enum('PackageStatus', ['em fila para coleta','em fila para entrega','em analise para coleta','em analise para entrega','entregue','em coleta','em entrega'])
 
     id = Column(Integer, primary_key = True)
     width = Column(Integer, nullable = False)
@@ -155,6 +156,7 @@ class Package(Base):
     id_address_destiny = Column(Integer, ForeignKey(ADDRESS + '.id'))#address client id
     id_company = Column(Integer, ForeignKey(COMPANY + '.id'))
     id_client = Column(Integer, ForeignKey(CLIENT + '.id'))
+    id_area = Column(Integer, ForeignKey(AREA + '.id'))
     address_destiny = relationship("Address", foreign_keys=[id_address_destiny])
     address_start = relationship("Address", foreign_keys=[id_address_start])
 
@@ -202,6 +204,7 @@ class Delivery(Base):
         return self.as_dict
 
 class ServiceOrder(Base):
+
     __tablename__ = SERVICE_ORDER
     ServiceOrderStatus = enum.Enum('ServiceOrderStatus', ['em analise','confirmado','finalizado'])
 
@@ -222,8 +225,28 @@ class ServiceOrder(Base):
         return self.as_dict
     #adionar o relacionamento com ordem de serviço e pacote
 
+class Area(Base):
+    __tablename__ = AREA
+    id = Column( Integer, primary_key = True)
+    lat = Column(Float(), nullable = False)
+    long = Column(Float(), nullable = False)
+    area_radius = Column( BigInteger, nullable = False)
+    packages = relationship(Package.__name__)
+
+    def as_dict(self):
+        selfDic = model_as_dict(self)
+        if self.packages != None:
+            selfDic['packages'] = [i.as_dict() for i in self.packages]
+        return selfDic
+     #return {i for i in self.addresses}
+     
+    def __str__(self):      
+        return self.as_dict
+    
+
 def getEngine():
     user ="root"
+    password="Arretterr@"
     address="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)

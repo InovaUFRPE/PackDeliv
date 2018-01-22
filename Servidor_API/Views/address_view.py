@@ -103,7 +103,6 @@ class AddressView(MethodView):
         return missing_fields
     @staticmethod
     def auto_load_loc_address(address):
-        missing_fields = AddressView.validate_required_fields_presence(address)
         address.lat, address.long = External_api_request_googleGeocode().localizationAddress(address.postal_code)
         return address
 def initialize_view(app):
