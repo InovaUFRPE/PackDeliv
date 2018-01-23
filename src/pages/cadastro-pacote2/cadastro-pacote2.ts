@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
-import { Endereco } from "../../interfaces/usuario"
-import { Pacote } from "../../interfaces/pacote"
-import { HomePage } from "../home/home"
+import { Pacote } from "../../interfaces/ordem-de-servico";
+import { HomePage } from "../home/home";
 import { SessionProvider } from '../../providers/session/session';
 
 /**
@@ -21,14 +20,17 @@ import { SessionProvider } from '../../providers/session/session';
 export class CadastroPacote2Page {
 
   public dados = {
-    altura: null,
-    largura: null,
-    comprimento: null,
-    peso: null,
+    altura: '',
+    largura: '',
+    comprimento: '',
+    peso: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public usuarioProvider: UsuarioProvider,
+    private toastCtrl: ToastController) {  }
 
   /**
    * Realiza o cadastro do pacote
@@ -57,45 +59,37 @@ export class CadastroPacote2Page {
     var largura = this.dados.largura;
     var comprimento = this.dados.comprimento;
 
-    if (peso==undefined ) {
+    if (!peso ) {
       this.presentToast('O peso é um campo obrigatório.');
       return;
     }
-    if (altura==undefined ) {
+    if (!altura ) {
       this.presentToast('A altura é um campo obrigatório.');
       return;
     }
-    if (largura==undefined ) {
+    if (!largura ) {
       this.presentToast('A largura é um campo obrigatório.');
       return;
     }
-    if (comprimento==undefined ) {
+    if (!comprimento ) {
       this.presentToast('O comprimento é um campo obrigatório.');
       return;
     }
 
     let endereco = this.navParams.get('endereco');
-    let pacote = new Pacote();
-    pacote.Largura = largura
-    pacote.Altura = altura
-    pacote.Comprimento = comprimento
-    pacote.Peso = peso
-    pacote.Id_endereco_inicio =SessionProvider.getUser().Endereco.Id
-    pacote. Endereco_Destino= endereco
-    pacote. Endereco_Inicio= SessionProvider.getUser().Endereco
-    console.log(pacote);
-    this.usuarioProvider.cadastrarPacote(pacote, () => {
-      this.navCtrl.push(HomePage);
-    });
+
+    // let pacote: Pacote = {
+    //   width: largura,
+    //   height: altura,
+    //   length: comprimento,
+    //   weight: peso,
+    //   id_address_start: SessionProvider.getUser().Endereco.id,
+    // };
     
-  }
- 
-
-
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroPacote2Page');
+    // this.usuarioProvider.cadastrarPacote(pacote, () => {
+    //   this.navCtrl.push(HomePage);
+    // });
+    
   }
 
 }

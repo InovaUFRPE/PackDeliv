@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
 import { Position } from '../../interfaces/position';
+import { Pacote } from "../../interfaces/ordem-de-servico";
 import 'rxjs/add/operator/map';
 
 /*
@@ -12,27 +13,48 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PacoteProvider {
 
-  private url: string = 'http://localhost:5000/'
+  private url: string = 'http://localhost:5000/';
+  
   constructor(public http: Http) {
     console.log('Hello PacoteProvider Provider');
   }
 
-  public emitirOrdemDeServico(volume: number, position: Position) {
+  /**
+   * getRequestOptions configura as opções das requisições.
+   */
+  private getRequestOptionsArgs(): RequestOptionsArgs {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('X-Auth-Token', localStorage.getItem('token'));
-    
+
+    let options = { headers: headers };
+
+    return options;
+  }
+
+  public emitirOrdemDeServico(volume: number, position: Position) {    
     let body = {
       vol: volume*1000,
       position: null
     };
 
-    this.http.post(this.url+'join-packages', body, { headers: headers })
+    this.http.post(this.url+'join-packages', body, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json())
     .subscribe(response => {
-      var ordem_de_servico = response.json().response
-      return ordem_de_servico
+      return response.response;
     }, error => {
-      console.log(error);
+      console.log('Erro ao combinar pacotes: ' + error);
     });
+  }
+
+  public cadastrarPacote(pacote: Pacote, callback: any) {
+    this.http.post(this.url + "package/", pacote, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json())
+      .subscribe((res) => {
+        alert('Pacote cadastrado!');
+        callback();
+      }, (error) => {
+        console.log('Erro ao cadastrar pacote: ' + error);
+      });
   }
 }

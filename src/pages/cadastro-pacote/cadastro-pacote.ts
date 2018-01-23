@@ -19,18 +19,20 @@ import { Endereco } from "../../interfaces/usuario"
 export class CadastroPacotePage {
 
   public dados = {
-    rua: null,
-    numero: null,
-    complemento: null,
-    bairro: null,
-    cep: null,
-    cidade: null,
-    estado: null
+    rua: '',
+    numero: '',
+    complemento: '',
+    bairro: '',
+    cep: '',
+    cidade: '',
+    estado: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioProvider: UsuarioProvider,private toastCtrl: ToastController) {
-    console.log('cadastrar')
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public usuarioProvider: UsuarioProvider,
+    private toastCtrl: ToastController) {  }
   /**
    * Realiza o cadastro de endereço de destino para o pacote
    * no banco de dados.
@@ -52,10 +54,6 @@ export class CadastroPacotePage {
     toast.present();
   }
 
-  irParaCadastrarPacote2(){
-    this.navCtrl.push(CadastroPacote2Page);
-  }
-
   public cadastrarPacote(): void{
     // Pega as informações do endereço
     var rua = this.dados.rua;
@@ -67,27 +65,27 @@ export class CadastroPacotePage {
     var estado = this.dados.estado;
 
     // verificação de campo vazio
-    if (rua==undefined ) {
+    if (!rua ) {
       this.presentToast('A Rua é um campo obrigatório.');
       return;
     }
-    if (numero==undefined ) {
+    if (!numero ) {
       this.presentToast('O Numero é um campo obrigatório.');
       return;
     }
-    if (bairro==undefined ) {
+    if (!bairro ) {
       this.presentToast('O bairro é um campo obrigatório.');
       return;
     }
-    if (cep==undefined ) {
+    if (!cep ) {
       this.presentToast('O CEP é um campo obrigatório.');
       return;
     }
-    if (cidade==undefined ) {
+    if (!cidade ) {
       this.presentToast('A cidade é um campo obrigatório.');
       return;
     }
-    if (estado==undefined ) {
+    if (!estado ) {
       this.presentToast('O estado é um campo obrigatório.');
       return;
     }
@@ -101,22 +99,13 @@ export class CadastroPacotePage {
       city: cidade,
       state: estado,
       type:'',
-      country: 'brasil'
+      country: 'BRASIL'
     };
     console.log(endereco);
     
 
-    this.navCtrl.push(CadastroPacote2Page, {endereco: endereco })
+    this.navCtrl.push(CadastroPacote2Page, {endereco: endereco });
     //aqui deve ter uma criação de objeto para ser mandada para o usuario provider
-
-  }
-
-
-
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastrarPacotePage');
   }
 
 }
