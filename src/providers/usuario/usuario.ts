@@ -1,7 +1,7 @@
 import { Empresa, Entregador, Veiculo, Endereco, Credenciais } from './../../interfaces/usuario';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
-import { Pacote } from '../../interfaces/pacote'
+import { Pacote } from '../../interfaces/ordem-de-servico'
 import { ListaDeEntregasPage } from '../../pages/lista-de-entregas/lista-de-entregas';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,20 +25,17 @@ export class UsuarioProvider {
     return options;
   }
 
-
   public fazerLogin(credenciais: Credenciais): Observable<any> {
     return this.http.post(this.url + 'login/', credenciais, this.getRequestOptionsArgs())
     .map((response: Response) => response.json());
   }
 
-  
   public validarCNPJ(cnpj: string, callback: any): void {
     var resposta = {endereco: undefined, nome: undefined, cnpj: undefined};
 
     this.http.get(this.url + 'cnpj/' + cnpj)
     .map((response: Response) => response.json())
     .subscribe( response => {
-      console.log(response);
       if (response.status != 'ERROR') {
         let ender: Endereco = {
           street: response.logradouro,
@@ -80,21 +77,9 @@ export class UsuarioProvider {
       .map((response: Response) => response.json());
   }
 
-
   public cadastrarEntregador(entregador: Entregador): Observable<any> {
     return this.http.post(this.url+'deliveryman/', entregador, this.getRequestOptionsArgs())
     .map((response: Response) => response.json());
-  }
-
-
-  public cadastrarPacote(pacote: Pacote, callback: any){
-    this.http.post(this.url+"package", pacote, this.getRequestOptionsArgs())
-    .subscribe( (res) => {
-      alert('Pacote cadastrado!');
-      callback();
-    }, (error) => {
-      throw error;
-    });
   }
 
   public atualizarPerfilEmpresa(usuario:Empresa, callback: any){
@@ -116,6 +101,5 @@ export class UsuarioProvider {
       throw error;
     });
   }
-
 
 }

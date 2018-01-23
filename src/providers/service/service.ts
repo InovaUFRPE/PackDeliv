@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response, RequestOptionsArgs } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { OrdemDeServico } from '../../interfaces/ordemDeServico'
+import { OrdemDeServico } from '../../interfaces/ordem-de-servico'
 
 /*
   Generated class for the ServiceProvider provider.
@@ -13,31 +13,40 @@ import { OrdemDeServico } from '../../interfaces/ordemDeServico'
 export class ServiceProvider {
 
   private url: string = 'http://localhost:8080/';
-  lista: any[];
 
   constructor(public http: Http) {
     console.log('Hello ServiceProvider Provider');
   }
 
-  public listagem(informacoes: any, callback: any){
+  /**
+   * getRequestOptions configura as opções das requisições.
+   */
+  private getRequestOptionsArgs(): RequestOptionsArgs {
     let headers = new Headers();
-    headers.append('X-Auth-Token', localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
 
-    this.http.post(this.url + 'join-packages', informacoes, { headers: headers })
+    let options = { headers: headers };
+
+    return options;
+  }
+
+  public listagem(informacoes: any, callback: any){
+    this.http.post(this.url + 'join-packages', informacoes, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json())
     .subscribe((response) => {
-      console.log(response.json());
-      let json = response.json();
-      let code = json['code'];
-      let pacotes = json['deliveries'];
-      let dataFinal = json['finalization_date'];
-      let dataExpedida = json['start_date'];
-      let id = json['id'];
-      let ordemDeServico = new OrdemDeServico(id, code, dataExpedida, dataFinal, pacotes);
+      console.log(response);
+      let ordemDeServico: OrdemDeServico = {
+        code: response['code'],
+        shipping_date: response['start_date'],
+        finalization_date: response['finalization_date'],
+        status: 'pendente',
+        packages: response['deliveries']
+      };
+      
       callback(ordemDeServico);
       //uma lista com cada elemento sendo um dicionario
-    });
-}
-
+    }, error => console.log('Erro ao listar ordem de serviço: ' + error));
+  }
 
 }

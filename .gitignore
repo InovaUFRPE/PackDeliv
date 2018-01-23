@@ -35,3 +35,5 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 __pycache__/
 *.pyc
+
+.ropeproject/

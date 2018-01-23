@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
-import { ServiceProvider } from '../../providers/service/service';
+import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ionic-angular';
 import { SessionProvider} from '../../providers/session/session';
 import { ModalOrdemServicoPage } from "../modal-ordem-servico/modal-ordem-servico";
 
@@ -25,38 +24,21 @@ export class OrdemServicoPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public serviceProvider: ServiceProvider,
     public modalCtrl: ModalController
   ) {  }
 
-  public ngAfterViewInit() {
-    let teste = {vol:2000, position: "", weight:1000}
-    this.serviceProvider.listagem(teste, (resposta) => {
-      this.ordemServico.lista = resposta.pacotes;
-      this.ordemServico.cod = resposta.codigo;
-      this.ordemServico.data = resposta.dataFinal;
+  public ionViewDidLoad() {
+    this.criarModal();
+  }
+
+  private criarModal() {
+    const modal: Modal = this.modalCtrl.create(ModalOrdemServicoPage);
+    modal.present();
+    modal.onDidDismiss( data => {
+      this.ordemServico = data.os;
+      console.log('ordemServico: ');
+      console.log(this.ordemServico);
     });
   }
-
-  private criarModal(ordemServico: any) {
-    let modal = this.modalCtrl.create(ModalOrdemServicoPage, {os: ordemServico});
-    modal.present();
-  }
-
-  public mandarPacotesEscolhidos() {
-    let pacotesEscolhidos = this.ordemServico.lista.filter(
-      pacote => {return pacote.selecionado;}
-    );
-
-    let ordemServico = {
-      lista: pacotesEscolhidos,
-      data: this.ordemServico.data,
-      cod: this.ordemServico.cod
-    };
-
-    this.criarModal(ordemServico);
-    // for (let pacote of pacotesEscolhidos) {
-    //   pacote.selecionado = undefined;
-    // }
-  }
+  
 }
