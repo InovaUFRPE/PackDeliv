@@ -103,7 +103,16 @@ class AddressView(MethodView):
         return missing_fields
     @staticmethod
     def auto_load_loc_address(address):
-        address.lat, address.long = External_api_request_googleGeocode().localizationAddress(address.postal_code)
+        print(address.as_dict())
+        try:
+            address.lat, address.long = External_api_request_googleGeocode().\
+            localizationAddress(postal_code = address.postal_code,
+                            #locality = address.district,
+                            #route = address.street,
+                            #administrative_area_state = address.state,
+                            #administrative_area_city = address.city)
+        except:
+            pass
         return address
 def initialize_view(app):
     endpoint='address_view'

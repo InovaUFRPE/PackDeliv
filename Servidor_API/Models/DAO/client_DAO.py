@@ -54,7 +54,7 @@ class ClientDao():
                 response=session.query(Client).all()
                 response=[client for client in response]
             else:
-                response=session.query(Client).filter(Client.id == id).all()
+                response=session.query(Client).filter(Client.upi == id).all()
                 response=response[0]
             return response
         except:
