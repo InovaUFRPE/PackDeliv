@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, NavController, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
-import { SessionProvider } from '../../providers/session/session';
 
 /**
  * Generated class for the ModalOrdemServicoPage page.
@@ -22,9 +21,9 @@ export class ModalOrdemServicoPage {
   constructor(private viewCtrl: ViewController, private navParams: NavParams, private serviceProvider: ServiceProvider) {
     let teste = { vol: 2000, position: "", weight: 1000 }
     this.serviceProvider.listagem(teste, resposta => {
-      this.ordemServico.lista = resposta.pacotes;
-      this.ordemServico.cod = resposta.codigo;
-      this.ordemServico.data = resposta.dataFinal;
+      this.ordemServico.lista = resposta.packages;
+      this.ordemServico.cod = resposta.code;
+      this.ordemServico.data = resposta.finalization_date;
     });
   }
 

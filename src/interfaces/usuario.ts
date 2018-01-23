@@ -50,3 +50,9 @@ export interface Endereco {
     lat?: number,
     long?: number
 }
+
+export interface Cliente {
+    id?: number,
+    upi: string,
+    name: string
+}

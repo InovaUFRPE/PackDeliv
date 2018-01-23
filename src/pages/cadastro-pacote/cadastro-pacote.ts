@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
-import { Endereco } from "../../interfaces/usuario"
+import { Endereco, Cliente } from "../../interfaces/usuario"
+import { ClienteProvider } from "../../providers/cliente/cliente";
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -32,6 +33,7 @@ export class CadastroPacotePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public usuarioProvider: UsuarioProvider,
+    public clienteProvider: ClienteProvider,
     private toastCtrl: ToastController) {  }
   /**
    * Realiza o cadastro de endereço de destino para o pacote
@@ -102,7 +104,6 @@ export class CadastroPacotePage {
       country: 'BRASIL'
     };
     console.log(endereco);
-    
 
     this.navCtrl.push(CadastroPacote2Page, {endereco: endereco });
     //aqui deve ter uma criação de objeto para ser mandada para o usuario provider

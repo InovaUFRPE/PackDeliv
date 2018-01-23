@@ -32,6 +32,7 @@ import { OrdemServicoPage } from '../pages/ordem-servico/ordem-servico'
 import { ServiceProvider } from '../providers/service/service';
 import { EditarPerfilEntregadorPage } from '../pages/editar-perfil-entregador/editar-perfil-entregador'
 import { ModalOrdemServicoPage } from '../pages/modal-ordem-servico/modal-ordem-servico';
+import { ClienteProvider } from '../providers/cliente/cliente';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { ModalOrdemServicoPage } from '../pages/modal-ordem-servico/modal-ordem-
     EmailComposer,
     SessionProvider,
     PacoteProvider,
-    ServiceProvider
+    ServiceProvider,
+    ClienteProvider
   ]
 })
 export class AppModule {}

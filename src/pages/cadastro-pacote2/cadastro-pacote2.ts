@@ -83,6 +83,7 @@ export class CadastroPacote2Page {
     //   height: altura,
     //   length: comprimento,
     //   weight: peso,
+    //   volume: +largura * +altura * +comprimento,
     //   id_address_start: SessionProvider.getUser().Endereco.id,
     // };
     
