@@ -18,8 +18,8 @@ export interface Entregador extends Empresa {
     vehicle?: Veiculo,
     name_deliveryman: string,
     status: boolean,
-    lat?: number,
-    long?: number,
+    lat: number,
+    long: number,
     ready: boolean,
     dui: string,
     type?: string
@@ -47,8 +47,8 @@ export interface Endereco {
     state: string,
     country: string,
     type: string,
-    lat?: number,
-    long?: number
+    lat: number,
+    long: number
 }
 
 export interface Cliente {

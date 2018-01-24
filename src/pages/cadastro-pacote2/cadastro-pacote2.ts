@@ -76,7 +76,8 @@ export class CadastroPacote2Page {
       return;
     }
 
-    let endereco = this.navParams.get('endereco');
+    let id_endereco_destino = this.navParams.get('endereco');
+    let id_cliente = this.navParams.get('cliente');
 
     // let pacote: Pacote = {
     //   width: largura,
@@ -85,12 +86,13 @@ export class CadastroPacote2Page {
     //   weight: peso,
     //   volume: +largura * +altura * +comprimento,
     //   id_address_start: SessionProvider.getUser().Endereco.id,
+    //   id_address_destiny: id_endereco_destino,
+    //   id_client: id_cliente,
     // };
     
-    // this.usuarioProvider.cadastrarPacote(pacote, () => {
-    //   this.navCtrl.push(HomePage);
+    // this.usuarioProvider.cadastrarPacote(pacote, (response) => {
+    //   this.navCtrl.push(HomePage, response);
     // });
-    
   }
 
 }
