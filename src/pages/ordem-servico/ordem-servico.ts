@@ -32,7 +32,7 @@ export class OrdemServicoPage {
   }
 
   private criarModal() {
-    const modal: Modal = this.modalCtrl.create(ModalOrdemServicoPage);
+    const modal: Modal = this.modalCtrl.create(ModalOrdemServicoPage, {}, {enableBackdropDismiss: false});
     modal.present();
     modal.onDidDismiss( data => {
       this.ordemServico = data.os;

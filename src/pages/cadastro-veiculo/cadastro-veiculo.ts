@@ -61,7 +61,7 @@ export class CadastroVeiculoPage {
       this.presentToast('A placa é um campo obrigatório.');
       return;
     }
-    if (placa.length !=  7 ) {
+    if (placa.length <  7 ) {
       // Faz algo caso não sejam
       this.presentToast('Placa inválida.');
       return;
@@ -93,16 +93,15 @@ export class CadastroVeiculoPage {
       model: modelo,
       color: '',
       ready: false,
-      volume: 0
+      volume: +volume,
+      id_deliveryman: this.navParams.get('id_deliveryman')
     };
-    
 
-    var entregador: Entregador = this.navParams.get('user');
+    console.log(veiculo);
 
-    entregador.vehicle = veiculo;
-
-    this.usuarioProvider.cadastrarVeiculo(veiculo, entregador.id).subscribe( resolve => {
+    this.usuarioProvider.cadastrarVeiculo(veiculo).subscribe( resolve => {
       console.log(resolve);
+      this.navCtrl.push(LoginPage, resolve);
     }, reject => console.log('Erro ao cadastrar veículo: ' + reject));
   }
 

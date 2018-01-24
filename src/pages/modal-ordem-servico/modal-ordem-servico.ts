@@ -27,8 +27,8 @@ export class ModalOrdemServicoPage {
     });
   }
 
-  public fecharModal(ordemServico: any) {
-    this.viewCtrl.dismiss({os: ordemServico});
+  public fecharModal() {
+    this.viewCtrl.dismiss({os: {lista: [], data: '', cod: 0}});
   }
 
   public mandarPacotesEscolhidos() {
@@ -36,13 +36,17 @@ export class ModalOrdemServicoPage {
       pacote => { return pacote.selecionado; }
     );
 
-    let ordemServico = {
-      lista: pacotesEscolhidos,
-      data: this.ordemServico.data,
-      cod: this.ordemServico.cod
-    };
+    var ordemServico = { lista: [], data: '', cod: 0 };
 
-    this.fecharModal(ordemServico);
+    if (pacotesEscolhidos.length > 1) {
+      ordemServico = {
+        lista: pacotesEscolhidos,
+        data: this.ordemServico.data,
+        cod: this.ordemServico.cod
+      };
+    }
+
+    this.viewCtrl.dismiss({ os: ordemServico });
   }
 
 }

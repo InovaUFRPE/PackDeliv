@@ -167,8 +167,7 @@ export class CadastroEntregadorPage {
         console.log(entregador);
         this.usuarioProvider.cadastrarEntregador(entregador).subscribe( res => {
           console.log(res);
-          entregador.id = res.id;
-          this.navCtrl.push(CadastroVeiculoPage, {user: entregador});
+          this.navCtrl.push(CadastroVeiculoPage, {id_deliveryman: res.id});
         }, error => console.log('Erro ao cadastrar entregador: ' + error));
 
       } else {

@@ -1,6 +1,6 @@
 import { SessionProvider } from './../../providers/session/session';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
@@ -32,12 +32,21 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    public usuarioProvider: UsuarioProvider
+    public usuarioProvider: UsuarioProvider,
+    private alertCtrl: AlertController
   ) { }
 
-
-
   public fazerLogin(): void {
+    if (!this.credenciais.login) {
+      this.presentAlert('O campo de login é obrigatório!');
+      return;
+    }
+
+    if (!this.credenciais.password) {
+      this.presentAlert('O campo de senha é obrigatório!');
+      return;
+    }
+
     this.usuarioProvider.fazerLogin(this.credenciais)
     .subscribe( usuario => {
       SessionProvider.openSession(usuario);
@@ -76,5 +85,15 @@ export class LoginPage {
     });
 
     toast.present();
+  }
+
+  private presentAlert(message: string): void {
+    let alert = this.alertCtrl.create({
+      title: 'Alerta',
+      subTitle: message,
+      buttons: ['Ok']
+    });
+
+    alert.present();
   }
 }
