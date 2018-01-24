@@ -101,6 +101,7 @@ export class CadastroVeiculoPage {
 
     this.usuarioProvider.cadastrarVeiculo(veiculo).subscribe( resolve => {
       console.log(resolve);
+      this.navCtrl.push(LoginPage, resolve);
     }, reject => console.log('Erro ao cadastrar veículo: ' + reject));
   }
 
