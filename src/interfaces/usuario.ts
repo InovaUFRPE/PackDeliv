@@ -10,13 +10,13 @@ export interface Veiculo {
     color: string,
     ready: boolean,
     volume: number,
-    id?: number
+    id?: number,
+    id_deliveryman: number
 }
 
 export interface Entregador extends Empresa {
     vehicle?: Veiculo,
     name_deliveryman: string,
-    id_vehicle?: number,
     status: boolean,
     lat?: number,
     long?: number,
