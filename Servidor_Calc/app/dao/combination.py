@@ -18,6 +18,5 @@ class CombinationDAO:
 
     def get_packages(self):
         """Function responsible for the selection of packages from the DB."""
-        url = "localhost:5000/package/"
-        order_list_package = requests.api.get(url)
+        order_list_package = requests.get("http://localhost:5000/package/")
         return order_list_package

@@ -23,24 +23,26 @@ class CombinationController:
         # date = datetime(3000, 1, 1)
         # district = self.choose_district(packages, date)
         area = self.create_micro_region(packages)
-        lista = area.packages
-        while available_vol > 0 and count and available_weight > 0:
-            package = lista[count]
-            if (package.vol <= available_vol) and (package.weight <= available_weight):
-                available_vol -= package.volume
-                available_weight -= package.weight
-                pack_list.append(package)
-            count += 1
-        dateNow = datetime.now()
-        shipping_date = dateNow.strftime('%d/%m/%Y')
-        finalization_date = pack_list[0].delivery_date
-        # finalization_date = (dateNow + timedelta(days=2)).strftime('%d/%m/%Y')
-        service_order = ServiceOrder(pack_list, shipping_date, finalization_date)
+        if(area is not None):
+            lista = area.packages
+            while available_vol > 0 and count and available_weight > 0:
+                package = lista[count]
+                if (package.vol <= available_vol) and (package.weight <= available_weight):
+                    available_vol -= package.volume
+                    available_weight -= package.weight
+                    pack_list.append(package)
+                count += 1
+            dateNow = datetime.now()
+            shipping_date = dateNow.strftime('%d/%m/%Y')
+            finalization_date = pack_list[0].delivery_date
+            # finalization_date = (dateNow + timedelta(days=2)).strftime('%d/%m/%Y')
+            service_order = ServiceOrder(pack_list, shipping_date, finalization_date)
 
-        # service_order.list_package = pack_list
-        # service_order.shipping_date = datetime.datetime.today()
-        return service_order.get()
-
+            # service_order.list_package = pack_list
+            # service_order.shipping_date = datetime.datetime.today()
+            return service_order.get()
+        else:
+            return {"error": "Rota pacote retornou JSON nulo, não tem pacotes cadastrados"}
     def choose_district(self, packages, date):
         print(date)
         newKey = 'bairro3'
@@ -59,27 +61,29 @@ class CombinationController:
         return packages[districtKey]
 
     def create_micro_region(self, list_packages):
-        old_package = list_packages[0]
-        old_address = old_package.address_destiny
-        center_lat = old_address.lat
-        center_long = old_address.long
-        minimum_distance = 1000
-        region = [old_package]
-        list_packages.pop(0)
-        while len(region) < 10 and minimum_distance < 11000 and len(list_packages) != 0:
-            for pos in range(len(list_packages)):
-                package = list_packages[pos]
-                address = package.address_destiny
-                lat = address.lat
-                long = address.long
-                distance = self.haversine(center_lat, center_long, lat, long)
-                if (distance <= minimum_distance):
-                    list_packages.pop(pos)
-                    region.append(package)
-            minimum_distance += 3000
-        area = Area(region, center_lat, center_long, minimum_distance)
-        return area.get()
-
+        if(isinstance(list_packages, list)):
+            old_package = list_packages[0]
+            old_address = old_package.address_destiny
+            center_lat = old_address.lat
+            center_long = old_address.long
+            minimum_distance = 1000
+            region = [old_package]
+            list_packages.pop(0)
+            while len(region) < 10 and minimum_distance < 11000 and len(list_packages) != 0:
+                for pos in range(len(list_packages)):
+                    package = list_packages[pos]
+                    address = package.address_destiny
+                    lat = address.lat
+                    long = address.long
+                    distance = self.haversine(center_lat, center_long, lat, long)
+                    if (distance <= minimum_distance):
+                        list_packages.pop(pos)
+                        region.append(package)
+                minimum_distance += 3000
+            area = Area(region, center_lat, center_long, minimum_distance)
+            return area.get()
+        else:
+            print(type(list_packages))
     def haversine(self, lat1, lon1, lat2, lon2):
         # convert decimal degrees to radians
 
