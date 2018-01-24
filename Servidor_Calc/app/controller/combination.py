@@ -22,8 +22,10 @@ class CombinationController:
         count = 0
         # date = datetime(3000, 1, 1)
         # district = self.choose_district(packages, date)
+        area = self.create_micro_region(packages)
+        lista = area.packages
         while available_vol > 0 and count and available_weight > 0:
-            package = packages[count]
+            package = lista[count]
             if (package.vol <= available_vol) and (package.weight <= available_weight):
                 available_vol -= package.volume
                 available_weight -= package.weight
@@ -56,7 +58,7 @@ class CombinationController:
                             districtKey = key
         return packages[districtKey]
 
-    def create_region(self, list_packages):
+    def create_micro_region(self, list_packages):
         old_package = list_packages[0]
         old_address = old_package.address_destiny
         center_lat = old_address.lat
@@ -64,7 +66,7 @@ class CombinationController:
         minimum_distance = 1000
         region = [old_package]
         list_packages.pop(0)
-        while len(region) < 10 and minimum_distance < 11000:
+        while len(region) < 10 and minimum_distance < 11000 and len(list_packages) != 0:
             for pos in range(len(list_packages)):
                 package = list_packages[pos]
                 address = package.address_destiny
