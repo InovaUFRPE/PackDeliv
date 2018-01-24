@@ -12,14 +12,14 @@ Base = declarative_base()
 
 class Address(Base):
     __tablename__ = ADDRESS
-    AddressType = enum.Enum('AddressType', ['MATRIZ', 'endereco_empresa', 'endereco_cliente'])
+    AddressType = enum.Enum('AddressType', ['MATRIZ','FILIAL', 'endereco_empresa', 'endereco_cliente'])
 
     id = Column(Integer, primary_key = True)
     street = Column(String(255), nullable = False)
     number = Column(String(255), nullable = False)
     complement = Column(String(255))
     district = Column(String(255), nullable = False)
-    postal_code = Column(BigInteger, nullable = False)
+    postal_code = Column(String(255), nullable = False)
     city = Column(String(255), nullable = False)
     state = Column(String(255),nullable = False)
     country = Column(String(255),nullable = False)
@@ -64,6 +64,7 @@ class Vehicle(Base):
     ready = Column(Boolean, default = False)
     status = Column(Boolean, default = False)
     volume = Column(Integer, nullable = False)
+    id_deliveryman = Column(Integer, ForeignKey(DELIVERYMAN+'.id'))
 
     def as_dict(self):
         selfDic = model_as_dict(self)
@@ -115,7 +116,6 @@ class Deliveryman(Company):
     ready = Column(Boolean, default = False)
     lat = Column(Float(), nullable = True)
     long = Column(Float(), nullable = True)
-    id_vehicle = Column(Integer, ForeignKey(Vehicle.id))
 
     vehicle = relationship(Vehicle.__name__)
     __mapper_args__ = {
@@ -124,8 +124,9 @@ class Deliveryman(Company):
 
     def as_dict(self):
         selfDic = model_as_dict(self)
+        selfDic.pop('password')
         if self.vehicle != None:
-            selfDic['vehicle'] = self.vehicle.as_dict()
+            selfDic['vehicle'] = [i.as_dict() for i in self.vehicle]
         if self.addresses != None:
             selfDic['addresses'] = [i.as_dict() for i in self.addresses]
         return selfDic
@@ -245,7 +246,7 @@ class Area(Base):
 
 def getEngine():
     user ="root"
-    password=""
+    password="Arretterr@"
     address="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)
