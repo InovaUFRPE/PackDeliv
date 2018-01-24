@@ -64,6 +64,21 @@ class Address:
         return vars(self)
 
 
+class Area:
+    """Area model class."""
+
+    def __init__(self, packages, lat, lon, radius):
+        """Initialization for Area object."""
+        self.packages = packages
+        self.lat = lat
+        self.lon = lon
+        self.radius = radius
+
+    def get(self):
+        """Representation method for Package."""
+        return vars(self)
+
+
 class ServiceOrder:
     """ServiceOrder model class"""
 
