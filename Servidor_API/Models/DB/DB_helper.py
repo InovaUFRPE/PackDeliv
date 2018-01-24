@@ -33,7 +33,7 @@ class Address(Base):
         selfDic = model_as_dict(self)
         return selfDic
 
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
 
 class Client(Base):
@@ -50,7 +50,7 @@ class Client(Base):
             selfDic['addresses'] = [i.as_dict() for i in self.addresses]
         return selfDic
      #return {i for i in self.addresses}
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
 
 class Vehicle(Base):
@@ -69,7 +69,7 @@ class Vehicle(Base):
         selfDic = model_as_dict(self)
         return selfDic
 
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
 
 class Company(Base):
@@ -103,7 +103,7 @@ class Company(Base):
             selfDic['packages'] = [i.as_dict() for i in self.packages]
         return selfDic
      #return {i for i in self.addresses}
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
 
 class Deliveryman(Company):
@@ -130,7 +130,7 @@ class Deliveryman(Company):
             selfDic['addresses'] = [i.as_dict() for i in self.addresses]
         return selfDic
      #return {i for i in self.addresses}
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
 
 
@@ -151,7 +151,7 @@ class Package(Base):
     static_location = Column(String(255))
     status = Column(Enum(PackageStatus))
     send_date = Column(DateTime, default = datetime.datetime.utcnow)
-    delivery_date = Column(DateTime, default = False)
+    delivery_date = Column(DateTime)
     id_address_start = Column(Integer, ForeignKey(ADDRESS + '.id'))#address company id
     id_address_destiny = Column(Integer, ForeignKey(ADDRESS + '.id'))#address client id
     id_company = Column(Integer, ForeignKey(COMPANY + '.id'))
@@ -164,10 +164,10 @@ class Package(Base):
         selfDic = model_as_dict(self)
         selfDic['address_destiny'] = self.address_destiny.as_dict()
         selfDic['address_start'] = self.address_start.as_dict()
-        
+
         return selfDic
      #return {i for i in self.addresses}
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
     #addresses=relationship(Address.__name__)
     #deliveries=relationship(Delivery.__name__, back_populates="package")
@@ -200,7 +200,7 @@ class Delivery(Base):
             selfDic['package'] = [i.as_dict() for i in self.package]
         return selfDic
      #return {i for i in self.addresses}
-    def __str__(self):      
+    def __str__(self):
         return self.as_dict
 
 class ServiceOrder(Base):
@@ -220,8 +220,8 @@ class ServiceOrder(Base):
             selfDic['deliveries'] = [i.as_dict() for i in self.deliveries]
         return selfDic
      #return {i for i in self.addresses}
-     
-    def __str__(self):      
+
+    def __str__(self):
         return self.as_dict
     #adionar o relacionamento com ordem de serviço e pacote
 
@@ -230,7 +230,7 @@ class Area(Base):
     id = Column( Integer, primary_key = True)
     lat = Column(Float(), nullable = False)
     long = Column(Float(), nullable = False)
-    area_radius = Column( BigInteger, nullable = False)
+    area_radius = Column(BigInteger, nullable = False)
     packages = relationship(Package.__name__)
 
     def as_dict(self):
@@ -238,11 +238,10 @@ class Area(Base):
         if self.packages != None:
             selfDic['packages'] = [i.as_dict() for i in self.packages]
         return selfDic
-     #return {i for i in self.addresses}
-     
-    def __str__(self):      
+
+    def __str__(self):
         return self.as_dict
-    
+
 
 def getEngine():
     user ="root"
@@ -276,7 +275,7 @@ def model_as_dict(model):
     dict = {}
     for attribute_name, column in inspect(model.__class__).columns.items():
         attribute_value = getattr(model, attribute_name)
-        
+
         if isinstance(attribute_value, enum.Enum):
             attribute_value = attribute_value.value
         dict[column.key] = attribute_value

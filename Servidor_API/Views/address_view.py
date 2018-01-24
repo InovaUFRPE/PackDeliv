@@ -30,13 +30,13 @@ class AddressView(MethodView):
         #passar como o parametro o cep e pedir retorno em json
         # estrair apenas as informações de lat e long do endereço enviado
         #lembrar que endereços podem ter o mesmo nome
-        #tentar encontrar 
+        #tentar encontrar
         address = model_from_dict(Address, json)
         missing_fields = AddressView.validate_required_fields_presence(address)
         AddressView.auto_load_loc_address(address)
         if len(missing_fields) != 0:
             return jsonify({"error": "Missing fields:" + str(missing_fields)}), 400
-        
+
         try:
             id_address = AddressControl.register(address)
             return jsonify({ "id": id_address }), 200
@@ -101,9 +101,11 @@ class AddressView(MethodView):
             missing_fields.append('id_client')
 
         return missing_fields
+
     @staticmethod
     def auto_load_loc_address(address):
         print(address.as_dict())
+        '''
         try:
             address.lat, address.long = External_api_request_googleGeocode().\
             localizationAddress(postal_code = address.postal_code,
@@ -113,6 +115,7 @@ class AddressView(MethodView):
                             #administrative_area_city = address.city)
         except:
             pass
+        '''
         return address
 def initialize_view(app):
     endpoint='address_view'
