@@ -1,10 +1,11 @@
 # coding=utf-8
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from Models.DB.DB_helper import INIT_API
 from Views import(vehicle_view, company_view, deliveryman_view,
 address_view, client_view, package_view, delivery_view, service_order_view, login_view,
 area_view)
+import requests
 
 app = Flask(__name__)
 
