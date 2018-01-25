@@ -39,7 +39,7 @@ class External_api_request_googleGeocode :
         components = "components=%s"%(formated_parameters)
         
         requestUrl = self.formated_url%(components)
-        print(requestUrl)
+        
         response = requests.get(requestUrl)
 
         response = response.json()

@@ -27,7 +27,7 @@ class VehicleView(MethodView):
 
         vehicle = model_from_dict(Vehicle, json)
 
-        if vehicle.licence_plate == None:
+        if vehicle.license_plate == None:
             return jsonify({"error": "Missing " + VEHICLE_LICENSE_PLATE}), 400
         elif vehicle.year == None:
             return jsonify({"error": "Missing " + VEHICLE_YEAR}), 400

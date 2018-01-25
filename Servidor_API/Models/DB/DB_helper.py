@@ -57,7 +57,7 @@ class Vehicle(Base):
     __tablename__= VEHICLE
 
     id = Column(Integer, primary_key = True)
-    licence_plate = Column(String(255), unique = True, nullable = False)
+    license_plate = Column(String(255), unique = True, nullable = False)
     year = Column(String(4), nullable = False)
     model = Column(String(255), nullable = False)
     color = Column(String(255))
@@ -246,10 +246,10 @@ class Area(Base):
 
 def getEngine():
     user ="root"
-    password="Arretterr@"
+    password=""
     address="localhost"
     database_name="packDeliv"
-    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)
+    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=False)
 
     return engine
 

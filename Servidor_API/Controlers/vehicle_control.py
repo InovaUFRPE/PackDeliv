@@ -43,5 +43,5 @@ class VehicleControl:
 
     @staticmethod
     def validate_license_plate(vehicle):
-        if vehicle.licence_plate != None and re.match(LICENSE_PLATE_REGEX, vehicle.licence_plate) == None:
+        if vehicle.license_plate != None and re.match(LICENSE_PLATE_REGEX, vehicle.license_plate) == None:
             raise ValueError('Invalid license plate, please use the format AAA-9999')
