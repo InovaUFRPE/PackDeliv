@@ -55,7 +55,7 @@ export class EditarPerfilEntregadorPage {
       return;
     }
 
-    var nomeCompleto=this.dados.nomeCompleto;
+    // var nomeCompleto=this.dados.nomeCompleto;
     var cep = this.dados.cep;
     var bairro = this.dados.bairro;
     var complemento = this.dados.complemento;
@@ -78,9 +78,6 @@ export class EditarPerfilEntregadorPage {
       SessionProvider.getUser().addresses.street=logradouro
     }
     
-    var usuario: object = {
-      Email: email
-    };
     
     SessionProvider.getUser().email=email
     

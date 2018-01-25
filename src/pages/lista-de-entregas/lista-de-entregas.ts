@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { SessionProvider } from '../../providers/session/session';
 
 /**

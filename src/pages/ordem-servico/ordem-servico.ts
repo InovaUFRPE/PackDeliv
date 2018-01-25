@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ionic-angular';
-import { SessionProvider} from '../../providers/session/session';
 import { ModalOrdemServicoPage } from "../modal-ordem-servico/modal-ordem-servico";
 
 

@@ -70,13 +70,7 @@ export class EditarPerfilPage {
       SessionProvider.getUser().addresses.street=logradouro
     }
     
-    var usuario: object = {
-      Email: email
-    };
-    
     SessionProvider.getUser().email=email
-    
-
     
     this.usuarioProvider.atualizarPerfilEmpresa(SessionProvider.getUser(),  () => {
       this.navCtrl.push(PerfilPage);

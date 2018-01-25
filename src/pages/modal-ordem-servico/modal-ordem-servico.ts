@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 
 /**
@@ -18,7 +18,7 @@ export class ModalOrdemServicoPage {
 
   public ordemServico = {cod: 0, data: '', lista: []};
 
-  constructor(private viewCtrl: ViewController, private navParams: NavParams, private serviceProvider: ServiceProvider) {
+  constructor(private viewCtrl: ViewController, private serviceProvider: ServiceProvider) {
     let teste = { vol: 2000, position: "", weight: 1000 }
     this.serviceProvider.listagem(teste, resposta => {
       this.ordemServico.lista = resposta.packages;

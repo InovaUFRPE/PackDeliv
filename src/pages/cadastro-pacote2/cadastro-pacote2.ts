@@ -5,6 +5,7 @@ import { Pacote } from "../../interfaces/ordem-de-servico";
 import { HomePage } from "../home/home";
 import { SessionProvider } from '../../providers/session/session';
 import { PacoteProvider } from '../../providers/pacote/pacote'
+import { ClienteProvider } from '../../providers/cliente/cliente';
 
 /**
  * Generated class for the CadastroPacote2Page page.
@@ -32,7 +33,8 @@ export class CadastroPacote2Page {
     public navParams: NavParams,
     public usuarioProvider: UsuarioProvider,
     private toastCtrl: ToastController,
-    private pacoteProvider: PacoteProvider) {  }
+    private pacoteProvider: PacoteProvider,
+    private clienteProvider: ClienteProvider) {  }
 
   /**
    * Realiza o cadastro do pacote
@@ -78,10 +80,14 @@ export class CadastroPacote2Page {
       return;
     }
 
-    let id_endereco_destino = this.navParams.get('endereco');
+    var id_endereco_destino;
     let id_cliente = this.navParams.get('cliente');
+    this.clienteProvider.pegarCliente(id_cliente).subscribe(response => {
+      console.log(response);
+      id_endereco_destino = response.addresses[0].id;
+    }, error => console.log('Erro ao pegar cliente: ' + error));
 
-     let pacote: Pacote = {
+    let pacote: Pacote = {
        width: +largura,
        height: +altura,
        length: +comprimento,
@@ -92,12 +98,14 @@ export class CadastroPacote2Page {
        id_client: id_cliente,
        shipped: false,
        received: false,
-       static_location:'',
-       status:'em fila de coleta',
-       id_company:SessionProvider.getUser().id,
+       static_location: '',
+       status: 'em fila de coleta',
+       id_company: SessionProvider.getUser().id
      };
+     console.log(pacote);
     
      this.pacoteProvider.cadastrarPacote(pacote, (response) => {
+       console.log(response);
        this.navCtrl.push(HomePage, response);
      });
   }

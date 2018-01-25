@@ -1,8 +1,6 @@
 import { Empresa, Entregador, Veiculo, Endereco, Credenciais } from './../../interfaces/usuario';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
-import { Pacote } from '../../interfaces/ordem-de-servico'
-import { ListaDeEntregasPage } from '../../pages/lista-de-entregas/lista-de-entregas';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()

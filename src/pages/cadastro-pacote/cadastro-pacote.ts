@@ -4,7 +4,6 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
 import { Endereco, Cliente } from "../../interfaces/usuario"
 import { ClienteProvider } from "../../providers/cliente/cliente";
-import { EnderecoProvider } from "../../providers/endereco/endereco"
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -37,8 +36,7 @@ export class CadastroPacotePage {
     public navParams: NavParams,
     public usuarioProvider: UsuarioProvider,
     public clienteProvider: ClienteProvider,
-    private toastCtrl: ToastController,
-    private enderecoProvider: EnderecoProvider) {  }
+    private toastCtrl: ToastController) {  }
   /**
    * Realiza o cadastro de endereço de destino para o pacote
    * no banco de dados.
@@ -117,21 +115,17 @@ export class CadastroPacotePage {
       lat: 0,
       long: 0
     };
-    console.log(endereco);
-
-    // TODO: cadastrar endereço aqui! ALMOST DONE falta teste
-    var idEndereco = this.enderecoProvider.cadastrarEndereco(endereco);
 
      let cliente: Cliente = {
        name: nome,
-       upi: cpf
+       upi: cpf,
+       addresses: [endereco]
      };
      console.log(cliente);
 
-    // TODO: cadastrar o cliente aqui! ALMOST DONE falta teste
-    var idCliente = this.clienteProvider.cadastrarCliente(cliente);
-
-    this.navCtrl.push(CadastroPacote2Page, {endereco: idEndereco , cliente: idCliente});
+    this.clienteProvider.cadastrarCliente(cliente).subscribe( response => {
+      this.navCtrl.push(CadastroPacote2Page, { cliente: response.id });
+    }, error => console.log('Erro ao cadastrar cliente: ' + error));
   }
 
 }

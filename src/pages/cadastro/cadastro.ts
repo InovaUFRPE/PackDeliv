@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
-import { LoginPage } from "../login/login";
 import { Empresa } from '../../interfaces/usuario';
 
 
@@ -135,7 +134,7 @@ export class CadastroPage {
       Email: email
     };
 
-    var informacoes = this.usuarioProvider.validarCNPJ(usuario.CNPJ, (resposta) => {
+    this.usuarioProvider.validarCNPJ(usuario.CNPJ, (resposta) => {
       if (resposta) {
         console.log(resposta);
         let empresa: Empresa = {

@@ -38,6 +38,7 @@ export interface Empresa {
 
 export interface Endereco {
     id?: string,
+    id_client?: number,
     street: string,
     number: string,
     complement: string,
@@ -54,5 +55,6 @@ export interface Endereco {
 export interface Cliente {
     id?: number,
     upi: string,
-    name: string
+    name: string,
+    addresses: [Endereco]
 }

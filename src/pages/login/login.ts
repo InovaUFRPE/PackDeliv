@@ -6,10 +6,8 @@ import { EscolhaCadastroPage } from "../escolha-cadastro/escolha-cadastro";
 import { CadastroPage } from "../cadastro/cadastro";
 import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
-import { PerfilPage } from '../perfil/perfil';
 import { HomeEntregadorPage } from '../home-entregador/home-entregador'
 import { Credenciais } from '../../interfaces/usuario';
-import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 
 /**
  * Generated class for the LoginPage page.
@@ -71,20 +69,6 @@ export class LoginPage {
 
   public irParaRecuperarSenha() {
     this.navCtrl.push(RecuperarSenhaPage);
-  }
-
-  private presentToast(message: string) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'bottom'
-    });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
   }
 
   private presentAlert(message: string): void {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
-import { Entregador, Veiculo } from '../../interfaces/usuario';
+import { Veiculo } from '../../interfaces/usuario';
 import { LoginPage } from '../login/login';
 
 /**
@@ -91,7 +91,7 @@ export class CadastroVeiculoPage {
       license_plate: placa,
       year: ano,
       model: modelo,
-      color: '',
+      color: 'sem cor',
       ready: false,
       volume: +volume,
       id_deliveryman: this.navParams.get('id_deliveryman')

@@ -40,4 +40,12 @@ export class ClienteProvider {
     .map((response: Response) => response.json());
   }
 
+  /**
+   * pegarCliente
+   */
+  public pegarCliente(idCliente: number) {
+    return this.http.get(this.url + 'client/' + idCliente, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json());
+  }
+
 }
