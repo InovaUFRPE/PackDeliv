@@ -101,4 +101,12 @@ export class UsuarioProvider {
     });
   }
 
+  public atualizarStatusEntregador(usuario:Empresa){
+    this.http.put(this.url+'deliveryman/'+usuario.id, usuario, this.getRequestOptionsArgs())
+    .subscribe( (res) => {
+    }, (error) => {
+      throw error;
+    });
+  }
+
 }

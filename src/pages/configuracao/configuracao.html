@@ -16,12 +16,8 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label color="verd">Escolha uma opção</ion-label>
-          <ion-select [(ngModel)]="status" (ionChange)="onChange(status)">
-            <ion-option value ="ativo">Ativo</ion-option>
-            <ion-option value ="servico">Em serviço</ion-option>
-            <ion-option value ="inativo">Inativo</ion-option>
-          </ion-select>
+          <ion-label> Status</ion-label>
+          <ion-toggle  [(ngModel)]="status" (ngModelChange)="onChange()"  color="verd"></ion-toggle>
         </ion-item>
       </ion-list>
     </ion-card-content>
