@@ -4,6 +4,7 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
 import { Endereco, Cliente } from "../../interfaces/usuario"
 import { ClienteProvider } from "../../providers/cliente/cliente";
+import { EnderecoProvider } from "../../providers/endereco/endereco"
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -26,7 +27,9 @@ export class CadastroPacotePage {
     bairro: '',
     cep: '',
     cidade: '',
-    estado: ''
+    estado: '',
+    nome: '',
+    cpf:''
   };
 
   constructor(
@@ -34,7 +37,8 @@ export class CadastroPacotePage {
     public navParams: NavParams,
     public usuarioProvider: UsuarioProvider,
     public clienteProvider: ClienteProvider,
-    private toastCtrl: ToastController) {  }
+    private toastCtrl: ToastController,
+    private enderecoProvider: EnderecoProvider) {  }
   /**
    * Realiza o cadastro de endereço de destino para o pacote
    * no banco de dados.
@@ -65,6 +69,8 @@ export class CadastroPacotePage {
     var cep = this.dados.cep;
     var cidade = this.dados.cidade;
     var estado = this.dados.estado;
+    var nome = this.dados.nome;
+    var cpf = this.dados.cpf;
 
     // verificação de campo vazio
     if (!rua ) {
@@ -91,6 +97,12 @@ export class CadastroPacotePage {
       this.presentToast('O estado é um campo obrigatório.');
       return;
     }
+    if(!cpf){
+      this.presentToast('O cpf é um campo obrigatório.')
+    }
+    if(!nome){
+      this.presentToast('O nome é um campo obrigatório.')
+    }
 
     let endereco: Endereco = {
       street: rua,
@@ -107,17 +119,19 @@ export class CadastroPacotePage {
     };
     console.log(endereco);
 
-    // TODO: cadastrar endereço aqui!
+    // TODO: cadastrar endereço aqui! ALMOST DONE falta teste
+    var idEndereco = this.enderecoProvider.cadastrarEndereco(endereco);
 
-    // let cliente: Cliente = {
-    //   name: //nome completo ,
-    //   upi: //cpf
-    // };
-    // console.log(cliente);
+     let cliente: Cliente = {
+       name: nome,
+       upi: cpf
+     };
+     console.log(cliente);
 
-    // TODO: cadastrar o cliente aqui!
+    // TODO: cadastrar o cliente aqui! ALMOST DONE falta teste
+    var idCliente = this.clienteProvider.cadastrarCliente(cliente);
 
-    this.navCtrl.push(CadastroPacote2Page, {endereco: endereco /*, cliente: cliente*/});
+    this.navCtrl.push(CadastroPacote2Page, {endereco: idEndereco , cliente: idCliente});
   }
 
 }

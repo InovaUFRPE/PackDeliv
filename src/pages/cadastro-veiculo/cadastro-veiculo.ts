@@ -89,7 +89,7 @@ export class CadastroVeiculoPage {
 
     var veiculo: Veiculo = {
       license_plate: placa,
-      year: +ano,
+      year: ano,
       model: modelo,
       color: '',
       ready: false,

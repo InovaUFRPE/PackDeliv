@@ -4,6 +4,7 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { Pacote } from "../../interfaces/ordem-de-servico";
 import { HomePage } from "../home/home";
 import { SessionProvider } from '../../providers/session/session';
+import { PacoteProvider } from '../../providers/pacote/pacote'
 
 /**
  * Generated class for the CadastroPacote2Page page.
@@ -30,7 +31,8 @@ export class CadastroPacote2Page {
     public navCtrl: NavController,
     public navParams: NavParams,
     public usuarioProvider: UsuarioProvider,
-    private toastCtrl: ToastController) {  }
+    private toastCtrl: ToastController,
+    private pacoteProvider: PacoteProvider) {  }
 
   /**
    * Realiza o cadastro do pacote
@@ -79,20 +81,25 @@ export class CadastroPacote2Page {
     let id_endereco_destino = this.navParams.get('endereco');
     let id_cliente = this.navParams.get('cliente');
 
-    // let pacote: Pacote = {
-    //   width: largura,
-    //   height: altura,
-    //   length: comprimento,
-    //   weight: peso,
-    //   volume: +largura * +altura * +comprimento,
-    //   id_address_start: SessionProvider.getUser().Endereco.id,
-    //   id_address_destiny: id_endereco_destino,
-    //   id_client: id_cliente,
-    // };
+     let pacote: Pacote = {
+       width: +largura,
+       height: +altura,
+       length: +comprimento,
+       weight: +peso,
+       volume: +largura * +altura * +comprimento,
+       id_address_start: SessionProvider.getUser().Endereco.id,
+       id_address_destiny: id_endereco_destino,
+       id_client: id_cliente,
+       shipped: false,
+       received: false,
+       static_location:'',
+       status:'em fila de coleta',
+       id_company:SessionProvider.getUser().id,
+     };
     
-    // this.usuarioProvider.cadastrarPacote(pacote, (response) => {
-    //   this.navCtrl.push(HomePage, response);
-    // });
+     this.pacoteProvider.cadastrarPacote(pacote, (response) => {
+       this.navCtrl.push(HomePage, response);
+     });
   }
 
 }
