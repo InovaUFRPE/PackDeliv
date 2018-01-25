@@ -18,11 +18,11 @@ export interface Pacote {
     volume: number,
     static_location: string,
     status: string,
-    send_date: string,
-    delivery_date: string,
+    send_date?: string,
+    delivery_date?: string,
     id_address_start: number,
     id_address_destiny: number,
     id_company: number,
     id_client: number,
-    id_area: number
+    id_area?: number
 }
