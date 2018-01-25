@@ -108,7 +108,7 @@ class AddressView(MethodView):
         '''
         try:
             address.lat, address.long = External_api_request_googleGeocode().\
-            localizationAddress(postal_code = address.postal_code,
+            localizationAddress(postal_code = address.postal_code)
                             #locality = address.district,
                             #route = address.street,
                             #administrative_area_state = address.state,

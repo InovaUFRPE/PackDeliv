@@ -5,7 +5,7 @@ export interface Credenciais {
 
 export interface Veiculo {
     license_plate: string,
-    year: number,
+    year: string,
     model: string,
     color: string,
     ready: boolean,
