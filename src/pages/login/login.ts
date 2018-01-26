@@ -56,7 +56,7 @@ export class LoginPage {
         this.navCtrl.push(HomePage, usuario);
       }
     }, error => {
-      console.log('Erro ao fazer login: ' + error);
+      this.presentAlert('Erro ao fazer login: ' + error);
     });
   }
 

@@ -44,20 +44,6 @@ export class HomePage {
     this.navCtrl.push(ListaDeEntregasPage);
   }
 
-  public emitirOrdemDeServico() {
-    var volume: number = SessionProvider.getUser().car.volume;
-
-    this.geolocation.getCurrentPosition().then((resp) => {
-      let position: Position;
-      position.lat = resp.coords.latitude;
-      position.lng = resp.coords.longitude;
-
-      return this.pacoteProvider.emitirOrdemDeServico(volume, position);
-
-    }).catch(error => {
-      throw error;
-    });
-  }
   sair(){
     SessionProvider.closeSession();
     this.navCtrl.popToRoot();

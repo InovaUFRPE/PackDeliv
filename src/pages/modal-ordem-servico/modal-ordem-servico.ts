@@ -38,7 +38,7 @@ export class ModalOrdemServicoPage {
 
     var ordemServico = { lista: [], data: '', cod: 0 };
 
-    if (pacotesEscolhidos.length > 1) {
+    if (pacotesEscolhidos.length >= 1) {
       ordemServico = {
         lista: pacotesEscolhidos,
         data: this.ordemServico.data,
