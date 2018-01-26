@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal ,AlertController} from 'ionic-angular';
 import { SessionProvider} from '../../providers/session/session';
+import{UsuarioProvider} from '../../providers/usuario/usuario';
 import { ModalOrdemServicoPage } from "../modal-ordem-servico/modal-ordem-servico";
 
 
@@ -22,6 +23,7 @@ export class OrdemServicoPage {
   public ordemServico = {lista: [], cod: 0, data: ''};
   public ativo:boolean= SessionProvider.getUser().status;
   constructor(
+    public usuarioProvider: UsuarioProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -40,6 +42,9 @@ export class OrdemServicoPage {
     }
     else{
       this.criarModal();
+      SessionProvider.getUser().ready=true;
+      this.usuarioProvider.atualizarStatusEntregador(SessionProvider.getUser());
+      
     }
   }
 
