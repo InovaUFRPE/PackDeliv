@@ -23,14 +23,14 @@
     "@ionic-native/core": "4.3.2",
     "@ionic-native/email-composer": "^4.4.2",
     "@ionic-native/geolocation": "^4.4.2",
-    "@ionic-native/google-maps": "^4.4.2",
+    "@ionic-native/google-maps": "^4.5.3",
     "@ionic-native/splash-screen": "4.3.2",
     "@ionic-native/status-bar": "4.3.2",
     "@ionic/storage": "2.0.1",
     "cordova-android": "6.3.0",
     "cordova-plugin-device": "^1.1.7",
-    "cordova-plugin-email-composer": "^0.8.11",
-    "cordova-plugin-geolocation": "^3.0.0",
+    "cordova-plugin-email-composer": "^0.8.13",
+    "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.1.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^4.1.0",
@@ -55,14 +55,14 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-email-composer": {},
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyA_9gioNuaX-AXrHlcbjV-rEjq56pKuB7M",
+        "API_KEY_FOR_IOS": "AIzaSyBOYWT4wXbInN56zITvVXCPdlfYNsGa5pA"
+      },
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      },
-      "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "AIzaSyD99EZL4UdZsVdFR0namBSMWXmbn7NBhuM",
-        "API_KEY_FOR_IOS": "AIzaSyD99EZL4UdZsVdFR0namBSMWXmbn7NBhuM"
-      },
-      "cordova-plugin-email-composer": {}
+      }
     },
     "platforms": [
       "android"

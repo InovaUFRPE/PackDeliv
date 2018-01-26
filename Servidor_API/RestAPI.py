@@ -31,4 +31,4 @@ if __name__ == '__main__' :
     service_order_view.initialize_view(app)
     login_view.initialize_view(app)
     area_view.initialize_view(app)
-    app.run()
+    app.run(host='0.0.0.0')
