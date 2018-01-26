@@ -110,7 +110,7 @@ export class CadastroPacotePage {
       postal_code: cep,
       city: cidade,
       state: estado,
-      type:'',
+      type:'endereco_cliente',
       country: 'BRASIL',
       lat: 0,
       long: 0
@@ -124,7 +124,7 @@ export class CadastroPacotePage {
      console.log(cliente);
 
     this.clienteProvider.cadastrarCliente(cliente).subscribe( response => {
-      this.navCtrl.push(CadastroPacote2Page, { cliente: response.id });
+      this.navCtrl.push(CadastroPacote2Page, { cliente: cliente });
     }, error => console.log('Erro ao cadastrar cliente: ' + error));
   }
 
