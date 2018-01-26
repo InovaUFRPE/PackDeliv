@@ -6,8 +6,6 @@ import { PerfilPage } from "../perfil/perfil";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 import { PacoteProvider } from '../../providers/pacote/pacote';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Position } from '../../interfaces/position';
 
 /**
  * Generated class for the HomePage page.
@@ -22,9 +20,13 @@ import { Position } from '../../interfaces/position';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  rootPage = PerfilPage;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public pacoteProvider: PacoteProvider, public geolocation: Geolocation) {
-  }
+  
+  public rootPage = PerfilPage;
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public pacoteProvider: PacoteProvider) {  }
 
 
 
