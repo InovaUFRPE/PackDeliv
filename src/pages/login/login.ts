@@ -50,6 +50,7 @@ export class LoginPage {
       SessionProvider.openSession(usuario);
       console.log(SessionProvider.getUser());
       var user = SessionProvider.getUser();
+      this.credenciais = {login: '', password: ''};
       if (user.type == "Deliveryman") {
         this.navCtrl.push(HomeEntregadorPage, usuario);
       } else {

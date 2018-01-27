@@ -111,7 +111,8 @@ export class CadastroPacote2Page {
     console.log(pacote);
     this.pacoteProvider.cadastrarPacote(pacote, (response) => {
       console.log(response);
-      this.navCtrl.push(HomePage, response);
+      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.popToRoot();
     });
   }, 5000);
   }

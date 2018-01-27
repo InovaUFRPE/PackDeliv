@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
-import { Position } from '../../interfaces/position';
 import { Pacote } from "../../interfaces/ordem-de-servico";
 import 'rxjs/add/operator/map';
 

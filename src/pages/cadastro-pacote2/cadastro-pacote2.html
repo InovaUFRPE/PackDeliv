@@ -1,44 +1,42 @@
 <ion-header>
   
-    <h1 class="titulo">Cadastre o destino do pacote</h1>
-  
     <ion-navbar>
       <ion-title>Cadastro de pacote</ion-title>
     </ion-navbar>
   
-    <ion-list>
-      
-          <ion-item>
-            <ion-label floating>Altura:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.altura" id="inputAltura" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Largura:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.largura" id="inputLargura" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Comprimento:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.comprimento" id="inputComprimento" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Peso:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.peso" id="inputPeso" required></ion-input>
-          </ion-item>
-  
-          
-          <div text-center>
-            <button ion-button clear color="verd" (click)="cadastrarPacote()">Cadastre-se</button>
-          </div>
     
-       
-        </ion-list>
   
   </ion-header>
   
   
-  <ion-content padding>
-  
+  <ion-content>
+    <ion-list>
+    
+      <ion-item>
+        <ion-label floating>Altura:</ion-label>
+        <ion-input type="text" [(ngModel)]="dados.altura" id="inputAltura" required></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>Largura:</ion-label>
+        <ion-input type="text" [(ngModel)]="dados.largura" id="inputLargura" required></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>Comprimento:</ion-label>
+        <ion-input type="text" [(ngModel)]="dados.comprimento" id="inputComprimento" required></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>Peso:</ion-label>
+        <ion-input type="text" [(ngModel)]="dados.peso" id="inputPeso" required></ion-input>
+      </ion-item>
+    
+    
+      <div text-center>
+        <button ion-button block color="verd" (click)="cadastrarPacote()">Cadastre</button>
+      </div>
+    
+    
+    </ion-list>
   </ion-content>

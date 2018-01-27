@@ -6,6 +6,7 @@ import { PerfilPage } from "../perfil/perfil";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 import { PacoteProvider } from '../../providers/pacote/pacote';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the HomePage page.
@@ -48,6 +49,7 @@ export class HomePage {
 
   sair(){
     SessionProvider.closeSession();
+    this.navCtrl.setRoot(LoginPage);
     this.navCtrl.popToRoot();
   }
 }
