@@ -15,7 +15,7 @@ class VehicleControl:
 
     @staticmethod
     def register(vehicle):
-        VehicleControl.validate_license_plate(vehicle)
+        # VehicleControl.validate_license_plate(vehicle)
 
         try:
             id_vehicle = dao.save(vehicle)
@@ -41,7 +41,7 @@ class VehicleControl:
         except Exception as error:
             raise ValueError('Unable to remove vehicle: ' + str(error))
 
-    @staticmethod
-    def validate_license_plate(vehicle):
-        if vehicle.license_plate != None and re.match(LICENSE_PLATE_REGEX, vehicle.license_plate) == None:
-            raise ValueError('Invalid license plate, please use the format AAA-9999')
+    # @staticmethod
+    # def validate_license_plate(vehicle):
+    #     if vehicle.license_plate != None and re.match(LICENSE_PLATE_REGEX, vehicle.license_plate) == None:
+    #         raise ValueError('Invalid license plate, please use the format AAA-9999')

@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 export class PacoteProvider {
 
   private url: string = 'http://localhost:5000/';
-  
+
   constructor(public http: Http) {
     console.log('Hello PacoteProvider Provider');
   }
@@ -31,7 +31,7 @@ export class PacoteProvider {
     return options;
   }
 
-  public emitirOrdemDeServico(volume: number, position: Position) {    
+  public emitirOrdemDeServico(volume: number) {
     let body = {
       vol: volume*1000,
       position: null
