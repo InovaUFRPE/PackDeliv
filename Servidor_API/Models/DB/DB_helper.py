@@ -190,7 +190,7 @@ class Delivery(Base):
     shipping_date = Column(DateTime, default = datetime.datetime.utcnow)
     finalization_date = Column(DateTime, default = False)
     status = Column( Enum(DeliveryStatus), nullable = False)
-    type = Column(Enum(DeliveryType), nullable = False)
+    type = Column(Enum(DeliveryType), nullable = False, default = 'saiu para entrega')
     id_service_order = Column(ForeignKey(SERVICE_ORDER+'.id'))
     id_package = Column(Integer, ForeignKey(PACKAGE+'.id'))
     package = relationship(Package.__name__)
@@ -198,7 +198,7 @@ class Delivery(Base):
     def as_dict(self):
         selfDic = model_as_dict(self)
         if self.package != None:
-            selfDic['package'] = [i.as_dict() for i in self.package]
+            selfDic['package'] = self.package.as_dict() 
         return selfDic
      #return {i for i in self.addresses}
     def __str__(self):
@@ -246,10 +246,10 @@ class Area(Base):
 
 def getEngine():
     user ="root"
-    password=""
+    password="Arretterr@"
     address="localhost"
     database_name="packDeliv"
-    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=False)
+    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)
 
     return engine
 
