@@ -2,7 +2,7 @@ import re, bcrypt
 from Models.DAO.client_DAO import ClientDao
 from Models.DAO.DAO_utils import printError
 
-NAME_MINIMUM_LENGTH = 6
+NAME_MINIMUM_LENGTH = 3
 UPI_EXACT_LENGTH = 11
 UPI_REGEX = re.compile("[0-9]{11}")
 

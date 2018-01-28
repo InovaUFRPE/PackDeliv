@@ -104,9 +104,9 @@ class AddressView(MethodView):
 
     @staticmethod
     def auto_load_loc_address(address):
-        
+        return address
  
-        try:
+        '''try:
             address.lat, address.long = External_api_request_googleGeocode().\
             localizationAddress(postal_code = address.postal_code)
                             #locality = address.district,
@@ -116,7 +116,7 @@ class AddressView(MethodView):
         except:
             pass
 
-        return address
+        return address'''
 def initialize_view(app):
     endpoint='address_view'
     methods=['GET','PUT','POST','DELETE']

@@ -47,7 +47,6 @@ class External_api_request_googleGeocode :
         if response['status'] == 'OK':
             
             localization = response['results'][0]['geometry']['location']
-            print(localization)
             return localization['lat'], localization['lng']
-        print(response['status'])
-        return response['status']
+        
+        return 0.0 , 0.0 
