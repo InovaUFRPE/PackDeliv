@@ -34,6 +34,7 @@ import { EditarPerfilEntregadorPage } from '../pages/editar-perfil-entregador/ed
 import { ModalOrdemServicoPage } from '../pages/modal-ordem-servico/modal-ordem-servico';
 import { ClienteProvider } from '../providers/cliente/cliente';
 import { EnderecoProvider } from '../providers/endereco/endereco';
+import { MapaEntregadorPage } from '../pages/mapa-entregador/mapa-entregador';
 
 @NgModule({
   declarations: [
@@ -56,8 +57,9 @@ import { EnderecoProvider } from '../providers/endereco/endereco';
     PerfilEntregadorPage,
     OrdemServicoPage,
     EditarPerfilEntregadorPage,
-    ModalOrdemServicoPage
-    
+    ModalOrdemServicoPage,
+    MapaEntregadorPage
+
   ],
   imports: [
     BrowserModule,
@@ -85,8 +87,9 @@ import { EnderecoProvider } from '../providers/endereco/endereco';
     PerfilEntregadorPage,
     OrdemServicoPage,
     EditarPerfilEntregadorPage,
-    ModalOrdemServicoPage
-    
+    ModalOrdemServicoPage,
+    MapaEntregadorPage
+
   ],
   providers: [
     StatusBar,

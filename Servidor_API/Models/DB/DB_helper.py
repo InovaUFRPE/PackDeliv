@@ -198,7 +198,7 @@ class Delivery(Base):
     def as_dict(self):
         selfDic = model_as_dict(self)
         if self.package != None:
-            selfDic['package'] = self.package.as_dict() 
+            selfDic['package'] = self.package.as_dict()
         return selfDic
      #return {i for i in self.addresses}
     def __str__(self):
@@ -246,10 +246,10 @@ class Area(Base):
 
 def getEngine():
     user ="root"
-    password="Arretterr@"
+    password=""
     address="localhost"
     database_name="packDeliv"
-    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=True)
+    engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=False)
 
     return engine
 
