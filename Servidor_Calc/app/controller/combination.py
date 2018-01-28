@@ -113,8 +113,12 @@ class CombinationController:
         packages = combinationDAO.get_packages()
         region = self.create_micro_region(packages)
         self.region = []
-        for area in len(region):
-            combinationDAO.send_area(area)
+        if (region is None):
+            print("Região não foi criada")
+            print(packages)
+        else:
+            for area in len(region):
+                combinationDAO.send_area(area)
 
     def haversine(self, lat1, lon1, lat2, lon2):
         # convert decimal degrees to radians
