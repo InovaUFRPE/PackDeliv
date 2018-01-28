@@ -1,4 +1,4 @@
-from Models.DB.DB_helper import getSession, Area
+from Models.DB.DB_helper import getSession, Area, Package
 from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
 
 class AreaDao():
@@ -8,9 +8,19 @@ class AreaDao():
     def save(self, area):
         session = getSession()
         checkType('Area', area)
+        id_list = [package.id for package in area.packages]
+        setattr(area, 'packages', [])
         session.add(area)
         session.commit()
         session.refresh(area)
+        id_area = area.id
+        session.close()
+        session = getSession()
+        packages = session.query(Package).filter(Package.id.in_( id_list)).all()
+        for package in packages :
+            package.id_area = id_area
+        session.add_all(packages)
+        session.commit()
         session.close()
 
         return area.id

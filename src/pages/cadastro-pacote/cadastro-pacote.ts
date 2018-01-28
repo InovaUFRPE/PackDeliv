@@ -4,6 +4,7 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
 import { Endereco, Cliente } from "../../interfaces/usuario"
 import { ClienteProvider } from "../../providers/cliente/cliente";
+import { EnderecoProvider } from "../../providers/endereco/endereco"
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -36,7 +37,8 @@ export class CadastroPacotePage {
     public navParams: NavParams,
     public usuarioProvider: UsuarioProvider,
     public clienteProvider: ClienteProvider,
-    private toastCtrl: ToastController) {  }
+    private toastCtrl: ToastController,
+    private enderecoProvider: EnderecoProvider) {  }
   /**
    * Realiza o cadastro de endereço de destino para o pacote
    * no banco de dados.
