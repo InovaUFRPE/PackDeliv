@@ -21,7 +21,8 @@ import { ModalOrdemServicoPage } from "../modal-ordem-servico/modal-ordem-servic
 export class OrdemServicoPage {
 
   public ordemServico = {lista: [], cod: 0, data: ''};
-  public ativo:boolean= SessionProvider.getUser().status;
+  public ativo: boolean = SessionProvider.getUser().status;
+
   constructor(
     public usuarioProvider: UsuarioProvider,
     public navCtrl: NavController,
@@ -30,33 +31,31 @@ export class OrdemServicoPage {
     private alertCtrl: AlertController
   ) {  }
 
-  public ionViewDidLoad() {
-  }
-
-  private verificarStatus(){
-    this.ativo=SessionProvider.getUser().status;
-    if (this.ativo==false){
-      this.presentAlert('Por favor! Altere seu status na tela de configuração pra poder gerar uma ordem de serviço!!');
-      return;
-
-    }
-    else{
-      this.criarModal();
-      SessionProvider.getUser().ready=true;
-      this.usuarioProvider.atualizarStatusEntregador(SessionProvider.getUser());
-      
-    }
+  private gerarOrdemDeServico(){
+    this.criarModal();
+    SessionProvider.getUser().ready=true;
+    this.usuarioProvider.atualizarStatusEntregador(SessionProvider.getUser());
   }
 
   private criarModal() {
     const modal: Modal = this.modalCtrl.create(ModalOrdemServicoPage, {}, {enableBackdropDismiss: false});
     modal.present();
     modal.onDidDismiss( data => {
-      this.ordemServico = data.os;
-      console.log('ordemServico: ');
-      console.log(this.ordemServico);
+      console.log(data);
+      if (data.os.lista.lenght != 0) {
+          this.ordemServico = data.os;
+          console.log('ordem de serviço:');
+          console.log(this.ordemServico);
+      }
     });
   }
+
+  public confirmarEntrega(ordemServico) {
+    this.ordemServico = {lista: [], cod: 0, data: ''};
+    SessionProvider.getUser().status = false;
+    this.presentAlert('Bom trabalho! Continue assim!');
+  }
+
   private presentAlert(message: string): void {
     let alert = this.alertCtrl.create({
       title: 'Alerta',
@@ -66,5 +65,9 @@ export class OrdemServicoPage {
 
     alert.present();
   }
-  
+
+  ionViewDidEnter() {
+    this.ativo = SessionProvider.getUser().status;
+  }
+
 }

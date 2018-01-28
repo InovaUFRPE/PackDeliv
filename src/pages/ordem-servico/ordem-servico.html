@@ -22,6 +22,7 @@
     </ion-item>
   </ion-list>
   <div>
-    <button ion-button block color="verd" large round (click)="verificarStatus()">Solicitar Entrega</button>
+    <button ion-button block color="verd" large round [disabled]="!ativo || ordemServico.lista.length != 0" (click)="gerarOrdemDeServico()">Solicitar Entrega</button>
+    <button ion-button block color="verd" *ngIf="ativo && ordemServico.lista.length != 0" large round (click)="confirmarEntrega()">Entrega realizada</button>
   </div>
 </ion-content>

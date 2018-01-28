@@ -8,7 +8,7 @@ from flask import jsonify, request
 from app import app
 from app.controller.combination import CombinationController
 from app.dao.combination import CombinationDAO
-from app.lib.utils import LatLng
+# from app.lib.utils import LatLng
 
 combinationCtrl = CombinationController()
 combinationDAO = CombinationDAO()
@@ -18,7 +18,7 @@ combinationDAO = CombinationDAO()
 def match_packages():
     """Function responsible for IO related to combination of packages."""
     vehicle = request.get_json()
-    #vehicle['position'] = LatLng(vehicle['position'])
+    # vehicle['position'] = LatLng(vehicle['position'])
     info_service_order = combinationCtrl.join_packages(vehicle)
     return jsonify(info_service_order)
 
