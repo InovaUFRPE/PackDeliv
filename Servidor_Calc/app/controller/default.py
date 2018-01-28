@@ -29,8 +29,7 @@ def match_packages():
 @app.route('/region', methods=['GET'])
 def create_region():
     """Function responsible for IO related to creation of region."""
-    packages = combinationDAO.get_packages()
-    response = combinationCtrl.create_region(packages)
+    response = combinationCtrl.create_area()
     return jsonify(response)
 
 

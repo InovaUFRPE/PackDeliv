@@ -15,6 +15,7 @@ class Timer(threading.Thread):
         print(response)
 
 
-t = Timer(60)
+t = Timer(2)
 while True:
     t.run()
+    t = Timer(60)

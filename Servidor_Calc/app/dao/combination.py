@@ -20,3 +20,6 @@ class CombinationDAO:
         """Function responsible for the selection of packages from the DB."""
         order_list_package = requests.get("http://localhost:5000/package/")
         return order_list_package
+
+    def send_area(self, area):
+        requests.post("http://localhost:5000/area/", area)
