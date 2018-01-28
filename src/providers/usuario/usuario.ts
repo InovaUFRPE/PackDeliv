@@ -35,12 +35,13 @@ export class UsuarioProvider {
     .map((response: Response) => response.json())
     .subscribe( response => {
       if (response.status != 'ERROR') {
+        let cep = response.cep.replace('.', '').replace('-', '');
         let ender: Endereco = {
           street: response.logradouro,
           number: response.numero,
           complement: response.complemento,
           district: response.bairro,
-          postal_code: response.cep,
+          postal_code: cep,
           city: response.municipio,
           state: response.uf,
           country: 'BRASIL',
@@ -95,6 +96,14 @@ export class UsuarioProvider {
     .subscribe( (res) => {
       alert('Perfil atualizado!');
       callback();
+    }, (error) => {
+      throw error;
+    });
+  }
+
+  public atualizarStatusEntregador(usuario:Empresa){
+    this.http.put(this.url+'deliveryman/'+usuario.id, usuario, this.getRequestOptionsArgs())
+    .subscribe( (res) => {
     }, (error) => {
       throw error;
     });

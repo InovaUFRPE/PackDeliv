@@ -6,8 +6,7 @@ import { PerfilPage } from "../perfil/perfil";
 import { CadastroPacotePage } from "../cadastro-pacote/cadastro-pacote"
 import { ListaDeEntregasPage } from '../lista-de-entregas/lista-de-entregas';
 import { PacoteProvider } from '../../providers/pacote/pacote';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Position } from '../../interfaces/position';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the HomePage page.
@@ -22,9 +21,13 @@ import { Position } from '../../interfaces/position';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  rootPage = PerfilPage;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public pacoteProvider: PacoteProvider, public geolocation: Geolocation) {
-  }
+  
+  public rootPage = PerfilPage;
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public pacoteProvider: PacoteProvider) {  }
 
 
 
@@ -44,22 +47,9 @@ export class HomePage {
     this.navCtrl.push(ListaDeEntregasPage);
   }
 
-  public emitirOrdemDeServico() {
-    var volume: number = SessionProvider.getUser().car.volume;
-
-    this.geolocation.getCurrentPosition().then((resp) => {
-      let position: Position;
-      position.lat = resp.coords.latitude;
-      position.lng = resp.coords.longitude;
-
-      return this.pacoteProvider.emitirOrdemDeServico(volume, position);
-
-    }).catch(error => {
-      throw error;
-    });
-  }
   sair(){
     SessionProvider.closeSession();
+    this.navCtrl.setRoot(LoginPage);
     this.navCtrl.popToRoot();
   }
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response } from '@angular/http';
-import { Position } from '../../interfaces/position';
 import { Pacote } from "../../interfaces/ordem-de-servico";
 import 'rxjs/add/operator/map';
 
@@ -14,7 +13,7 @@ import 'rxjs/add/operator/map';
 export class PacoteProvider {
 
   private url: string = 'http://localhost:5000/';
-  
+
   constructor(public http: Http) {
     console.log('Hello PacoteProvider Provider');
   }
@@ -32,7 +31,7 @@ export class PacoteProvider {
     return options;
   }
 
-  public emitirOrdemDeServico(volume: number, position: Position) {    
+  public emitirOrdemDeServico(volume: number) {
     let body = {
       vol: volume*1000,
       position: null

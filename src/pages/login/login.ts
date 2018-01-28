@@ -50,13 +50,14 @@ export class LoginPage {
       SessionProvider.openSession(usuario);
       console.log(SessionProvider.getUser());
       var user = SessionProvider.getUser();
+      this.credenciais = {login: '', password: ''};
       if (user.type == "Deliveryman") {
         this.navCtrl.push(HomeEntregadorPage, usuario);
       } else {
         this.navCtrl.push(HomePage, usuario);
       }
     }, error => {
-      console.log('Erro ao fazer login: ' + error);
+      this.presentAlert('Erro ao fazer login: ' + error);
     });
   }
 

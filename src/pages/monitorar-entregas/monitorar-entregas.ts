@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { GoogleMap, GoogleMaps, GoogleMapsEvent, LatLng, CameraPosition, GoogleMapOptions } from '@ionic-native/google-maps';
-import { Geolocation } from "@ionic-native/geolocation";
+import { Geolocation, PositionError } from "@ionic-native/geolocation";
 
 /**
  * Generated class for the MonitorarEntregasPage page.
@@ -18,8 +18,12 @@ import { Geolocation } from "@ionic-native/geolocation";
 export class MonitorarEntregasPage {
 
   map: GoogleMap;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, private geolocation: Geolocation, public alertCtrl: AlertController) {
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private googleMaps: GoogleMaps, 
+    private geolocation: Geolocation, 
+    public alertCtrl: AlertController) {  }
 
   ngAfterViewInit() {
     this.updateCoords();
@@ -29,8 +33,8 @@ export class MonitorarEntregasPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       let position: LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
       this.loadMap(position);
-    }).catch((error) => {
-      throw error;
+    }).catch((error: PositionError) => {
+      this.showAlert('Erro', 'Erro ao pegar coordenadas: ' + error.message);
     });
   }
 

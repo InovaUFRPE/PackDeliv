@@ -4,60 +4,63 @@
       <ion-title>Cadastro de pacote</ion-title>
     </ion-navbar>
   
-    <ion-list>
-      
-          <ion-item>
-            <ion-label floating>Rua:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.rua" id="inputRua" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Número:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.numero" id="inputNumero" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Complemento:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.complemento" id="inputComplemento" ></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Bairro:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.bairro" id="inputBairro" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>CEP:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.cep" id="inputCEP" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Cidade:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.cidade" id="inputCidade" required></ion-input>
-          </ion-item>
-  
-          <ion-item>
-            <ion-label floating>Estado:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.estado" id="inputEstado" required></ion-input>
-          </ion-item>
+</ion-header>
 
-          <ion-item>
-            <ion-label floating>Nome do destinatario:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.nome" id="inputNome" required></ion-input>
-          </ion-item>
+<ion-content>
+  <ion-list>
+  <ion-item>
+    <ion-label floating>Rua:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.rua" id="inputRua" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Número:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.numero" id="inputNumero" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Complemento:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.complemento" id="inputComplemento"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Bairro:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.bairro" id="inputBairro" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>CEP:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.cep" id="inputCEP" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Cidade:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.cidade" id="inputCidade" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Estado:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.estado" id="inputEstado" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Nome do destinatario:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.nome" id="inputNome" required></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>CPF do destinatario:</ion-label>
+    <ion-input type="text" [(ngModel)]="dados.cpf" id="inputCpf" required></ion-input>
+  </ion-item>
+  
+  
+  </ion-list>
 
-          <ion-item>
-            <ion-label floating>CPF do destinatario:</ion-label>
-            <ion-input type="text" [(ngModel)]="dados.cpf" id="inputCpf" required></ion-input>
-          </ion-item>
+  <div text-center>
+    <button ion-button large color="verd" round large (click)="cadastrarPacote()">Proximo</button>
+  </div>
+</ion-content>
+          
   
-          <div text-center>
-            <button ion-button large color="verd" round large (click)="cadastrarPacote()
-            ">Proximo</button>
-          </div>
-    
-  
-        </ion-list>
-  
-  </ion-header>
+
   

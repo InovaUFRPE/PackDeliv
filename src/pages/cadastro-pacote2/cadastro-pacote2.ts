@@ -20,7 +20,9 @@ import { ClienteProvider } from '../../providers/cliente/cliente';
   templateUrl: 'cadastro-pacote2.html',
 })
 export class CadastroPacote2Page {
-
+  public id_endereco_destino;
+  public cliente;
+  public id_client;
   public dados = {
     altura: '',
     largura: '',
@@ -58,6 +60,18 @@ export class CadastroPacote2Page {
   }
 
   public cadastrarPacote(): void{
+    this.cliente = this.navParams.get('cliente');
+    this.clienteProvider.pegarCliente(this.cliente.upi).subscribe(response => {
+      this.id_endereco_destino = response.Client.addresses[0].id;
+      this.id_client = response.Client.id;
+    }, error => console.log('Erro ao pegar cliente: ' + error));
+
+    
+     this.chamarCadastroDePacote();
+  }
+
+  chamarCadastroDePacote(){
+    setTimeout(()=>{
     var peso = this.dados.peso;
     var altura = this.dados.altura;
     var largura = this.dados.largura;
@@ -79,35 +93,28 @@ export class CadastroPacote2Page {
       this.presentToast('O comprimento é um campo obrigatório.');
       return;
     }
-
-    var id_endereco_destino;
-    let id_cliente = this.navParams.get('cliente');
-    this.clienteProvider.pegarCliente(id_cliente).subscribe(response => {
-      console.log(response);
-      id_endereco_destino = response.addresses[0].id;
-    }, error => console.log('Erro ao pegar cliente: ' + error));
-
     let pacote: Pacote = {
-       width: +largura,
-       height: +altura,
-       length: +comprimento,
-       weight: +peso,
-       volume: +largura * +altura * +comprimento,
-       id_address_start: SessionProvider.getUser().Endereco.id,
-       id_address_destiny: id_endereco_destino,
-       id_client: id_cliente,
-       shipped: false,
-       received: false,
-       static_location: '',
-       status: 'em fila de coleta',
-       id_company: SessionProvider.getUser().id
-     };
-     console.log(pacote);
-    
-     this.pacoteProvider.cadastrarPacote(pacote, (response) => {
-       console.log(response);
-       this.navCtrl.push(HomePage, response);
-     });
+      width: +largura,
+      height: +altura,
+      length: +comprimento,
+      weight: +peso,
+      volume: +largura * +altura * +comprimento,
+      id_address_start: SessionProvider.getUser().addresses[0].id,
+      id_address_destiny: this.id_endereco_destino,
+      id_client: this.id_client,
+      shipped: false,
+      received: false,
+      static_location: '',
+      status: 'em fila para coleta',
+      id_company: SessionProvider.getUser().id
+    };
+    console.log(pacote);
+    this.pacoteProvider.cadastrarPacote(pacote, (response) => {
+      console.log(response);
+      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.popToRoot();
+    });
+  }, 5000);
   }
 
 }
