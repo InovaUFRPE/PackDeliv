@@ -10,8 +10,11 @@ from app.controller.combination import CombinationController
 from app.dao.combination import CombinationDAO
 # from app.lib.utils import LatLng
 
+
 combinationCtrl = CombinationController()
 combinationDAO = CombinationDAO()
+
+
 
 
 @app.route('/join-packages', methods=['POST'])
@@ -21,6 +24,13 @@ def match_packages():
     # vehicle['position'] = LatLng(vehicle['position'])
     info_service_order = combinationCtrl.join_packages(vehicle)
     return jsonify(info_service_order)
+
+
+@app.route('/region', methods=['GET'])
+def create_region():
+    """Function responsible for IO related to creation of region."""
+    response = combinationCtrl.create_area()
+    return jsonify(response)
 
 
 @app.route('/routes', methods=['POST'])
