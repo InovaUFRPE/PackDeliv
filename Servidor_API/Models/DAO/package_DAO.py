@@ -49,10 +49,10 @@ class PackageDao():
         session = getSession()
         try:
             if id == None:
-                response=session.query(Package).all()
+                response=session.query(Package).filter(Package.id_area == None).order_by(Package.send_date).all()
                 response=[package for package in response]
             else:
-                response=session.query(Package).filter(Package.id == id).order_by(Package.send_date).all()
+                response=session.query(Package).filter(Package.id == id).all()
                 response=response[0]
             return response
         except:
