@@ -6,12 +6,14 @@ from app.lib.utils import ServiceOrder, Area
 from datetime import datetime, timedelta
 from math import radians, cos, sin, asin, sqrt
 
+
 combinationDAO = CombinationDAO()
 
 
 class CombinationController:
     """The class responsible to control the combination process."""
     region = []
+    min_number_packages = 10
 
     def join_packages(self, vehicle):
         """Method responsible for the match of the packages."""
@@ -64,60 +66,64 @@ class CombinationController:
 
     def create_micro_region(self, list_packages):
         trash_packages = []
-        min_number_packages = 10
-        if(isinstance(list_packages, list)):
-            if(len(list_packages) == 0):
-                return self.region
-            elif(len(list_packages == 1)):
-                trash_packages.append(list_packages[0])
-                list_packages.pop(0)
-            elif(len(list_packages) < 10):
-                min_number_packages = 1
-            else:
-                old_package = list_packages[0]
-                old_address = old_package["address_destiny"]
-                center_lat = old_address["lat"]
-                center_long = old_address["long"]
-                real_distance = 1000
-                isAdd = 0
-                min_distance = 0
-                micro_region = [old_package["id"]]
-                list_packages.pop(0)
-                while (len(micro_region) < min_number_packages) and (real_distance <=  5000) and (len(list_packages) != 0):
-                    for pos in range(len(list_packages)):
-                        package = list_packages[pos]
-                        address = package["address_destiny"]
-                        lat = address["lat"]
-                        long = address["long"]
-                        distance = self.haversine(center_lat, center_long, lat, long)
-                        if (distance <= real_distance):
-                            list_packages.pop(pos)
-                            micro_region.append(package["id"])
-                            isAdd += 1
-                    if (isAdd == 0):
-                        min_distance += 1000
-                        if (min_distance == 2000):
-                            if (len(micro_region) == 1):
-                                trash_packages.append(old_package)
-                            else:
-                                list_packages.append(old_package)
-                    real_distance += 1000
-
-                area = {"long": center_long, "lat": center_long, "packages": micro_region, "area_radius": real_distance }
-                self.region.append(area)
-                return self.create_micro_region(list_packages)
+        limit_distance = 5000
+        if(len(list_packages) == 0):
+            return self.region
+        elif(len(list_packages) == 1):
+            trash_package = list_packages.pop(0)
+            trash_packages.append(trash_package)
+            return self.create_micro_region(list_packages)
+        elif(len(list_packages) < 10) and self.min_number_packages == 10:
+            self.min_number_packages = 1
+            return self.create_micro_region(list_packages)
         else:
-            print(type(list_packages))
+            old_package = list_packages[0]
+            old_address = old_package["address_destiny"]
+            center_lat = old_address["lat"]
+            center_long = old_address["long"]
+            real_distance = 1000
+            isAdd = 0
+            min_distance = 0
+            id_old_pack = {"id": old_package["id"]}
+            micro_region = [id_old_pack]
+            list_packages.pop(0)
+            while (len(micro_region) <= self.min_number_packages) and (real_distance <=  limit_distance) and (len(list_packages) != 0):
+                for pos in range(len(list_packages)):
+                    package = list_packages[pos]
+                    address = package["address_destiny"]
+                    lat = address["lat"]
+                    long = address["long"]
+                    distance = self.haversine(center_lat, center_long, lat, long)
+                    print(distance)
+                    if (distance <= real_distance):
+                        list_packages.pop(pos)
+                        id_pack = {"id": package["id"]}
+                        micro_region.append(id_pack)
+                        isAdd += 1
+                if (isAdd == 0):
+                    min_distance += 1000
+                    if (min_distance == 2000):
+                        if (len(micro_region) == 1):
+                            trash_packages.append(old_package)
+                        else:
+                            list_packages.append(old_package)
+                real_distance += 1000
+            area = {"long": center_long, "lat": center_long, "packages": micro_region, "area_radius": real_distance }
+            self.region.append(area)
+            return self.create_micro_region(list_packages)
 
     def create_area(self):
         packages = combinationDAO.get_packages()
-        region = self.create_micro_region(packages)
+        region_create = self.create_micro_region(packages)
         self.region = []
-        if (region is None):
+        if (region_create is None):
             print("Região não foi criada")
             print(packages)
+            print(region_create)
         else:
-            for area in len(region):
+            print(region_create)
+            for pos in range(len(region_create)):
+                area = region_create[pos]
                 combinationDAO.send_area(area)
 
     def haversine(self, lat1, lon1, lat2, lon2):

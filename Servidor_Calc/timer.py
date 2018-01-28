@@ -18,4 +18,4 @@ class Timer(threading.Thread):
 t = Timer(2)
 while True:
     t.run()
-    t = Timer(60)
+    t = Timer(300)

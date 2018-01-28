@@ -3,6 +3,7 @@
 
 import requests
 from app.lib.utils import popular
+from flask import jsonify
 
 
 class CombinationDAO:
@@ -18,8 +19,8 @@ class CombinationDAO:
 
     def get_packages(self):
         """Function responsible for the selection of packages from the DB."""
-        order_list_package = requests.get("http://localhost:5000/package/")
-        return order_list_package
+        response = requests.get("http://localhost:5000/package/")
+        return response.json()
 
     def send_area(self, area):
-        requests.post("http://localhost:5000/area/", area)
+        requests.post("http://localhost:5000/area/", json=area)
