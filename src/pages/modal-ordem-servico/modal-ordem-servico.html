@@ -17,13 +17,13 @@
   <ion-list>
     <ion-item *ngFor="let pacote of ordemServico.lista">
       <ion-label>
-        <p>Rua: {{pacote.address.street}}</p>
-        <p>Número: {{pacote.address.number}}</p>
+        <p>Rua: {{pacote.address_destiny.street}}</p>
+        <p>Número: {{pacote.address_destiny.number}}</p>
         <p>Altura: {{pacote.height}}</p>
         <p>Comprimento: {{pacote.lenght}}</p>
         <p>Largura: {{pacote.width}}</p>
         <p>Peso: {{pacote.weight}}</p>
-        <p>Volume: {{pacote.vol}}</p>
+        <p>Volume: {{pacote.volume}}</p>
       </ion-label>
       <ion-checkbox color="verd" [(ngModel)]="pacote.selecionado"></ion-checkbox>
     </ion-item>

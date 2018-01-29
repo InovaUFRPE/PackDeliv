@@ -22,5 +22,10 @@ class CombinationDAO:
         response = requests.get("http://localhost:5000/package/")
         return response.json()
 
+    def get_area(self):
+        """Function responsible for the selection of packages from the DB."""
+        response = requests.get("http://localhost:5000/area/")
+        return response.json()
+
     def send_area(self, area):
         requests.post("http://localhost:5000/area/", json=area)

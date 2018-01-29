@@ -17,52 +17,54 @@ class CombinationController:
 
     def join_packages(self, vehicle):
         """Method responsible for the match of the packages."""
-        packages = combinationDAO.get_packages()
+        areas = combinationDAO.get_area()
         # service_order = Service_order()
+        area = self.choose_area(areas)
         pack_list = []
         available_vol = 0.8 * vehicle['vol']
         available_weight = 0.8 * vehicle['weight']
         count = 0
         # date = datetime(3000, 1, 1)
         # district = self.choose_district(packages, date)
-        area = self.create_region(packages)
         if(area is not None):
-            lista = area.packages
-            while available_vol > 0 and count and available_weight > 0:
+            lista = area["packages"]
+            while available_vol > 0 and available_weight > 0 and count < len(lista):
                 package = lista[count]
-                if (package.vol <= available_vol) and (package.weight <= available_weight):
-                    available_vol -= package.volume
-                    available_weight -= package.weight
+                if (package["volume"] <= available_vol) and (package["weight"] <= available_weight):
+                    available_vol -= package["volume"]
+                    available_weight -= package["weight"]
                     pack_list.append(package)
                 count += 1
             dateNow = datetime.now()
             shipping_date = dateNow.strftime('%d/%m/%Y')
-            finalization_date = pack_list[0].delivery_date
-            # finalization_date = (dateNow + timedelta(days=2)).strftime('%d/%m/%Y')
-            service_order = ServiceOrder(pack_list, shipping_date, finalization_date)
+            if (len(pack_list) != 0):
+                packageP = pack_list[0]
+                finalization_date = packageP["delivery_date"]
+                # finalization_date = (dateNow + timedelta(days=2)).strftime('%d/%m/%Y')
+                service_order = ServiceOrder(pack_list, shipping_date, finalization_date)
 
-            # service_order.list_package = pack_list
-            # service_order.shipping_date = datetime.datetime.today()
-            return service_order.get()
+                # service_order.list_package = pack_list
+                # service_order.shipping_date = datetime.datetime.today()
+                return service_order.get()
+            else:
+                return {"error": "Lista de pacotes escolhidos está vazia"}
         else:
             return {"error": "Rota pacote retornou JSON nulo, não tem pacotes cadastrados"}
 
-    def choose_district(self, packages, date):
-        print(date)
-        newKey = 'bairro3'
-        for key, value in packages.items():
-            districtKey = newKey
-            allDistrict = value
-            for qtPackage in range(len(allDistrict)):
-                packageFinalDate = allDistrict[qtPackage].final_date
-                if packageFinalDate.year < date.year:
-                    districtKey = key
-                    if packageFinalDate.month < date.month:
-                        districtKey = key
-                        if packageFinalDate.day < date.day:
-                            date = packageFinalDate
-                            districtKey = key
-        return packages[districtKey]
+    def choose_area(self, areas):
+        cd_lat = -8.017658
+        cd_long = -34.944438
+        choosen = ""
+        distanceP = 99999999999999999999
+        for pos in range(len(areas)):
+            area = areas[pos]
+            lat = area["lat"]
+            long = area["long"]
+            distance = self.haversine(cd_lat, cd_long, lat, long)
+            if (distance < distanceP):
+                distanceP = distance
+                choosen = area
+        return choosen
 
     def create_micro_region(self, list_packages):
         trash_packages = []
@@ -105,10 +107,8 @@ class CombinationController:
                     if (min_distance == 2000):
                         if (len(micro_region) == 1):
                             trash_packages.append(old_package)
-                        else:
-                            list_packages.append(old_package)
                 real_distance += 1000
-            area = {"long": center_long, "lat": center_long, "packages": micro_region, "area_radius": real_distance }
+            area = {"long": center_long, "lat": center_lat, "packages": micro_region, "area_radius": real_distance }
             self.region.append(area)
             return self.create_micro_region(list_packages)
 
