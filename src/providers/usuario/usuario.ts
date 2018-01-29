@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UsuarioProvider {
 
-  private url: string = 'http://localhost:5000/';
+  private url: string = 'http://159.89.180.74:5000/';
 
   constructor (public http: Http) {  }
 
