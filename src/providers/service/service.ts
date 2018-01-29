@@ -12,7 +12,7 @@ import { OrdemDeServico } from '../../interfaces/ordem-de-servico'
 @Injectable()
 export class ServiceProvider {
 
-  private url: string = 'http://159.89.180.74:8080/';
+  private url: string = 'http://159.89.180.74:8425/';
 
   constructor(public http: Http) {
     console.log('Hello ServiceProvider Provider');
