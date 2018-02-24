@@ -3,7 +3,7 @@ from Models.DAO.deliveryman_DAO import DeliverymanDao
 from Models.DAO.DAO_utils import printError
 from Controlers.company_control import CompanyControl
 
-NAME_MINIMUM_LENGTH = 6
+NAME_MINIMUM_LENGTH = 3
 DUI_MINIMUM_LENGTH = 6
 LAT_MINIMUM_VALUE = -90.0
 LAT_MAXIMUM_VALUE = 90.0

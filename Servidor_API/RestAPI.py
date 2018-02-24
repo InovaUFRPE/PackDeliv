@@ -8,9 +8,9 @@ area_view)
 import requests
 
 app = Flask(__name__)
-
 INIT_API()
 CORS(app)
+
 @app.route('/cnpj/<cnpj>',methods=['GET'])
 def cnpj(cnpj):
     if request.method == 'GET':
@@ -30,5 +30,4 @@ if __name__ == '__main__' :
     service_order_view.initialize_view(app)
     login_view.initialize_view(app)
     area_view.initialize_view(app)
-    app.run(host='0.0.0.0')
     app.run()

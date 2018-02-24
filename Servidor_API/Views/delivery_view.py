@@ -11,7 +11,7 @@ class DeliveryView(MethodView):
     def get(self,id_delivery=None):
         if id_delivery == None:
             return jsonify({"error": "Please provide a id_delivery"}), 400
-
+        
         try:
             delivery = DeliveryControl.find(id_delivery)
             if delivery == None:
@@ -88,4 +88,4 @@ def initialize_view(app):
     methods=['POST','GET','PUT','DELETE']
     url='/delivery/'
     pk='id_delivery'
-    register_view(app,DeliveryView,endpoint,url,methods,pk)
+    register_view(app,DeliveryView,endpoint,url,methods,pk, pk_type= 'string')

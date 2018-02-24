@@ -40,10 +40,9 @@ class Client(Base):
     __tablename__=CLIENT
 
     id = Column(Integer, primary_key = True)
-    upi=Column(String(11), unique = True)#unique company identifier
-    name=Column(String(255), nullable = False)
-    addresses=relationship(Address.__name__)
-
+    upi = Column(String(11), unique = True)#unique company identifier
+    name = Column(String(255), nullable = False)  
+    addresses = relationship(Address.__name__)
     def as_dict(self):
         selfDic = model_as_dict(self)
         if self.addresses != None:
@@ -84,6 +83,7 @@ class Company(Base):
     email = Column(String(255), unique = True,nullable = False)
     uci = Column(String(14), unique = True)#unique company identifier
     type = Column(String(255))
+    photo_url = Column(String(255), unique = True)
     addresses=relationship(Address.__name__)
     packages = relationship ('Package')
     __mapper_args__ = {
@@ -186,6 +186,7 @@ class Delivery(Base):
     DeliveryType = enum.Enum('DeliveryType', ['entrega','coleta'])
 
     id = Column(Integer, primary_key = True)
+    id_deliveryman = Column(ForeignKey(DELIVERYMAN+'.id'))
     code = Column(String(255))
     shipping_date = Column(DateTime, default = datetime.datetime.utcnow)
     finalization_date = Column(DateTime, default = False)
@@ -194,11 +195,14 @@ class Delivery(Base):
     id_service_order = Column(ForeignKey(SERVICE_ORDER+'.id'))
     id_package = Column(Integer, ForeignKey(PACKAGE+'.id'))
     package = relationship(Package.__name__)
-
+    deliveryman = relationship(Deliveryman.__name__)
     def as_dict(self):
         selfDic = model_as_dict(self)
         if self.package != None:
             selfDic['package'] = self.package.as_dict()
+            
+        if self.deliveryman != None:
+            selfDic['deliveryman'] = self.deliveryman.as_dict()
         return selfDic
      #return {i for i in self.addresses}
     def __str__(self):
@@ -206,10 +210,13 @@ class Delivery(Base):
 
 class ServiceOrder(Base):
 
+
+
     __tablename__ = SERVICE_ORDER
     ServiceOrderStatus = enum.Enum('ServiceOrderStatus', ['em analise','confirmado','finalizado'])
 
     id = Column( Integer, primary_key = True)
+    id_deliveryman = Column(ForeignKey(DELIVERYMAN+'.id'))
     code = Column( String(255), unique = True, nullable = False)
     shipping_date = Column(DateTime, default = datetime.datetime.utcnow)
     finalization_date = Column( DateTime, default = False)
@@ -246,7 +253,7 @@ class Area(Base):
 
 def getEngine():
     user ="root"
-    password=""
+    password="Arretterr@"
     address="localhost"
     database_name="packDeliv"
     engine = create_engine('mysql+pymysql://%s:%s@%s/%s'%(user, password, address, database_name), echo=False)

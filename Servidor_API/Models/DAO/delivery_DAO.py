@@ -1,5 +1,7 @@
 from Models.DB.DB_helper import getSession, Delivery
 from Models.DAO.DAO_utils import printError,checkType, changeEditedAttr
+from random import choice
+
 
 class DeliveryDao():
     def __init__(self):
@@ -8,6 +10,11 @@ class DeliveryDao():
     def save(self,delivery):
         session = getSession()
         checkType('Delivery',delivery)
+        while True:
+            delivery_code = self.generate_code(15)
+            if session.query(Delivery).filter(Delivery.code == delivery_code).first() == None:
+                break
+        delivery.code = delivery_code
         session.add(delivery)
         session.commit()
         session.refresh(delivery)
@@ -38,7 +45,7 @@ class DeliveryDao():
     def delete(self,id):
         session = getSession()
         try:
-            deleted_rows = session.query(Delivery).filter(Delivery.id == id).delete()
+            deleted_rows = session.query(Delivery).filter(Delivery.id == int(id)).delete()
             session.commit()
             session.close()
             return deleted_rows == 1
@@ -54,9 +61,24 @@ class DeliveryDao():
                 response=[delivery for delivery in response]
 
             else:
-                response=session.query(Delivery).filter(Delivery.id == id).all()
-                response=response[0]
+                if self.isInt(id):
+                    response=session.query(Delivery).filter(Delivery.id == int(id)).first()
+                else:
+                    response=session.query(Delivery).filter(Delivery.code == id).first()
             return response
         except:
             printError()
             return None
+    def generate_code(self, size):
+            caracters = '0123456789abcdefghijklmnopqrstuwvxyz'
+            code = 'd'
+            for char in range(size):
+                    code += choice(caracters)
+            return  code
+
+    def isInt(self, x):
+        try:
+            int(x)
+            return True
+        except:
+            return False
