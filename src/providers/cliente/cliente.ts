@@ -13,7 +13,7 @@ import { Cliente } from '../../interfaces/usuario';
 @Injectable()
 export class ClienteProvider {
 
-  public url: string = 'http://159.89.180.74:5000/'
+  public url: string = 'http://localhost:5000/';
 
   constructor(public http: Http) {
     console.log('Hello ClienteProvider Provider');
