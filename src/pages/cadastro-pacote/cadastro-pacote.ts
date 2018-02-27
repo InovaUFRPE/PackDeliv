@@ -60,6 +60,10 @@ export class CadastroPacotePage {
 
     toast.present();
   }
+  public cadastro2(){
+    this.navCtrl.push(CadastroPacote2Page);
+
+  }
 
   public cadastrarPacote(): void{
     // Pega as informações do endereço
