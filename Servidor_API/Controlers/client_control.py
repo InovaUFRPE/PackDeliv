@@ -49,7 +49,7 @@ class ClientControl:
     @staticmethod
     def validate(client):
         ClientControl.validate_name(client)
-        ClientControl.validate_upi(client)
+        #ClientControl.validate_upi(client)
 
     @staticmethod
     def validate_name(client):

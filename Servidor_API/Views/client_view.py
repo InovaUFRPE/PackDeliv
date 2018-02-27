@@ -76,8 +76,7 @@ class ClientView(MethodView):
 
         if client.name == None:
             missing_fields.append('name')
-        if client.upi == None:
-            missing_fields.append('upi')
+
 
         return missing_fields
 

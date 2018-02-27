@@ -40,7 +40,7 @@ class Client(Base):
     __tablename__=CLIENT
 
     id = Column(Integer, primary_key = True)
-    upi = Column(String(11), unique = True)#unique company identifier
+    #upi = Column(String(11), unique = True)#unique company identifier
     name = Column(String(255), nullable = False)  
     addresses = relationship(Address.__name__)
     def as_dict(self):
