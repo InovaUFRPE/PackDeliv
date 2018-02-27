@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DadosRastreioPage } from '../dados-rastreio/dados-rastreio';
 
 /**
  * Generated class for the CodigoRastreioPage page.
@@ -20,6 +21,10 @@ export class CodigoRastreioPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CodigoRastreioPage');
+  }
+
+  irParaDadosRastreio(){
+    this.navCtrl.push(DadosRastreioPage);
   }
 
 }

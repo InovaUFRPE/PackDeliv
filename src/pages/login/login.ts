@@ -8,6 +8,7 @@ import { HomePage } from "../home/home";
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 import { HomeEntregadorPage } from '../home-entregador/home-entregador'
 import { Credenciais } from '../../interfaces/usuario';
+import { CodigoRastreioPage } from '../codigo-rastreio/codigo-rastreio';
 
 /**
  * Generated class for the LoginPage page.
@@ -68,8 +69,8 @@ export class LoginPage {
     this.navCtrl.push(EscolhaCadastroPage);
   }
 
-  public irParaRecuperarSenha() {
-    this.navCtrl.push(RecuperarSenhaPage);
+  public irParaCodigoRastreio() {
+    this.navCtrl.push(CodigoRastreioPage);
   }
 
   private presentAlert(message: string): void {
