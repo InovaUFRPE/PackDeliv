@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 export class SessionProvider {
 
   private static user: any
+  public static idclient: any
   public static status: boolean = false
   public static deliveryManStatus:any
   constructor(public http: Http) {
@@ -40,10 +41,6 @@ export class SessionProvider {
     this.setStatus()
   }
 
-  static closeSession():void{
-    this.setStatus()
-    this.user = null
-  }
 
   static getDeliveryManStatus(){
     return this.deliveryManStatus;

@@ -31,6 +31,7 @@ export class PacoteProvider {
     return options;
   }
 
+
   public emitirOrdemDeServico(volume: number) {
     let body = {
       vol: volume*1000,
@@ -55,5 +56,10 @@ export class PacoteProvider {
       }, (error) => {
         console.log('Erro ao cadastrar pacote: ' + error);
       });
+  }
+
+  public rastrear(credenciais): any {
+    return this.http.post(this.url + 'delivery/', credenciais, this.getRequestOptionsArgs())
+    .map((response: Response) => response.json());
   }
 }

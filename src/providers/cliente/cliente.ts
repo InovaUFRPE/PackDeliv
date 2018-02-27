@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptionsArgs, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import { Cliente } from '../../interfaces/usuario';
+import { Cliente, Credenciais } from '../../interfaces/usuario';
 
 /*
   Generated class for the ClienteProvider provider.
@@ -43,7 +43,7 @@ export class ClienteProvider {
   /**
    * pegarCliente
    */
-  public pegarCliente(idCliente: number) {
+  public  pegarCliente(idCliente):any  {
     return this.http.get(this.url + 'client/' + idCliente, this.getRequestOptionsArgs())
     .map((response: Response) => response.json());
   }

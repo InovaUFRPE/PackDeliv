@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { NavPush } from 'ionic-angular/components/nav/nav-push';
+import { LoginPage } from '../login/login';
+import { MapaEntregadorPage } from '../mapa-entregador/mapa-entregador';
 
 /**
  * Generated class for the DadosRastreioPage page.
@@ -23,8 +26,9 @@ export class DadosRastreioPage {
     console.log('ionViewDidLoad DadosRastreioPage');
   }
 
-  fazerConfirmacao(){
+  public fazerConfirmacao(){
     this.showAlert();
+    
 
   }
   showAlert() {
@@ -42,6 +46,7 @@ export class DadosRastreioPage {
           text: 'CONFIRMAR',
           handler: () => {
             console.log('Agree clicked');
+            this.navCtrl.push(LoginPage);
           }
         }
       ]
@@ -49,7 +54,9 @@ export class DadosRastreioPage {
     confirm.present();
   }
 
-  rastrear(){
+  public rastrear(){
+    this.navCtrl.push(MapaEntregadorPage);
+
 
   }
 

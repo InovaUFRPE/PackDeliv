@@ -3,6 +3,12 @@ export interface Credenciais {
     password: string
 }
 
+export interface Codigo {
+    codigo: string
+}
+
+
+
 export interface Veiculo {
     license_plate: string,
     year: string,
@@ -55,7 +61,6 @@ export interface Endereco {
 
 export interface Cliente {
     id?: number,
-    upi: string,
     name: string,
     addresses: [Endereco]
 }

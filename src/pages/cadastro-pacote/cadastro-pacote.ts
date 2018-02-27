@@ -5,6 +5,7 @@ import { CadastroPacote2Page } from "../cadastro-pacote2/cadastro-pacote2"
 import { Endereco, Cliente } from "../../interfaces/usuario"
 import { ClienteProvider } from "../../providers/cliente/cliente";
 import { EnderecoProvider } from "../../providers/endereco/endereco"
+import { SessionProvider } from '../../providers/session/session';
 
 /**
  * Generated class for the CadastrarPacotePage page.
@@ -29,12 +30,12 @@ export class CadastroPacotePage {
     cidade: '',
     estado: '',
     nome: '',
-    cpf:''
   };
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public sessionProvider:SessionProvider,
     public usuarioProvider: UsuarioProvider,
     public clienteProvider: ClienteProvider,
     private toastCtrl: ToastController,
@@ -68,9 +69,9 @@ export class CadastroPacotePage {
     var bairro = this.dados.bairro;
     var cep = this.dados.cep;
     var cidade = this.dados.cidade;
-    var estado = this.dados.estado;
+    var estado = "Pernambuco";
     var nome = this.dados.nome;
-    var cpf = this.dados.cpf;
+   
 
     // verificação de campo vazio
     if (!rua ) {
@@ -97,9 +98,6 @@ export class CadastroPacotePage {
       this.presentToast('O estado é um campo obrigatório.');
       return;
     }
-    if(!cpf){
-      this.presentToast('O cpf é um campo obrigatório.')
-    }
     if(!nome){
       this.presentToast('O nome é um campo obrigatório.')
     }
@@ -120,12 +118,11 @@ export class CadastroPacotePage {
 
      let cliente: Cliente = {
        name: nome,
-       upi: cpf,
        addresses: [endereco]
      };
      console.log(cliente);
 
-    this.clienteProvider.cadastrarCliente(cliente).subscribe( response => {
+    this.clienteProvider.cadastrarCliente(cliente).subscribe( response => {SessionProvider.idclient = response.id,
       this.navCtrl.push(CadastroPacote2Page, { cliente: cliente });
     }, error => console.log('Erro ao cadastrar cliente: ' + error));
   }

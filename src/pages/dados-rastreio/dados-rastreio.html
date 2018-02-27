@@ -15,26 +15,23 @@
 
 <ion-content padding>
 
-    <div text-center class="perfil">
-        <ion-img width="100" height="100" src="assets/icon/user.png"></ion-img>
-    </div>
     <div class="infoPrincipais">
       <ion-card color="verd">
         <ion-card-header>Informações Principais</ion-card-header>
         <ion-card-content>
           <ion-item>
             <ion-label fixed style="color: #144F45">Ultimo Local:</ion-label>
-            <ion-input style="color:black"  type="text" [disabled]="true"  ></ion-input>
+            <ion-input style="color:black"  type="text" [disabled]="true" value='Com entregador' ></ion-input>
           </ion-item>
   
           <ion-item>
             <ion-label fixed style="color: #144F45">Destinatário:</ion-label>
-            <ion-input style="color:black"  type="text" [disabled]="true"  ></ion-input>
+            <ion-input style="color:black"  type="text" [disabled]="true" value='Bernardo' ></ion-input>
           </ion-item>
   
           <ion-item>
             <ion-label fixed style="color: #144F45">Data de envio:</ion-label>
-            <ion-input style="color:black"  type="text" [disabled]="true"   ></ion-input>
+            <ion-input style="color:black"  type="text" [disabled]="true" value='2018-02-27 19:39:40'  ></ion-input>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -45,26 +42,26 @@
           <ion-card-content>
             <ion-item>
               <ion-label fixed style="color: #144F45">Altura:</ion-label>
-              <ion-input style="color:black"  type="text" [disabled]="true" ></ion-input>
+              <ion-input style="color:black"  type="text" [disabled]="true" value='10cm' ></ion-input>
             </ion-item>
     
             <ion-item>
               <ion-label fixed style="color: #144F45">Largura:</ion-label>
-              <ion-input style="color:black"  type="text" [disabled]="true"></ion-input>
+              <ion-input style="color:black"  type="text" [disabled]="true"value='10cm' ></ion-input>
             </ion-item>
     
             <ion-item>
               <ion-label fixed style="color: #144F45">Peso:</ion-label>
-              <ion-input style="color:black"  type="text" [disabled]="true" ></ion-input>
+              <ion-input style="color:black"  type="text" [disabled]="true" value='10cm' ></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label fixed style="color: #144F45">Comprimento:</ion-label>
-                <ion-input style="color:black"  type="text" [disabled]="true" ></ion-input>
+                <ion-input style="color:black"  type="text" [disabled]="true" value='10cm' ></ion-input>
               </ion-item>
       
               <ion-item>
                 <ion-label fixed style="color: #144F45">Volume:</ion-label>
-                <ion-input style="color:black"  type="text" [disabled]="true"  ></ion-input>
+                <ion-input style="color:black"  type="text" [disabled]="true" value='1L' ></ion-input>
               </ion-item>
           </ion-card-content>
         </ion-card>
@@ -75,22 +72,22 @@
         <ion-card-content>
           <ion-item>
             <ion-label fixed style="color: #144F45">Nome do entregador:</ion-label>
-            <ion-input style="color:black"  [disabled]="true" type="text"  ></ion-input>
+            <ion-input style="color:black"  [disabled]="true" type="text" value='Bryan'  ></ion-input>
           </ion-item>
   
           <ion-item>
             <ion-label fixed style="color: #144F45">CNPJ do entregador:</ion-label>
-            <ion-input style="color:black" type="text" [disabled]="true" ></ion-input>
+            <ion-input style="color:black" type="text" [disabled]="true" value='45.956.183/0001-51' ></ion-input>
           </ion-item>
   
           <ion-item>
               <ion-label fixed style="color: #144F45">Rua de destino:</ion-label>
-              <ion-input  style="color:black"  type="text" [disabled]="true"  ></ion-input>
+              <ion-input  style="color:black"  type="text" [disabled]="true" value='Rua Doutor Manoel de Barros Lima'  ></ion-input>
           </ion-item>
   
           <ion-item>
               <ion-label fixed style="color: #144F45">Bairro de destino:</ion-label>
-              <ion-input style="color:black"  type="text" [disabled]="true"  ></ion-input>
+              <ion-input style="color:black"  type="text" [disabled]="true" value='Bairro Novo' ></ion-input>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -100,7 +97,7 @@
         <button ion-button color="verd" large round (click)="fazerConfirmacao()">Confirmar recebimento</button>
     </div>
     <div text-center>
-        <button ion-button color="verd" large round (click)="rastreamento()">Rastrear</button>
+        <button ion-button color="verd" large round (click)="rastrear()">Rastrear</button>
     </div>
   
 
