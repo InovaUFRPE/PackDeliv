@@ -33,7 +33,8 @@ export interface Empresa {
     login: string,
     email: string,
     uci: string,
-    addresses: [Endereco]
+    addresses: [Endereco],
+    image?: string
 }
 
 export interface Endereco {

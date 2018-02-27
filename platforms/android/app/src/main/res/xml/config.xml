@@ -1,13 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <feature name="EmailComposer">
         <param name="android-package" value="de.appplant.cordova.emailcomposer.EmailComposer" />
-    </feature>
-    <feature name="Geolocation">
-        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
     </feature>
     <feature name="CordovaGoogleMaps">
         <param name="android-package" value="plugin.google.maps.CordovaGoogleMaps" />
@@ -49,6 +61,17 @@
     </feature>
     <feature name="MarkerCluster">
         <param name="android-package" value="plugin.google.maps.PluginMarkerCluster" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
     <name>PackDeliv</name>
     <description>Sistem eficiente de entregas para curtas distâncias</description>

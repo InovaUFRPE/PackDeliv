@@ -35,6 +35,9 @@ import { ModalOrdemServicoPage } from '../pages/modal-ordem-servico/modal-ordem-
 import { ClienteProvider } from '../providers/cliente/cliente';
 import { EnderecoProvider } from '../providers/endereco/endereco';
 import { MapaEntregadorPage } from '../pages/mapa-entregador/mapa-entregador';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -104,6 +107,10 @@ import { MapaEntregadorPage } from '../pages/mapa-entregador/mapa-entregador';
     PacoteProvider,
     ServiceProvider,
     ClienteProvider,
+    FileTransfer,
+    FileTransferObject,
+    File,
+    Camera,
     EnderecoProvider
   ]
 })

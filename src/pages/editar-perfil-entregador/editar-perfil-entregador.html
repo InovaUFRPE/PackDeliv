@@ -12,11 +12,11 @@
 <ion-content padding>
   <div text-center class="profilePic">
     <div>
-      <ion-img width="100" height="100" src="assets/icon/user.png"></ion-img>
+      <ion-img src="{{imageFileName}}"  *ngIf="imageFileName" alt="Ionic File" width="200" height="200"></ion-img>
     </div>
     
     <div>
-      <button style="width:200px" ion-button color="verd" small round>Alterar imagem </button>
+      <button style="width:200px" ion-button color="verd" small round (click)="getImage()">Alterar imagem </button>
     </div>
   </div>
   <div class ="info">
