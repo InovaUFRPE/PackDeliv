@@ -38,6 +38,8 @@ import { MapaEntregadorPage } from '../pages/mapa-entregador/mapa-entregador';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
+import { CodigoRastreioPage} from '../pages/codigo-rastreio/codigo-rastreio';
+import { DadosRastreioPage} from '../pages/dados-rastreio/dados-rastreio';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,10 @@ import { Camera } from '@ionic-native/camera';
     OrdemServicoPage,
     EditarPerfilEntregadorPage,
     ModalOrdemServicoPage,
-    MapaEntregadorPage
+    MapaEntregadorPage,
+    CodigoRastreioPage,
+    DadosRastreioPage
+    
 
   ],
   imports: [
@@ -91,7 +96,9 @@ import { Camera } from '@ionic-native/camera';
     OrdemServicoPage,
     EditarPerfilEntregadorPage,
     ModalOrdemServicoPage,
-    MapaEntregadorPage
+    MapaEntregadorPage,
+    CodigoRastreioPage,
+    DadosRastreioPage
 
   ],
   providers: [
