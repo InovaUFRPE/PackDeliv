@@ -4,17 +4,15 @@
 
 2. Abra o CMD e rode: ```> npm install -g cordova ionic```
 
-3. Baixe um editor de texto, recomendo: [Visual Studio Code](https://go.microsoft.com/fwlink/?Linkid=852157).
-
-4. Clone este [repositório](https://github.com/InovaUFRPE/PackDeliv).
+3. Clone este [repositório](https://github.com/InovaUFRPE/PackDeliv).
     1. Use ```$ git clone https://github.com/InovaUFRPE/PackDeliv``` no Git Bash.
 
-5. Abra o editor de texto e abra a pasta clonada do repositório.
+4. Abra o editor de texto e abra a pasta clonada do repositório.
 http://prntscr.com/h50y94
 
-6. Agora você pode fazer alterações nos arquivos.
+5. Agora você pode fazer alterações nos arquivos.
 
-7. No cmd se mova para a pasta do projeto.
+6. No cmd se mova para a pasta do projeto.
 http://prntscr.com/h50ytc
 
 7. Agora rode o comando: ```> ionic serve```
